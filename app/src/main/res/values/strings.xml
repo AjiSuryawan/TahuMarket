@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">TahuMarket</string>
+
+    <string name="short_dummy">Lorem Ipsum</string>
+    <string name="long_dummy">Lorem Ipsum Dolor Sit Amet Coba Coba lah aja</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+</resources>

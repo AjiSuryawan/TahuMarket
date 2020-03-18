@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1A237E</color>
+    <color name="colorPrimaryDark">#221356</color>
+    <color name="colorAccent">#8FD400</color>
+
+    <color name="colorKuning">#FFC700</color>
+    <color name="colorBiru">#4F4BFF</color>
+    <color name="colorBiruTransparant">#4C5397</color>
+
+    <color name="colorTintIconMenu">#74757E</color>
+
+    <color name="colorLightRed">#FFB0B2</color>
+    <color name="colorLightRed2">#F8CFD0</color>
+    <color name="colorLine2">#d9d9d9</color>
+    <color name="colorWhite">#ffff</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorGreyTransparent">#54110000</color>
+    <color name="colorRedTransparent">#7C9D0B0E</color>
+
+    //text Color
+    <color name="txtWhite">#ffff</color>
+    <color name="txtSemiGrey">#868585</color>
+    <color name="txtBlack">#000000</color>
+    <color name="txtGrey">#868585</color>
+    <color name="txtGold">#FFC107</color>
+    <color name="txtRed">#9D0B0E</color>
+
+
+    <color name="textHint">#AFACAC</color>
+    <color name="grey">#868585</color>
+    <color name="bg">#F0CB82</color>
+
+    <color name="colorTextMenu">#b1b1b1</color>
+    <color name="colorTextSidebar">#4E5161</color>
+    <color name="colorRed">#e6051b</color>
+    <color name="colorGreen">#016901</color>
+    <color name="colorLightBlue">#1F3AFF</color>
+    <color name="colorLine">#b7b7b7</color>
+</resources>

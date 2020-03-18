@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.DasboardActivity"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_52sdp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_70sdp"
+            android:src="@drawable/wave_4"
+            android:scaleType="centerCrop"/>
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_52ssp"
+            android:paddingStart="@dimen/_15ssp"
+            android:paddingTop="@dimen/_10ssp"
+            android:paddingEnd="@dimen/_15ssp"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            app:fontFamily="@font/quicksand_regular" />
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="@dimen/_50sdp">
+        <LinearLayout
+            android:id="@+id/divMenuProduk"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorLightRed2"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_marginRight="@dimen/_50sdp"
+            android:layout_marginLeft="@dimen/_50sdp"
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:background="#FF0000FF"/>
+
+        <LinearLayout
+            android:id="@+id/divMenuOrder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorLightRed2"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
