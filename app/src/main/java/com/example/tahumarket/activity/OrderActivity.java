@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
@@ -27,18 +28,6 @@ public class OrderActivity extends AppCompatActivity {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         //hide keyboard
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Data Order");
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            private void doNothing() {
-
-            }
-
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
     private void binding(){
@@ -52,6 +41,18 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        divTambahDataOrder = findViewById(R.id.divTambahDataOrder);
+        divTambahDataOrder.setOnClickListener(new View.OnClickListener() {
+            private void doNothing() {
+
+            }
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OrderActivity.this, OrderCreatActivity.class);
+                startActivity(intent);
             }
         });
 

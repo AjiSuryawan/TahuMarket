@@ -39,10 +39,38 @@
             android:id="@+id/divMenuProduk"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorLightRed2"
+            android:background="@drawable/bg_round_01"
+            android:backgroundTint="#E2ECCC"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/icon_produk" />
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="PRODUK"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/quicksand_regular"
+                    android:textSize="@dimen/_16ssp"/>
+            </LinearLayout>
         </LinearLayout>
 
         <ImageView
@@ -56,10 +84,38 @@
             android:id="@+id/divMenuOrder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorLightRed2"
+            android:background="@drawable/bg_round_01"
+            android:backgroundTint="#E2ECCC"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/icon_order" />
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="ORDER"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/quicksand_regular"
+                    android:textSize="@dimen/_16ssp"/>
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

@@ -16,25 +16,31 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.LoginActivity"
-            android:screenOrientation="landscape"></activity>
-        <activity android:name=".activity.OrderCreatActivity"
-            android:screenOrientation="landscape"></activity>
-        <activity android:name=".activity.OrderActivity"
-            android:screenOrientation="landscape"></activity>
-        <activity android:name=".activity.ProdukActivity"
-            android:screenOrientation="landscape"></activity>
-        <activity android:name=".activity.DasboardActivity"
-            android:screenOrientation="landscape">
+        <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="landscape">
 
         </activity>
+        <activity
+            android:name=".activity.OrderCreatActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.OrderActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.ProdukActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.DasboardActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

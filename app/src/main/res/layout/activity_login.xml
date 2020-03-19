@@ -1,9 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.LoginActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_47sdp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_70sdp"
+            android:src="@drawable/wave_4"
+            android:scaleType="centerCrop"/>
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_49ssp"
+            android:paddingStart="@dimen/_15ssp"
+            android:paddingTop="@dimen/_10ssp"
+            android:paddingEnd="@dimen/_15ssp"
+            android:text="Login"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            app:fontFamily="@font/quicksand_regular" />
+    </RelativeLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingLeft="@dimen/_100sdp"
+        android:paddingRight="@dimen/_100sdp">
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/RoundedOutlineEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_30ssp"
+            android:layout_marginStart="@dimen/_30ssp"
+            android:layout_marginTop="@dimen/_30ssp"
+            android:layout_marginEnd="@dimen/_30ssp"
+            android:layout_marginRight="@dimen/_30ssp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_person"
+                android:drawableRight="@drawable/ic_person"
+                android:drawableTint="#c5c5c5"
+                android:hint="User ID"
+                android:inputType="textEmailAddress"
+                android:paddingStart="@dimen/_20ssp"
+                android:paddingEnd="@dimen/_20ssp"
+                android:singleLine="true"
+                android:textSize="@dimen/_11ssp"
+                android:textStyle="bold"
+                app:fontFamily="@font/quicksand_regular" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/RoundedOutlineEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_30ssp"
+            android:layout_marginStart="@dimen/_30ssp"
+            android:layout_marginTop="@dimen/_10ssp"
+            android:layout_marginEnd="@dimen/_30ssp"
+            android:layout_marginRight="@dimen/_30ssp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_lock"
+                android:drawableRight="@drawable/ic_lock"
+                android:drawableTint="#c5c5c5"
+                android:hint="Password"
+                android:paddingStart="@dimen/_20ssp"
+                android:paddingEnd="@dimen/_20ssp"
+                android:singleLine="true"
+                android:textSize="@dimen/_11ssp"
+                android:inputType="textPassword"
+                android:textStyle="bold"
+                app:fontFamily="@font/quicksand_regular" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_30ssp"
+            android:layout_marginStart="@dimen/_30ssp"
+            android:layout_marginTop="@dimen/_10ssp"
+            android:layout_marginEnd="@dimen/_30ssp"
+            android:layout_marginRight="@dimen/_30ssp">
+            <LinearLayout
+                android:id="@+id/divLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:gravity="center"
+                android:background="@drawable/bg_round_01"
+                android:backgroundTint="@color/colorPrimary"
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true"
+                android:paddingLeft="@dimen/_15sdp"
+                android:paddingRight="@dimen/_15sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp">
+
+                <com.example.tahumarket.custom.CustomTextViewLight
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="@dimen/_11ssp"
+                    android:textColor="@color/colorWhite"
+                    android:text="Login"/>
+
+                <ImageView
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_forward_black_24dp"
+                    android:tint="@color/colorWhite"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

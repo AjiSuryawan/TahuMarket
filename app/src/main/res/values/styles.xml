@@ -39,4 +39,12 @@
         <item name="android:textSize">@dimen/_14ssp</item>
     </style>
 
+    <style name="RoundedOutlineEditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxCornerRadiusBottomEnd">50dp</item>
+        <item name="boxCornerRadiusBottomStart">50dp</item>
+        <item name="boxCornerRadiusTopEnd">50dp</item>
+        <item name="boxCornerRadiusTopStart">50dp</item>
+    </style>
+
 </resources>
