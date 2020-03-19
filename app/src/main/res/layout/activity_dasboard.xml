@@ -47,9 +47,6 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:paddingTop="10dp"
@@ -92,9 +89,6 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:paddingTop="10dp"

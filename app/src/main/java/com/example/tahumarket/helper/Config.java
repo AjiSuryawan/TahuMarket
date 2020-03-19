@@ -45,7 +45,7 @@ public final class Config {
 
     public static final String TOAST_AN_ERROR = "Mohon maaf, terjadi kendala jaringan/server";
 
-    public static final String SHARED_PREF_NAME = "DSL Mobile";
+    public static final String SHARED_PREF_NAME = "Tahu";
     public static final String LOGIN_NAME_SHARED_PREF = "NAME";
     public static final String LOGIN_ID_SHARED_PREF = "ID";
     public static final String LOGIN_TIME = "TIME";

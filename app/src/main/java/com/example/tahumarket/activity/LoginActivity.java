@@ -2,7 +2,9 @@ package com.example.tahumarket.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
@@ -12,16 +14,19 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.tahumarket.R;
+import com.example.tahumarket.helper.Config;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText etUserName, etPassword;
     private LinearLayout divLogin;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         binding();
+
 
         //set orientation
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -37,10 +42,15 @@ public class LoginActivity extends AppCompatActivity {
                 String id = etUserName.getText().toString();
                 String pass = etPassword.getText().toString();
                 if (id.equals("admin") && pass.equals("admin")) {
+                    preferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                    preferences.edit()
+                            .putString(Config.LOGIN_ID_SHARED_PREF, id)
+                            .apply();
                     Intent daftar = new Intent(LoginActivity.this, DasboardActivity.class);
                     LoginActivity.this.startActivity(daftar);
+                    finish();
                 } else {
-                    Toast.makeText(LoginActivity.this, "Ussername atau Password Salah", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Username atau Password Salah", Toast.LENGTH_SHORT).show();
                 }
             }
         });
