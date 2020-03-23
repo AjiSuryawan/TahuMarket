@@ -32,9 +32,8 @@ import java.util.Random;
  */
 
 public final class Config {
-    public static final String BASE_URL = "http://149.28.145.136/dsl-mobile/";
-    //public static final String BASE_URL = "http://192.168.43.52/dsl-mobile/";
-    //public static final String BASE_URL = "http://d35046fc.ngrok.io/dsl-mobile/";
+    public static final String BASE_URL = "";
+    public static final String BASE_URL_API_PRODUK = "http://www.ecollectcpu.com:88/api/product/poststaging/";
 
     private static final String API = "api/";
     public static final String BASE_URL_API = BASE_URL + API;
