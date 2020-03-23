@@ -117,6 +117,7 @@ public class ProdukActivity extends AppCompatActivity {
         });
 
         searchProduk = findViewById(R.id.searchProduk);
+//        etSearch = findViewById(R.id.etSearch);
         ivSearch = findViewById(R.id.ivSearch);
         ivSearch.setOnClickListener(new View.OnClickListener() {
             private void doNothing() {
@@ -135,7 +136,7 @@ public class ProdukActivity extends AppCompatActivity {
             }
             @Override
             public void onClick(View v) {
-                fetchDataFromDb();
+
             }
         });
 
