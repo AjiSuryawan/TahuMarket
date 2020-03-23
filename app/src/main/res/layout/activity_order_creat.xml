@@ -24,60 +24,149 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_vertical">
-
-                <com.example.tahumarket.custom.CustomTextViewBold
+                android:orientation="horizontal">
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_10ssp"
-                    android:textColor="@color/colorPrimary"
-                    android:text="ID"
-                    android:textStyle="bold"/>
+                    android:orientation="vertical">
+                    <com.example.tahumarket.custom.CustomEditTextBold
+                        android:id="@+id/etDateTime"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="0dp"
+                        android:background="#00000000"
+                        android:gravity="top|left"
+                        android:hint="Date/Time"
+                        android:textColor="#252525"
+                        android:textStyle="bold"
+                        android:inputType="textCapCharacters"
+                        android:textSize="@dimen/_10ssp"/>
 
-                <com.example.tahumarket.custom.CustomEditTextBold
-                    android:id="@+id/etId"
-                    android:layout_width="@dimen/_100sdp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="0dp"
-                    android:background="#00000000"
-                    android:gravity="top|left"
-                    android:hint="....."
-                    android:textColor="#252525"
-                    android:textStyle="bold"
-                    android:inputType="textCapCharacters"
-                    android:textSize="@dimen/_12ssp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical">
 
-            </LinearLayout>
+                        <com.example.tahumarket.custom.CustomTextViewBold
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/_10ssp"
+                            android:textColor="@color/colorPrimary"
+                            android:text="Nomor Nota"
+                            android:textStyle="bold"/>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_vertical">
+                        <com.example.tahumarket.custom.CustomEditTextBold
+                            android:id="@+id/etId"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="0dp"
+                            android:background="#00000000"
+                            android:gravity="top|left"
+                            android:hint="....."
+                            android:textColor="#252525"
+                            android:textStyle="bold"
+                            android:inputType="textCapCharacters"
+                            android:textSize="@dimen/_12ssp"/>
 
-                <com.example.tahumarket.custom.CustomTextViewBold
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical">
+
+                        <com.example.tahumarket.custom.CustomTextViewBold
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/_10ssp"
+                            android:textColor="@color/colorPrimary"
+                            android:text="Nama Pemesan"
+                            android:textStyle="bold"/>
+
+                        <com.example.tahumarket.custom.CustomEditTextBold
+                            android:id="@+id/etNamaPemesan"
+                            android:layout_width="@dimen/_150sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="0dp"
+                            android:background="#00000000"
+                            android:gravity="top|left"
+                            android:hint="Masukkan nama pemesan"
+                            android:textColor="#252525"
+                            android:textStyle="bold"
+                            android:inputType="textCapWords"
+                            android:textSize="@dimen/_12ssp"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginLeft="@dimen/_15sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_10ssp"
-                    android:textColor="@color/colorPrimary"
-                    android:text="Nama Pemesan"
-                    android:textStyle="bold"/>
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <CheckBox
+                            android:id="@+id/cbDiskon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft= "-7dp"
+                            android:text="Diskon ?"
+                            android:checked="false"/>
+                        <com.example.tahumarket.custom.CustomEditTextBold
+                            android:id="@+id/etDiskon"
+                            android:visibility="gone"
+                            android:layout_width="@dimen/_150sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="0dp"
+                            android:background="#00000000"
+                            android:gravity="top|left"
+                            android:hint="Masukkan Diskon"
+                            android:textColor="#252525"
+                            android:textStyle="bold"
+                            android:inputType="number"
+                            android:textSize="@dimen/_12ssp"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical">
 
-                <com.example.tahumarket.custom.CustomEditTextBold
-                    android:id="@+id/etNamaPemesan"
-                    android:layout_width="@dimen/_150sdp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="0dp"
-                    android:background="#00000000"
-                    android:gravity="top|left"
-                    android:hint="Masukkan nama pemesan"
-                    android:textColor="#252525"
-                    android:textStyle="bold"
-                    android:inputType="textCapWords"
-                    android:textSize="@dimen/_12ssp"/>
+                        <com.example.tahumarket.custom.CustomTextViewBold
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/_10ssp"
+                            android:textColor="@color/colorPrimary"
+                            android:text="PPN"
+                            android:textStyle="bold"/>
 
+                        <com.example.tahumarket.custom.CustomEditTextBold
+                            android:id="@+id/etPPN"
+                            android:layout_width="@dimen/_150sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="0dp"
+                            android:background="#00000000"
+                            android:gravity="top|left"
+                            android:hint="Masukkan PPN"
+                            android:textColor="#252525"
+                            android:textStyle="bold"
+                            android:inputType="number"
+                            android:textSize="@dimen/_12ssp"/>
+
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
+
+
+
+
+
+
         </LinearLayout>
 
 
