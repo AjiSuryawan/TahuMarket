@@ -24,6 +24,7 @@ import com.example.tahumarket.R;
 import com.example.tahumarket.adapter.ProdukAdapter;
 import com.example.tahumarket.helper.Config;
 import com.example.tahumarket.model.ProdukModel;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,6 +50,7 @@ public class ProdukActivity extends AppCompatActivity {
     private ArrayList mProdukList = new ArrayList<ProdukModel>();
     private ProdukAdapter produkAdapter;
     private Realm realm;
+    private ShimmerFrameLayout mShimmerViewContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,15 +120,6 @@ public class ProdukActivity extends AppCompatActivity {
 
         searchProduk = findViewById(R.id.searchProduk);
         ivSearch = findViewById(R.id.ivSearch);
-        ivSearch.setOnClickListener(new View.OnClickListener() {
-            private void doNothing() {
-
-            }
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         divSinkronData = findViewById(R.id.divSinkronData);
         divSinkronData.setOnClickListener(new View.OnClickListener() {
@@ -135,10 +128,36 @@ public class ProdukActivity extends AppCompatActivity {
             }
             @Override
             public void onClick(View v) {
-                fetchDataFromDb();
+                realm.executeTransactionAsync(new Realm.Transaction() {
+                    private void doNothing() {
+
+                    }
+
+                    @Override
+                    public void execute(Realm realm) {
+                        realm.where(ProdukModel.class).findAll().deleteAllFromRealm();
+                    }
+                }, new Realm.Transaction.OnSuccess() {
+                    @Override
+                    public void onSuccess() {
+                        Log.e("RBA", "Realm onSuccess: success delete");
+                        RealmResults<ProdukModel> produkModel = realm.where(ProdukModel.class).findAll();
+                        Log.e("RBA", "Realm size: "+produkModel.size());
+                        rvDaftarProduk.setVisibility(View.GONE);
+                        mShimmerViewContainer.setVisibility(View.VISIBLE);
+                        mProdukList.clear();
+                        fetchDataProdukAPI();
+                    }
+                }, new Realm.Transaction.OnError() {
+                    @Override
+                    public void onError(Throwable error) {
+                        Log.e("RBA", "Realm onError: " + error.getLocalizedMessage());
+                    }
+                });
             }
         });
 
+        mShimmerViewContainer = findViewById(R.id.shimmer_view_container);
         rvDaftarProduk = findViewById(R.id.rvDaftarProduk);
     }
 
@@ -147,16 +166,19 @@ public class ProdukActivity extends AppCompatActivity {
         try {
             RealmResults<ProdukModel> produkModel = realm.where(ProdukModel.class).findAll();
             if (produkModel.size() <= 0) {
-                Log.d("RBA", "data unit from API ");
+                Log.d("RBA", "data produk from API ");
                 fetchDataProdukAPI();
             }
             else {
-                Log.d("RBA", "data unit from Realm: " + produkModel.size());
+                Log.d("RBA", "data produk from Realm: " + produkModel.size());
                 mProdukList.addAll(produkModel);
+                mShimmerViewContainer.stopShimmer();
+                mShimmerViewContainer.setVisibility(View.GONE);
+                rvDaftarProduk.setVisibility(View.VISIBLE);
             }
         }
         catch (Exception e) {
-            Log.e(TAG, "fetchAllUnitFromDb: " + e.getLocalizedMessage());
+            Log.e(TAG, "fetchProdukFromDb: " + e.getLocalizedMessage());
         }
     }
 
@@ -192,6 +214,9 @@ public class ProdukActivity extends AppCompatActivity {
                             produkModel.setKodePackaging(dataFieldProduk[4]);
                             mProdukList.add(produkModel);
                         }
+                        mShimmerViewContainer.stopShimmer();
+                        mShimmerViewContainer.setVisibility(View.GONE);
+                        rvDaftarProduk.setVisibility(View.VISIBLE);
                         produkAdapter.notifyDataSetChanged();
                         realm.executeTransactionAsync(new Realm.Transaction() {
                             private void doNothing() {
@@ -206,6 +231,8 @@ public class ProdukActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess() {
                                 Log.e("RBA", "Realm onSuccess: success insert");
+                                RealmResults<ProdukModel> produkModel = realm.where(ProdukModel.class).findAll();
+                                Log.d("RBA", "Realm Size From Api : " + produkModel.size());
                             }
                         }, new Realm.Transaction.OnError() {
                             @Override

@@ -6,7 +6,10 @@
 
     <color name="colorKuning">#FFC700</color>
     <color name="colorBiru">#4F4BFF</color>
+    <color name="colorPlaceholder">#ECE1E1</color>
     <color name="colorBiruTransparant">#4C5397</color>
+
+    <color name="placeholder_bg">#C6C5C5</color>
 
     <color name="colorTintIconMenu">#74757E</color>
 
