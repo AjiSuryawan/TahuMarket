@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 
 import com.example.tahumarket.R;
 import com.example.tahumarket.helper.Config;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,6 +25,7 @@ import java.util.Locale;
 public class OrderCreatActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private EditText etDateTime, etId, etNamaPemesan,etDiskon, etPPN, etSearch;
+    private TextInputLayout divEtDiskon;
     private CheckBox cbDiskon;
     private ImageView ivSearch;
     private LinearLayout divSinkronData;
@@ -46,7 +48,8 @@ public class OrderCreatActivity extends AppCompatActivity {
         etDateTime.setText(currentDate+"/"+currentTime);
         etDateTime.setEnabled(false);
         String currentDateId = new SimpleDateFormat("ddMMyyyy", Locale.getDefault()).format(new Date());
-        etId.setText(currentDateId+"/"+Config.randomString(5).toUpperCase());
+        String currentTimeId = new SimpleDateFormat("HH/mm/ss", Locale.getDefault()).format(new Date());
+        etId.setText(currentTimeId+"/"+Config.randomString(5).toUpperCase());
 
 //        if(cbDiskon.isChecked()==true)
 //        {
@@ -63,13 +66,13 @@ public class OrderCreatActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b)
                 {
-                    etDiskon.setVisibility(View.VISIBLE);
-                    etDiskon.setEnabled(true);
+                    divEtDiskon.setVisibility(View.VISIBLE);
+                    divEtDiskon.setEnabled(true);
                 }
                 if(cbDiskon.isChecked()==false)
                 {
-                    etDiskon.setVisibility(View.GONE);
-                    etDiskon.setEnabled(false);
+                    divEtDiskon.setVisibility(View.GONE);
+                    divEtDiskon.setEnabled(false);
                 }
             }
         });
@@ -98,6 +101,7 @@ public class OrderCreatActivity extends AppCompatActivity {
 
         cbDiskon = findViewById(R.id.cbDiskon);
         etDiskon = findViewById(R.id.etDiskon);
+        divEtDiskon = findViewById(R.id.divEtDiskon);
 
         etPPN = findViewById(R.id.etPPN);
 

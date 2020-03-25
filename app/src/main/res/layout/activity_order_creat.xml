@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_150sdp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <com.example.tahumarket.custom.CustomEditTextBold
@@ -42,72 +42,109 @@
                         android:inputType="textCapCharacters"
                         android:textSize="@dimen/_10ssp"/>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/RoundedOutlineEditTextBlueGreen"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center_vertical">
+                        android:layout_marginLeft="0dp">
 
-                        <com.example.tahumarket.custom.CustomTextViewBold
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/_10ssp"
-                            android:textColor="@color/colorPrimary"
-                            android:text="Nomor Nota"
-                            android:textStyle="bold"/>
-
-                        <com.example.tahumarket.custom.CustomEditTextBold
+                        <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etId"
-                            android:layout_width="@dimen/_100sdp"
+                            android:layout_width="@dimen/_150sdp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="0dp"
-                            android:background="#00000000"
-                            android:gravity="top|left"
-                            android:hint="....."
-                            android:textColor="#252525"
-                            android:textStyle="bold"
+                            android:drawableTint="#c5c5c5"
+                            android:hint="Nomor Nota"
                             android:inputType="textCapCharacters"
-                            android:textSize="@dimen/_12ssp"/>
+                            android:singleLine="true"
+                            android:textSize="@dimen/_11ssp"
+                            android:textStyle="bold"
+                            app:fontFamily="@font/asap_regular" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    </LinearLayout>
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:gravity="center_vertical">-->
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
+<!--                        <com.example.tahumarket.custom.CustomTextViewBold-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textSize="@dimen/_10ssp"-->
+<!--                            android:textColor="@color/colorPrimary"-->
+<!--                            android:text="Nomor Nota"-->
+<!--                            android:textStyle="bold"/>-->
+
+<!--                        <com.example.tahumarket.custom.CustomEditTextBold-->
+<!--                            android:id="@+id/etId"-->
+<!--                            android:layout_width="@dimen/_100sdp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="0dp"-->
+<!--                            android:background="#00000000"-->
+<!--                            android:gravity="top|left"-->
+<!--                            android:hint="....."-->
+<!--                            android:textColor="#252525"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:inputType="textCapCharacters"-->
+<!--                            android:textSize="@dimen/_12ssp"/>-->
+
+<!--                    </LinearLayout>-->
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/RoundedOutlineEditTextBlueGreen"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center_vertical">
+                        android:layout_marginLeft="0dp">
 
-                        <com.example.tahumarket.custom.CustomTextViewBold
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/_10ssp"
-                            android:textColor="@color/colorPrimary"
-                            android:text="Nama Pemesan"
-                            android:textStyle="bold"/>
-
-                        <com.example.tahumarket.custom.CustomEditTextBold
+                        <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etNamaPemesan"
                             android:layout_width="@dimen/_150sdp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="0dp"
-                            android:background="#00000000"
-                            android:gravity="top|left"
-                            android:hint="Masukkan nama pemesan"
-                            android:textColor="#252525"
-                            android:textStyle="bold"
+                            android:drawableTint="#c5c5c5"
+                            android:hint="Nama Pemesan"
                             android:inputType="textCapWords"
-                            android:textSize="@dimen/_12ssp"/>
+                            android:singleLine="true"
+                            android:textSize="@dimen/_11ssp"
+                            android:textStyle="bold"
+                            app:fontFamily="@font/asap_regular" />
+                    </com.google.android.material.textfield.TextInputLayout>
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:gravity="center_vertical">-->
 
-                    </LinearLayout>
+<!--                        <com.example.tahumarket.custom.CustomTextViewBold-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textSize="@dimen/_10ssp"-->
+<!--                            android:textColor="@color/colorPrimary"-->
+<!--                            android:text="Nama Pemesan"-->
+<!--                            android:textStyle="bold"/>-->
+
+<!--                        <com.example.tahumarket.custom.CustomEditTextBold-->
+<!--                            android:id="@+id/etNamaPemesan"-->
+<!--                            android:layout_width="@dimen/_150sdp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="0dp"-->
+<!--                            android:background="#00000000"-->
+<!--                            android:gravity="top|left"-->
+<!--                            android:hint="Masukkan nama pemesan"-->
+<!--                            android:textColor="#252525"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:inputType="textCapWords"-->
+<!--                            android:textSize="@dimen/_12ssp"/>-->
+
+<!--                    </LinearLayout>-->
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_marginLeft="@dimen/_15sdp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_150sdp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/_150sdp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
                         <CheckBox
@@ -115,50 +152,92 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft= "-7dp"
+                            android:layout_marginTop= "-7dp"
+                            android:layout_marginBottom= "-7dp"
                             android:text="Diskon ?"
                             android:checked="false"/>
-                        <com.example.tahumarket.custom.CustomEditTextBold
-                            android:id="@+id/etDiskon"
-                            android:visibility="gone"
-                            android:layout_width="@dimen/_150sdp"
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/RoundedOutlineEditTextBlueGreen"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="0dp"
-                            android:background="#00000000"
-                            android:gravity="top|left"
-                            android:hint="Masukkan Diskon"
-                            android:textColor="#252525"
-                            android:textStyle="bold"
-                            android:inputType="number"
-                            android:textSize="@dimen/_12ssp"/>
+                            android:visibility="gone"
+                            android:id="@+id/divEtDiskon">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etDiskon"
+                                android:layout_width="@dimen/_150sdp"
+                                android:layout_height="wrap_content"
+                                android:drawableTint="#c5c5c5"
+                                android:hint="Masukkan Diskon"
+                                android:inputType="number"
+                                android:singleLine="true"
+                                android:textSize="@dimen/_11ssp"
+                                android:textStyle="bold"
+                                app:fontFamily="@font/asap_regular" />
+                        </com.google.android.material.textfield.TextInputLayout>
+<!--                        <com.example.tahumarket.custom.CustomEditTextBold-->
+<!--                            android:id="@+id/etDiskon"-->
+<!--                            android:visibility="gone"-->
+<!--                            android:layout_width="@dimen/_150sdp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="0dp"-->
+<!--                            android:background="#00000000"-->
+<!--                            android:gravity="top|left"-->
+<!--                            android:hint="Masukkan Diskon"-->
+<!--                            android:textColor="#252525"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:inputType="number"-->
+<!--                            android:textSize="@dimen/_12ssp"/>-->
                     </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/RoundedOutlineEditTextBlueGreen"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center_vertical">
+                        android:layout_marginLeft="0dp">
 
-                        <com.example.tahumarket.custom.CustomTextViewBold
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/_10ssp"
-                            android:textColor="@color/colorPrimary"
-                            android:text="PPN"
-                            android:textStyle="bold"/>
-
-                        <com.example.tahumarket.custom.CustomEditTextBold
+                        <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etPPN"
                             android:layout_width="@dimen/_150sdp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="0dp"
-                            android:background="#00000000"
-                            android:gravity="top|left"
-                            android:hint="Masukkan PPN"
-                            android:textColor="#252525"
-                            android:textStyle="bold"
+                            android:drawableTint="#c5c5c5"
+                            android:hint="PPN"
                             android:inputType="number"
-                            android:textSize="@dimen/_12ssp"/>
+                            android:singleLine="true"
+                            android:textSize="@dimen/_11ssp"
+                            android:textStyle="bold"
+                            app:fontFamily="@font/asap_regular" />
+                    </com.google.android.material.textfield.TextInputLayout>
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:gravity="center_vertical">-->
 
-                    </LinearLayout>
+<!--                        <com.example.tahumarket.custom.CustomTextViewBold-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textSize="@dimen/_10ssp"-->
+<!--                            android:textColor="@color/colorPrimary"-->
+<!--                            android:text="PPN"-->
+<!--                            android:textStyle="bold"/>-->
+
+<!--                        <com.example.tahumarket.custom.CustomEditTextBold-->
+<!--                            android:id="@+id/etPPN"-->
+<!--                            android:layout_width="@dimen/_150sdp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="0dp"-->
+<!--                            android:background="#00000000"-->
+<!--                            android:gravity="top|left"-->
+<!--                            android:hint="Masukkan PPN"-->
+<!--                            android:textColor="#252525"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:inputType="number"-->
+<!--                            android:textSize="@dimen/_12ssp"/>-->
+
+<!--                    </LinearLayout>-->
                 </LinearLayout>
             </LinearLayout>
 
