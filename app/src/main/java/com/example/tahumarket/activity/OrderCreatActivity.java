@@ -2,6 +2,7 @@ package com.example.tahumarket.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.pm.ActivityInfo;
@@ -15,12 +16,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.tahumarket.R;
+import com.example.tahumarket.adapter.AddOrderAdapter;
+import com.example.tahumarket.adapter.ProdukAdapter;
 import com.example.tahumarket.helper.Config;
+import com.example.tahumarket.model.NotaModel;
+import com.example.tahumarket.model.ProdukModel;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 public class OrderCreatActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -30,13 +40,37 @@ public class OrderCreatActivity extends AppCompatActivity {
     private ImageView ivSearch;
     private LinearLayout divSinkronData;
     private RecyclerView rvTambahOrder;
+    private ArrayList mProdukList = new ArrayList<NotaModel>();
+    NotaModel notaModel;
+    private AddOrderAdapter produkAdapter;
+    private Realm realm;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_creat);
+
+
+        RealmConfiguration configuration = new RealmConfiguration.Builder().build();
+        realm = Realm.getInstance(configuration);
+
+        RealmResults<ProdukModel> produkModel = realm.where(ProdukModel.class).findAll();
+        for (int i = 0; i <produkModel.size() ; i++) {
+            notaModel = new NotaModel();
+            notaModel.setNamaBarang(produkModel.get(i).getNamaBarang());
+            notaModel.setKodePackaging(produkModel.get(i).getKodePackaging());
+            notaModel.setHargaBarang(produkModel.get(i).getHargaBarang());
+            notaModel.setKodeWarna(produkModel.get(i).getKodeWarna());
+            notaModel.setKodePackaging(produkModel.get(i).getKodePackaging());
+            mProdukList.add(notaModel);
+        }
+
         binding();
+        produkAdapter = new AddOrderAdapter(this,mProdukList);
+        rvTambahOrder.setHasFixedSize(true);
+        rvTambahOrder.setLayoutManager(new GridLayoutManager(this, 3));
+        rvTambahOrder.setAdapter(produkAdapter);
 
         //set orientation
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);

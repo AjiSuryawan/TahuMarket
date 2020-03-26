@@ -10,15 +10,16 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tahumarket.R;
+import com.example.tahumarket.model.NotaModel;
 import com.example.tahumarket.model.ProdukModel;
 
 import java.util.List;
 
 public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.ProductViewHolder> {
     private Context mCtx;
-    private List<ProdukModel> produkList;
+    private List<NotaModel> produkList;
 
-    public AddOrderAdapter(Context mCtx, List<ProdukModel> productList) {
+    public AddOrderAdapter(Context mCtx, List<NotaModel> productList) {
         this.mCtx = mCtx;
         this.produkList = productList;
     }
@@ -26,13 +27,13 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
     @Override
     public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.list_row_produk, parent, false);
+        View view = inflater.inflate(R.layout.list_row_order, parent, false);
         return new ProductViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ProductViewHolder holder, final int position) {
-        final ProdukModel mModel = produkList.get(position);
+        final NotaModel mModel = produkList.get(position);
         holder.tvKodeProduk.setText(mModel.getKodeBarang());
         holder.tvNamaProduk.setText(mModel.getNamaBarang());
         holder.tvHargaProduk.setText(String.valueOf(mModel.getHargaBarang()));
