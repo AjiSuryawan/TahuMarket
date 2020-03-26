@@ -1,10 +1,12 @@
 package com.example.tahumarket.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.tahumarket.R;
 import com.example.tahumarket.helper.Config;
@@ -38,11 +41,20 @@ public class OrderCreatActivity extends AppCompatActivity {
     private ImageView ivSearch;
     private LinearLayout divSinkronData;
     private RecyclerView rvTambahOrder;
-    private ArrayList mProdukList = new ArrayList<NotaModel>();
+    private ArrayList<NotaModel> mProdukList = new ArrayList<>();
     NotaModel notaModel;
     private AddOrderAdapter produkAdapter;
     private Realm realm;
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 23 && data.getStringExtra("id") != null) {
+            //refresh list
+            Toast.makeText(this, "hihihihi", Toast.LENGTH_SHORT).show();
+
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +80,9 @@ public class OrderCreatActivity extends AppCompatActivity {
         produkAdapter = new AddOrderAdapter(this, mProdukList, new AddOrderAdapter.Callback() {
             @Override
             public void onClick(int position) {
-
+                NotaModel nota=mProdukList.get(position);
+                Intent in= new Intent(getApplicationContext(), AddQtyOrder.class);
+                startActivityForResult(in, 23);
             }
 
             @Override

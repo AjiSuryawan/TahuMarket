@@ -16,7 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.SplashActivity"
+        <activity android:name=".activity.AddQtyOrder"></activity>
+        <activity
+            android:name=".activity.SplashActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,9 +28,7 @@
         </activity>
         <activity
             android:name=".activity.LoginActivity"
-            android:screenOrientation="landscape">
-
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".activity.OrderCreatActivity"
             android:screenOrientation="landscape" />
