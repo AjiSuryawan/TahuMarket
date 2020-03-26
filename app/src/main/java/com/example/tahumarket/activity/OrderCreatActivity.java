@@ -54,7 +54,7 @@ public class OrderCreatActivity extends AppCompatActivity {
         if (resultCode == 23 && data.getStringExtra("jumlah") != null) {
             //refresh list
             Toast.makeText(this, "jumlah : "+data.getStringExtra("jumlah"), Toast.LENGTH_SHORT).show();
-            mProdukList.get(posisi).setJumlahbarang(data.getStringExtra("jumlah"));
+            mProdukList.get(posisi).setJumlahbarang(Integer.parseInt(data.getStringExtra("jumlah")));
             produkAdapter.notifyDataSetChanged();
         }
     }
@@ -90,8 +90,11 @@ public class OrderCreatActivity extends AppCompatActivity {
             public void onClick(int position) {
                 posisi=position;
                 NotaModel nota=mProdukList.get(position);
+
                 Intent in= new Intent(getApplicationContext(), AddQtyOrder.class);
-                startActivityForResult(in, 23);
+                int qtyExtra = nota.getJumlahbarang();
+                in.putExtra("jumlah" , qtyExtra);
+                startActivityForResult(in, 23);;
             }
 
             @Override

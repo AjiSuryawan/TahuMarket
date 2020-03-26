@@ -21,8 +21,8 @@ public class AddQtyOrder extends AppCompatActivity {
     private LinearLayout btnSubmit;
     private ImageView divAdd, divRemove;
     String qtyadd;
-    int valueadd = 1;
-    int valueremove = 1;
+    int valueadd = 0;
+    int valueremove = 0;
 
 
     @Override
@@ -38,56 +38,73 @@ public class AddQtyOrder extends AppCompatActivity {
         divAdd = findViewById(R.id.divAdd);
         divRemove = findViewById(R.id.divRemove);
 
-
-        divAdd.setOnClickListener(new View.OnClickListener() {
-            int qty = Integer.parseInt(txtjumlah.getText().toString());
-            @Override
-            public void onClick(View v) {
-                valueadd++;
-                String qtyadd = String.valueOf(valueadd);
-                txtjumlah.setText(qtyadd);
-                valueremove = valueadd;
-            }
-        });
-
-        divRemove.setOnClickListener(new View.OnClickListener() {
-            int qty = Integer.parseInt(txtjumlah.getText().toString());
-            @Override
-            public void onClick(View v) {
-                if (valueremove == 1){
-                    Toast.makeText(AddQtyOrder.this, "Jumlah barang tidak boleh 0", Toast.LENGTH_SHORT).show();
-                }else{
-                    valueremove--;
-                    String qtyremove = String.valueOf(valueremove);
-                    txtjumlah.setText(qtyremove);
-                    valueadd = valueremove;
+        final int qtyExtras = getIntent().getIntExtra("jumlah" , 0);
+        if (qtyExtras == 0){
+            divAdd.setOnClickListener(new View.OnClickListener() {
+                int qty = Integer.parseInt(txtjumlah.getText().toString());
+                @Override
+                public void onClick(View v) {
+                        valueadd++;
+                        String qtyadd = String.valueOf(valueadd);
+                        txtjumlah.setText(qtyadd);
+                        valueremove = valueadd;
                 }
+            });
 
-//                Toast.makeText(AddQtyOrder.this, "OK" + qty, Toast.LENGTH_SHORT).show();
-//                int qtyku = Integer.parseInt(qtyadd);
-//                value--;
-//                String qtymin = String.valueOf(value);
-//                txtjumlah.setText(qtymin);
-//                Toast.makeText(AddQtyOrder.this, "min" + qtyku, Toast.LENGTH_SHORT).show();
-//                String qtyadd = String.valueOf(qty);
-//                txtjumlah.setText(qtyadd);
-//                if (qty == 0){
-//                    Toast.makeText(AddQtyOrder.this, "Jumlah barang tidak boleh 0", Toast.LENGTH_SHORT).show();
-//                }else{
-//                    qty--;
-//                    String qtyRemove = String.valueOf(qty);
-//                    txtjumlah.setText(qtyRemove);
-//                }
-            }
-        });
+            divRemove.setOnClickListener(new View.OnClickListener() {
+                int qty = Integer.parseInt(txtjumlah.getText().toString());
+                @Override
+                public void onClick(View v) {
+                    if (valueremove == 0){
+                        Toast.makeText(AddQtyOrder.this, "Jumlah barang tidak boleh 0", Toast.LENGTH_SHORT).show();
+                    }else{
+                        valueremove--;
+                        String qtyremove = String.valueOf(valueremove);
+                        txtjumlah.setText(qtyremove);
+                        valueadd = valueremove;
+                    }
+                }
+            });
+        }else {
+            txtjumlah.setText(String.valueOf(qtyExtras));
+            valueadd = qtyExtras;
+            valueremove = qtyExtras;
+            divAdd.setOnClickListener(new View.OnClickListener() {
+                int qty = Integer.parseInt(txtjumlah.getText().toString());
+                @Override
+                public void onClick(View v) {
+
+                    valueadd++;
+                    String qtyadd = String.valueOf(valueadd);
+                    txtjumlah.setText(qtyadd);
+                    valueremove = valueadd;
+                }
+            });
+
+            divRemove.setOnClickListener(new View.OnClickListener() {
+                int qty = Integer.parseInt(txtjumlah.getText().toString());
+                @Override
+                public void onClick(View v) {
+                    if (valueremove == 0){
+
+                    }else{
+                        valueremove--;
+                        String qtyremove = String.valueOf(valueremove);
+                        txtjumlah.setText(qtyremove);
+                        valueadd = valueremove;
+                    }
+                }
+            });
+        }
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("jumlah", txtjumlah.getText().toString());
-                setResult(23, returnIntent);
-                finish();
+                    String qtyDone = txtjumlah.getText().toString();
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("jumlah", qtyDone);
+                    setResult(23, returnIntent);
+                    finish();
             }
         });
     }
