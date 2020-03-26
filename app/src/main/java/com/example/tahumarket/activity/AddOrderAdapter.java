@@ -1,4 +1,4 @@
-package com.example.tahumarket.adapter;
+package com.example.tahumarket.activity;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,17 +11,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tahumarket.R;
 import com.example.tahumarket.model.NotaModel;
-import com.example.tahumarket.model.ProdukModel;
 
 import java.util.List;
 
 public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.ProductViewHolder> {
     private Context mCtx;
     private List<NotaModel> produkList;
+    public Callback callback;
 
-    public AddOrderAdapter(Context mCtx, List<NotaModel> productList) {
+    interface Callback {
+        void onClick(int position);
+        void test();
+    }
+
+    public AddOrderAdapter(Context mCtx, List<NotaModel> productList, Callback callback) {
         this.mCtx = mCtx;
         this.produkList = productList;
+        this.callback = callback;
     }
 
     @Override
@@ -63,6 +69,12 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
             tvHargaProduk = itemView.findViewById(R.id.tvHargaProduk);
             tvPackagingProduk = itemView.findViewById(R.id.tvPackagingProduk);
             divProduk = itemView.findViewById(R.id.divProduk);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callback.onClick(getAdapterPosition());
+                }
+            });
         }
     }
 }

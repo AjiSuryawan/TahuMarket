@@ -16,8 +16,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.tahumarket.R;
-import com.example.tahumarket.adapter.AddOrderAdapter;
-import com.example.tahumarket.adapter.ProdukAdapter;
 import com.example.tahumarket.helper.Config;
 import com.example.tahumarket.model.NotaModel;
 import com.example.tahumarket.model.ProdukModel;
@@ -67,7 +65,17 @@ public class OrderCreatActivity extends AppCompatActivity {
         }
 
         binding();
-        produkAdapter = new AddOrderAdapter(this,mProdukList);
+        produkAdapter = new AddOrderAdapter(this, mProdukList, new AddOrderAdapter.Callback() {
+            @Override
+            public void onClick(int position) {
+
+            }
+
+            @Override
+            public void test() {
+
+            }
+        });
         rvTambahOrder.setHasFixedSize(true);
         rvTambahOrder.setLayoutManager(new GridLayoutManager(this, 3));
         rvTambahOrder.setAdapter(produkAdapter);
