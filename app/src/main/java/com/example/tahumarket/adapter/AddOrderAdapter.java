@@ -1,4 +1,4 @@
-package com.example.tahumarket.activity;
+package com.example.tahumarket.adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -62,7 +62,7 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
         };
     }
 
-    interface Callback {
+    public interface Callback {
         void onClick(int position);
         void test();
     }

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
@@ -20,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.tahumarket.R;
+import com.example.tahumarket.adapter.AddOrderAdapter;
 import com.example.tahumarket.helper.Config;
 import com.example.tahumarket.model.NotaModel;
 import com.example.tahumarket.model.ProdukModel;
