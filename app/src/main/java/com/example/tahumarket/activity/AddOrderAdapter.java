@@ -1,9 +1,12 @@
 package com.example.tahumarket.activity;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,12 +15,52 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tahumarket.R;
 import com.example.tahumarket.model.NotaModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.ProductViewHolder> {
+public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.ProductViewHolder> implements Filterable {
     private Context mCtx;
     private List<NotaModel> produkList;
+    private List<NotaModel> contactListFiltered;
     public Callback callback;
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                Log.d("carian", "performFiltering: "+charSequence);
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    contactListFiltered = produkList;
+                } else {
+                    List<NotaModel> filteredList = new ArrayList<>();
+                    for (NotaModel row : produkList) {
+
+                        // name match condition. this might differ depending on your requirement
+                        // here we are looking for name or phone number match
+                        if (row.getNamaBarang().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(row);
+                        }
+                    }
+
+                    contactListFiltered = filteredList;
+                    Log.d("masuk sini sini", "performFiltering: "+contactListFiltered.size());
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = contactListFiltered;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                contactListFiltered = (ArrayList<NotaModel>) filterResults.values;
+                Log.d("masuk sini", "publishResults: "+contactListFiltered.size());
+                notifyDataSetChanged();
+            }
+        };
+    }
 
     interface Callback {
         void onClick(int position);

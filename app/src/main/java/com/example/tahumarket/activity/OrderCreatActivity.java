@@ -80,6 +80,10 @@ public class OrderCreatActivity extends AppCompatActivity {
         }
 
         binding();
+        rvTambahOrder = findViewById(R.id.rvTambahOrder);
+        rvTambahOrder.setHasFixedSize(true);
+        rvTambahOrder.setLayoutManager(new GridLayoutManager(this, 3));
+
         produkAdapter = new AddOrderAdapter(this, mProdukList, new AddOrderAdapter.Callback() {
             @Override
             public void onClick(int position) {
@@ -94,9 +98,8 @@ public class OrderCreatActivity extends AppCompatActivity {
 
             }
         });
-        rvTambahOrder.setHasFixedSize(true);
-        rvTambahOrder.setLayoutManager(new GridLayoutManager(this, 3));
         rvTambahOrder.setAdapter(produkAdapter);
+
 
         //set orientation
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -173,7 +176,7 @@ public class OrderCreatActivity extends AppCompatActivity {
             }
             @Override
             public void onClick(View v) {
-
+                produkAdapter.getFilter().filter(etSearch.getText().toString());
             }
         });
 
@@ -188,6 +191,6 @@ public class OrderCreatActivity extends AppCompatActivity {
             }
         });
 
-        rvTambahOrder = findViewById(R.id.rvTambahOrder);
+
     }
 }
