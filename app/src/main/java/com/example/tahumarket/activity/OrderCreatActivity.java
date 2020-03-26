@@ -51,7 +51,7 @@ public class OrderCreatActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 23 && data.getStringExtra("id") != null) {
             //refresh list
-            Toast.makeText(this, "hihihihi", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "hihihihi : "+data.getStringExtra("id"), Toast.LENGTH_SHORT).show();
 
         }
     }
