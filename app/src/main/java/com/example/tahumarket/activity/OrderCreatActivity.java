@@ -71,6 +71,7 @@ public class OrderCreatActivity extends AppCompatActivity {
         RealmResults<ProdukModel> produkModel = realm.where(ProdukModel.class).findAll();
         for (int i = 0; i <produkModel.size() ; i++) {
             notaModel = new NotaModel();
+            notaModel.setKodeBarang(produkModel.get(i).getKodeBarang());
             notaModel.setNamaBarang(produkModel.get(i).getNamaBarang());
             notaModel.setKodePackaging(produkModel.get(i).getKodePackaging());
             notaModel.setHargaBarang(produkModel.get(i).getHargaBarang());

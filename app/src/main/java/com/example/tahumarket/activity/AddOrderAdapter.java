@@ -43,13 +43,31 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
         holder.tvKodeProduk.setText(mModel.getKodeBarang());
         holder.tvNamaProduk.setText(mModel.getNamaBarang());
         holder.tvHargaProduk.setText(String.valueOf(mModel.getHargaBarang()));
-        holder.tvPackagingProduk.setText(mModel.getKodePackaging()+" - "+mModel.getJumlahbarang());
-        if (mModel.getKodeWarna().equalsIgnoreCase("YELLOW")){
+        holder.tvPackagingProduk.setText(mModel.getKodePackaging());
+        if (mModel.getJumlahbarang() == null){
+            holder.tvQty.setVisibility(View.GONE);
+        }else{
+            holder.tvQty.setVisibility(View.VISIBLE);
+            holder.tvQty.setText(mModel.getJumlahbarang() + " - " + mModel.getKodePackaging());
+        }
+
+//        if (mModel.getJumlahbarang() == null){
+//
+//        }else{
+//            holder.tvPackagingProduk.setText(mModel.getJumlahbarang() + " - " + mModel.getKodePackaging());
+//        }
+        if (mModel.getKodeWarna().equalsIgnoreCase("YELLOW") && mModel.getJumlahbarang() == null){
             holder.divProduk.setBackgroundResource(R.drawable.card_yellow);
-        }else if (mModel.getKodeWarna().equalsIgnoreCase("BLUE")){
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("YELLOW") && mModel.getJumlahbarang() != null){
+            holder.divProduk.setBackgroundResource(R.drawable.card_yellow_dark);
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("BLUE") && mModel.getJumlahbarang() == null){
             holder.divProduk.setBackgroundResource(R.drawable.card_blue);
-        }else if (mModel.getKodeWarna().equalsIgnoreCase("GREEN")){
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("BLUE") && mModel.getJumlahbarang() != null){
+            holder.divProduk.setBackgroundResource(R.drawable.card_blue_dark);
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("GREEN") && mModel.getJumlahbarang() == null){
             holder.divProduk.setBackgroundResource(R.drawable.card_green);
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("GREEN") && mModel.getJumlahbarang() != null){
+            holder.divProduk.setBackgroundResource(R.drawable.card_green_dark);
         }
     }
 
@@ -59,7 +77,7 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
     }
 
     class ProductViewHolder extends RecyclerView.ViewHolder {
-        TextView tvKodeProduk, tvNamaProduk, tvHargaProduk, tvPackagingProduk;
+        TextView tvKodeProduk, tvNamaProduk, tvHargaProduk, tvPackagingProduk, tvQty;
         LinearLayout divProduk;
 
         public ProductViewHolder(View itemView) {
@@ -68,6 +86,7 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
             tvNamaProduk = itemView.findViewById(R.id.tvNamaProduk);
             tvHargaProduk = itemView.findViewById(R.id.tvHargaProduk);
             tvPackagingProduk = itemView.findViewById(R.id.tvPackagingProduk);
+            tvQty = itemView.findViewById(R.id.tvQty);
             divProduk = itemView.findViewById(R.id.divProduk);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
