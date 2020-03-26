@@ -43,7 +43,7 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
         holder.tvKodeProduk.setText(mModel.getKodeBarang());
         holder.tvNamaProduk.setText(mModel.getNamaBarang());
         holder.tvHargaProduk.setText(String.valueOf(mModel.getHargaBarang()));
-        holder.tvPackagingProduk.setText(mModel.getKodePackaging());
+        holder.tvPackagingProduk.setText(mModel.getKodePackaging()+" - "+mModel.getJumlahbarang());
         if (mModel.getKodeWarna().equalsIgnoreCase("YELLOW")){
             holder.divProduk.setBackgroundResource(R.drawable.card_yellow);
         }else if (mModel.getKodeWarna().equalsIgnoreCase("BLUE")){

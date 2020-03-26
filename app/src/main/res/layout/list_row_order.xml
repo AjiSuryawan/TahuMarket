@@ -99,7 +99,9 @@
                     android:textColor="@color/txtWhite"
                     android:textStyle="bold"
                     android:textSize="@dimen/_12ssp"/>
+
             </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

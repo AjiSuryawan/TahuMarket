@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
@@ -45,14 +46,16 @@ public class OrderCreatActivity extends AppCompatActivity {
     NotaModel notaModel;
     private AddOrderAdapter produkAdapter;
     private Realm realm;
+    int posisi=0;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == 23 && data.getStringExtra("id") != null) {
+        if (resultCode == 23 && data.getStringExtra("jumlah") != null) {
             //refresh list
-            Toast.makeText(this, "hihihihi : "+data.getStringExtra("id"), Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(this, "jumlah : "+data.getStringExtra("jumlah"), Toast.LENGTH_SHORT).show();
+            mProdukList.get(posisi).setJumlahbarang(data.getStringExtra("jumlah"));
+            produkAdapter.notifyDataSetChanged();
         }
     }
 
@@ -80,6 +83,7 @@ public class OrderCreatActivity extends AppCompatActivity {
         produkAdapter = new AddOrderAdapter(this, mProdukList, new AddOrderAdapter.Callback() {
             @Override
             public void onClick(int position) {
+                posisi=position;
                 NotaModel nota=mProdukList.get(position);
                 Intent in= new Intent(getApplicationContext(), AddQtyOrder.class);
                 startActivityForResult(in, 23);
