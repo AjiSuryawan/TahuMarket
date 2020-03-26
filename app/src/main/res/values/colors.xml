@@ -6,8 +6,13 @@
 
     <color name="colorKuning">#FFC700</color>
     <color name="colorBiru">#4F4BFF</color>
+    <color name="colorGreen">#8FD400</color>
     <color name="colorPlaceholder">#ECE1E1</color>
     <color name="colorBiruTransparant">#4C5397</color>
+
+    <color name="colorKuningDark">#AF8A08</color>
+    <color name="colorBiruDark">#2F2CA1</color>
+    <color name="colorGreenDark">#415911</color>
 
     <color name="placeholder_bg">#C6C5C5</color>
 
@@ -37,7 +42,6 @@
     <color name="colorTextMenu">#b1b1b1</color>
     <color name="colorTextSidebar">#4E5161</color>
     <color name="colorRed">#e6051b</color>
-    <color name="colorGreen">#016901</color>
     <color name="colorLightBlue">#1F3AFF</color>
     <color name="colorLine">#b7b7b7</color>
 </resources>
