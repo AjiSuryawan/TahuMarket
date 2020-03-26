@@ -70,6 +70,7 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
     public AddOrderAdapter(Context mCtx, List<NotaModel> productList, Callback callback) {
         this.mCtx = mCtx;
         this.produkList = productList;
+        this.contactListFiltered = productList;
         this.callback = callback;
     }
 
@@ -82,7 +83,7 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
 
     @Override
     public void onBindViewHolder(final ProductViewHolder holder, final int position) {
-        final NotaModel mModel = produkList.get(position);
+        final NotaModel mModel = contactListFiltered.get(position);
         holder.tvKodeProduk.setText(mModel.getKodeBarang());
         holder.tvNamaProduk.setText(mModel.getNamaBarang());
         holder.tvHargaProduk.setText(String.valueOf(mModel.getHargaBarang()));
@@ -116,7 +117,7 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
 
     @Override
     public int getItemCount() {
-        return produkList.size();
+        return contactListFiltered.size();
     }
 
     class ProductViewHolder extends RecyclerView.ViewHolder {
