@@ -33,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.stream.IntStream;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -65,6 +66,7 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
 //            produkAdapter.notifyDataSetChanged();
             String id = data.getStringExtra("kode");
             int jumlah = Integer.parseInt(data.getStringExtra("jumlah"));
+            totalBayar = 0;
             for (int i = 0; i < mProdukList.size(); i++) {
                 if (mProdukList.get(i).getKodeBarang().equalsIgnoreCase(id)) {
                     mProdukList.get(i).setJumlahbarang(jumlah);
@@ -72,11 +74,9 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                     mProdukList.get(i).setSubtotal(subTotalBarang);
                     produkAdapter.notifyDataSetChanged();
                 }
+                totalBayar += mProdukList.get(i).getJumlahbarang() * mProdukList.get(i).getHargaBarang();
             }
-            totalBayar += subTotalBarang;
-            Log.d("rba", "onActivityResult: "+totalBayar);
-            Log.d("rba", "subTotal: "+subTotalBarang);
-
+//            Log.d("rba", "total Bayar: "+totalBayar);
         }
     }
 
