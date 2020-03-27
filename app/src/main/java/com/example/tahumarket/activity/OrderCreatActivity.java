@@ -215,7 +215,7 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                         switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
                                 //Yes button clicked
-
+                                //tolong muncul dialog input nominal
 
                                 //save header nya ke realm
                                 headerNotaModel = new HeaderNotaModel();
