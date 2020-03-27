@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
@@ -20,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.tahumarket.R;
+import com.example.tahumarket.adapter.AddOrderAdapter;
 import com.example.tahumarket.helper.Config;
 import com.example.tahumarket.model.NotaModel;
 import com.example.tahumarket.model.ProdukModel;
@@ -54,7 +54,7 @@ public class OrderCreatActivity extends AppCompatActivity {
         if (resultCode == 23 && data.getStringExtra("jumlah") != null) {
             //refresh list
             Toast.makeText(this, "jumlah : "+data.getStringExtra("jumlah"), Toast.LENGTH_SHORT).show();
-            mProdukList.get(posisi).setJumlahbarang(data.getStringExtra("jumlah"));
+            mProdukList.get(posisi).setJumlahbarang(Integer.parseInt(data.getStringExtra("jumlah")));
             produkAdapter.notifyDataSetChanged();
         }
     }
@@ -90,8 +90,11 @@ public class OrderCreatActivity extends AppCompatActivity {
             public void onClick(int position) {
                 posisi=position;
                 NotaModel nota=mProdukList.get(position);
+
                 Intent in= new Intent(getApplicationContext(), AddQtyOrder.class);
-                startActivityForResult(in, 23);
+                int qtyExtra = nota.getJumlahbarang();
+                in.putExtra("jumlah" , qtyExtra);
+                startActivityForResult(in, 23);;
             }
 
             @Override

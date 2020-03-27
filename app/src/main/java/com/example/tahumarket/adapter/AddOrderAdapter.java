@@ -1,4 +1,4 @@
-package com.example.tahumarket.activity;
+package com.example.tahumarket.adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -63,7 +63,7 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
         };
     }
 
-    interface Callback {
+    public interface Callback {
         void onClick(int position);
         void test();
     }
@@ -89,29 +89,25 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
         holder.tvNamaProduk.setText(mModel.getNamaBarang());
         holder.tvHargaProduk.setText(String.valueOf(mModel.getHargaBarang()));
         holder.tvPackagingProduk.setText(mModel.getKodePackaging());
-        if (mModel.getJumlahbarang() == null){
+        if (mModel.getJumlahbarang() == 0){
             holder.tvQty.setVisibility(View.GONE);
         }else{
             holder.tvQty.setVisibility(View.VISIBLE);
             holder.tvQty.setText(mModel.getJumlahbarang() + " - " + mModel.getKodePackaging());
         }
 
-//        if (mModel.getJumlahbarang() == null){
-//
-//        }else{
-//            holder.tvPackagingProduk.setText(mModel.getJumlahbarang() + " - " + mModel.getKodePackaging());
-//        }
-        if (mModel.getKodeWarna().equalsIgnoreCase("YELLOW") && mModel.getJumlahbarang() == null){
+
+        if (mModel.getKodeWarna().equalsIgnoreCase("YELLOW") && mModel.getJumlahbarang() == 0){
             holder.divProduk.setBackgroundResource(R.drawable.card_yellow);
-        }else if (mModel.getKodeWarna().equalsIgnoreCase("YELLOW") && mModel.getJumlahbarang() != null){
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("YELLOW") && mModel.getJumlahbarang() != 0){
             holder.divProduk.setBackgroundResource(R.drawable.card_yellow_dark);
-        }else if (mModel.getKodeWarna().equalsIgnoreCase("BLUE") && mModel.getJumlahbarang() == null){
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("BLUE") && mModel.getJumlahbarang() == 0){
             holder.divProduk.setBackgroundResource(R.drawable.card_blue);
-        }else if (mModel.getKodeWarna().equalsIgnoreCase("BLUE") && mModel.getJumlahbarang() != null){
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("BLUE") && mModel.getJumlahbarang() != 0){
             holder.divProduk.setBackgroundResource(R.drawable.card_blue_dark);
-        }else if (mModel.getKodeWarna().equalsIgnoreCase("GREEN") && mModel.getJumlahbarang() == null){
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("GREEN") && mModel.getJumlahbarang() == 0){
             holder.divProduk.setBackgroundResource(R.drawable.card_green);
-        }else if (mModel.getKodeWarna().equalsIgnoreCase("GREEN") && mModel.getJumlahbarang() != null){
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("GREEN") && mModel.getJumlahbarang() != 0){
             holder.divProduk.setBackgroundResource(R.drawable.card_green_dark);
         }
     }
