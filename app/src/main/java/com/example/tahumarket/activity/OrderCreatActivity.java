@@ -126,8 +126,8 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
         etDateTime.setText(currentDate + "/" + currentTime);
         etDateTime.setEnabled(false);
         String currentDateId = new SimpleDateFormat("ddMMyyyy", Locale.getDefault()).format(new Date());
-        String currentTimeId = new SimpleDateFormat("HH/mm/ss", Locale.getDefault()).format(new Date());
-        etId.setText(currentTimeId + "/" + Config.randomString(5).toUpperCase());
+        String currentTimeId = new SimpleDateFormat("HHmmss", Locale.getDefault()).format(new Date());
+        etId.setText(currentDateId+currentTimeId + Config.randomString(5).toUpperCase());
 
 //        if(cbDiskon.isChecked()==true)
 //        {
