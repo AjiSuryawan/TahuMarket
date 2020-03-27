@@ -22,7 +22,8 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
     private Context mCtx;
     private List<NotaModel> produkList;
     private List<NotaModel> contactListFiltered;
-    public Callback callback;
+//    public Callback callback;
+    private ContactsAdapterListener listener;
 
     @Override
     public Filter getFilter() {
@@ -68,11 +69,12 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
         void test();
     }
 
-    public AddOrderAdapter(Context mCtx, List<NotaModel> productList, Callback callback) {
+    public AddOrderAdapter(Context mCtx, List<NotaModel> productList, ContactsAdapterListener listener) {
         this.mCtx = mCtx;
         this.produkList = productList;
         this.contactListFiltered = productList;
-        this.callback = callback;
+//        this.callback = callback;
+        this.listener = listener;
     }
 
     @Override
@@ -132,9 +134,13 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    callback.onClick(getAdapterPosition());
+//                    callback.onClick(getAdapterPosition());
+                    listener.onContactSelected(contactListFiltered.get(getAdapterPosition()));
                 }
             });
         }
+    }
+    public interface ContactsAdapterListener {
+        void onContactSelected(NotaModel contact);
     }
 }

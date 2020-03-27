@@ -35,9 +35,9 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
-public class OrderCreatActivity extends AppCompatActivity {
+public class OrderCreatActivity extends AppCompatActivity implements AddOrderAdapter.ContactsAdapterListener {
     private Toolbar toolbar;
-    private EditText etDateTime, etId, etNamaPemesan,etDiskon, etPPN, etSearch;
+    private EditText etDateTime, etId, etNamaPemesan, etDiskon, etPPN, etSearch;
     private TextInputLayout divEtDiskon;
     private CheckBox cbDiskon;
     private ImageView ivSearch;
@@ -47,7 +47,7 @@ public class OrderCreatActivity extends AppCompatActivity {
     NotaModel notaModel;
     private AddOrderAdapter produkAdapter;
     private Realm realm;
-    int posisi=0;
+    int posisi = 0;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -57,10 +57,10 @@ public class OrderCreatActivity extends AppCompatActivity {
 //            Toast.makeText(this, "jumlah : "+data.getStringExtra("jumlah"), Toast.LENGTH_SHORT).show();
 //            mProdukList.get(posisi).setJumlahbarang(Integer.parseInt(data.getStringExtra("jumlah")));
 //            produkAdapter.notifyDataSetChanged();
-            String id= data.getStringExtra("kode");
+            String id = data.getStringExtra("kode");
             int jumlah = Integer.parseInt(data.getStringExtra("jumlah"));
-            for (int i = 0; i <mProdukList.size() ; i++) {
-                if (mProdukList.get(i).getKodeBarang().equalsIgnoreCase(id)){
+            for (int i = 0; i < mProdukList.size(); i++) {
+                if (mProdukList.get(i).getKodeBarang().equalsIgnoreCase(id)) {
                     mProdukList.get(i).setJumlahbarang(jumlah);
                     produkAdapter.notifyDataSetChanged();
                 }
@@ -79,7 +79,7 @@ public class OrderCreatActivity extends AppCompatActivity {
         realm = Realm.getInstance(configuration);
 
         RealmResults<ProdukModel> produkModel = realm.where(ProdukModel.class).findAll();
-        for (int i = 0; i <produkModel.size() ; i++) {
+        for (int i = 0; i < produkModel.size(); i++) {
             notaModel = new NotaModel();
             notaModel.setKodeBarang(produkModel.get(i).getKodeBarang());
             notaModel.setNamaBarang(produkModel.get(i).getNamaBarang());
@@ -94,25 +94,25 @@ public class OrderCreatActivity extends AppCompatActivity {
         rvTambahOrder = findViewById(R.id.rvTambahOrder);
         rvTambahOrder.setHasFixedSize(true);
         rvTambahOrder.setLayoutManager(new GridLayoutManager(this, 3));
-
-        produkAdapter = new AddOrderAdapter(this, mProdukList, new AddOrderAdapter.Callback() {
-            @Override
-            public void onClick(int position) {
-                posisi=position;
-                NotaModel nota=mProdukList.get(position);
-                Intent in= new Intent(getApplicationContext(), AddQtyOrder.class);
-                int qtyExtra = nota.getJumlahbarang();
-                in.putExtra("jumlah" , qtyExtra);
-                in.putExtra("kode" , nota.getKodeBarang());
-                startActivityForResult(in, 23);
-                Log.d("klik", "onClick: "+qtyExtra+" , kode : "+nota.getKodeBarang());
-            }
-
-            @Override
-            public void test() {
-
-            }
-        });
+        produkAdapter = new AddOrderAdapter(this, mProdukList, this);
+//        produkAdapter = new AddOrderAdapter(this, mProdukList, new AddOrderAdapter.Callback() {
+//            @Override
+//            public void onClick(int position) {
+//                posisi=position;
+//                NotaModel nota=mProdukList.get(position);
+//                Intent in= new Intent(getApplicationContext(), AddQtyOrder.class);
+//                int qtyExtra = nota.getJumlahbarang();
+//                in.putExtra("jumlah" , qtyExtra);
+//                in.putExtra("kode" , nota.getKodeBarang());
+//                startActivityForResult(in, 23);
+//                Log.d("klik", "onClick: "+qtyExtra+" , kode : "+nota.getKodeBarang());
+//            }
+//
+//            @Override
+//            public void test() {
+//
+//            }
+//        });
         rvTambahOrder.setAdapter(produkAdapter);
 
 
@@ -123,11 +123,11 @@ public class OrderCreatActivity extends AppCompatActivity {
 
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
-        etDateTime.setText(currentDate+"/"+currentTime);
+        etDateTime.setText(currentDate + "/" + currentTime);
         etDateTime.setEnabled(false);
         String currentDateId = new SimpleDateFormat("ddMMyyyy", Locale.getDefault()).format(new Date());
         String currentTimeId = new SimpleDateFormat("HH/mm/ss", Locale.getDefault()).format(new Date());
-        etId.setText(currentTimeId+"/"+Config.randomString(5).toUpperCase());
+        etId.setText(currentTimeId + "/" + Config.randomString(5).toUpperCase());
 
 //        if(cbDiskon.isChecked()==true)
 //        {
@@ -142,13 +142,11 @@ public class OrderCreatActivity extends AppCompatActivity {
         cbDiskon.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b)
-                {
+                if (b) {
                     divEtDiskon.setVisibility(View.VISIBLE);
                     divEtDiskon.setEnabled(true);
                 }
-                if(cbDiskon.isChecked()==false)
-                {
+                if (cbDiskon.isChecked() == false) {
                     divEtDiskon.setVisibility(View.GONE);
                     divEtDiskon.setEnabled(false);
                 }
@@ -157,7 +155,8 @@ public class OrderCreatActivity extends AppCompatActivity {
 
 
     }
-    private void binding(){
+
+    private void binding() {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Tambah Order");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -189,6 +188,7 @@ public class OrderCreatActivity extends AppCompatActivity {
             private void doNothing() {
 
             }
+
             @Override
             public void onClick(View v) {
                 produkAdapter.getFilter().filter(etSearch.getText().toString());
@@ -200,6 +200,7 @@ public class OrderCreatActivity extends AppCompatActivity {
             private void doNothing() {
 
             }
+
             @Override
             public void onClick(View v) {
 
@@ -207,5 +208,15 @@ public class OrderCreatActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onContactSelected(NotaModel contact) {
+        Intent in = new Intent(getApplicationContext(), AddQtyOrder.class);
+        int qtyExtra = contact.getJumlahbarang();
+        in.putExtra("jumlah", qtyExtra);
+        in.putExtra("kode", contact.getKodeBarang());
+        startActivityForResult(in, 23);
+        Toast.makeText(getApplicationContext(), "Selected: " + contact.getKodeBarang() + ", " + contact.getNamaBarang(), Toast.LENGTH_LONG).show();
     }
 }
