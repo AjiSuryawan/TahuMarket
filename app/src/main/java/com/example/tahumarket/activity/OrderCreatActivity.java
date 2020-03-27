@@ -24,7 +24,7 @@ import android.widget.Toast;
 import com.example.tahumarket.R;
 import com.example.tahumarket.adapter.AddOrderAdapter;
 import com.example.tahumarket.helper.Config;
-import com.example.tahumarket.helper.HeaderNotaModel;
+import com.example.tahumarket.model.HeaderNotaModel;
 import com.example.tahumarket.model.NotaModel;
 import com.example.tahumarket.model.ProdukModel;
 import com.google.android.material.textfield.TextInputLayout;
@@ -224,17 +224,47 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                                 //tolong muncul dialog input nominal
 
                                 //save header nya ke realm
-                                headerNotaModel = new HeaderNotaModel();
-                                headerNotaModel.setNoNota(etId.getText().toString());
-                                headerNotaModel.setTransdate(currentDate);
-                                headerNotaModel.setNoCustomer(etNamaPemesan.getText().toString());
+//                                headerNotaModel = new HeaderNotaModel();
+//                                headerNotaModel.setNoNota(etId.getText().toString());
+//                                headerNotaModel.setTransdate(currentDate);
+//                                headerNotaModel.setNoCustomer(etNamaPemesan.getText().toString());
+//                                headerNotaModel.setTotalOrigin(String.valueOf(totalBayar));
+
+                                String ppn = etPPN.getText().toString();
+                                int calculatePPN = Integer.parseInt(ppn) / 100 * totalBayar;
+//                                headerNotaModel.setPpn(String.valueOf(calculatePPN));
+
+                                String discount = etDiskon.getText().toString();
+//                                if (discount.equalsIgnoreCase("")){
+//                                    headerNotaModel.setDiscount("0");
+//                                }else{
+//                                    headerNotaModel.setDiscount(discount);
+//                                }
+
+                                int cal1 = totalBayar - Integer.parseInt(discount);
+                                int point1 = cal1 + calculatePPN;
+
+                                int cal2 = totalBayar  + calculatePPN;
+                                int point2 = cal2 - Integer.parseInt(discount);
+
+                                Log.d("RBA", "headerNota: " + "\n" + "\n"
+                                       + "noNota : " + etId.getText().toString() + "\n"
+                                        + "noCustomer : " + etNamaPemesan.getText().toString() + "\n"
+                                        + "transDate : " + currentDate + "\n"
+                                        + "totalOrigin : " + totalBayar + "\n"
+                                        + "PPN : " + calculatePPN + "\n"
+                                        + "PPN2 : " + ppn + "\n"
+                                        + "Discount : " + discount + "\n"
+                                        + "grandTotal point1 : " + point1 + "\n"
+                                        + "grandTotal point2 : " + point2 + "\n");
+
 
                                 //save detail nya ke realm
-                                for (int i = 0; i < mProdukList.size(); i++) {
-                                    if (mProdukList.get(i).getJumlahbarang() > 0) {
-
-                                    }
-                                }
+//                                for (int i = 0; i < mProdukList.size(); i++) {
+//                                    if (mProdukList.get(i).getJumlahbarang() > 0) {
+//
+//                                    }
+//                                }
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

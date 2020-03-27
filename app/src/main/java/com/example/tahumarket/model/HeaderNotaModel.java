@@ -1,4 +1,4 @@
-package com.example.tahumarket.helper;
+package com.example.tahumarket.model;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
