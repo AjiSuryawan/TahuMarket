@@ -61,6 +61,7 @@ dependencies {
     implementation 'com.shamanland:xdroid-toaster:0.0.10'
     implementation "com.google.android.material:material:1.0.0"
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    implementation 'com.github.f0ris.sweetalert:library:1.5.6'
 
     apply plugin: 'realm-android'
 }
