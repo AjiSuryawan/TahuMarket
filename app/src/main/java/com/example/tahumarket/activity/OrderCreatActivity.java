@@ -216,6 +216,7 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                             case DialogInterface.BUTTON_POSITIVE:
                                 //Yes button clicked
 
+
                                 //save header nya ke realm
                                 headerNotaModel = new HeaderNotaModel();
                                 headerNotaModel.setNoNota(etId.getText().toString());
