@@ -20,7 +20,7 @@ public class AddQtyOrder extends AppCompatActivity {
     private EditText txtjumlah;
     private LinearLayout btnSubmit;
     private ImageView divAdd, divRemove;
-    String qtyadd;
+    String idbarang;
     int valueadd = 0;
     int valueremove = 0;
 
@@ -37,7 +37,7 @@ public class AddQtyOrder extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btnsubmit);
         divAdd = findViewById(R.id.divAdd);
         divRemove = findViewById(R.id.divRemove);
-
+        idbarang = getIntent().getStringExtra("kode");
         final int qtyExtras = getIntent().getIntExtra("jumlah" , 0);
         if (qtyExtras == 0){
             divAdd.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +103,7 @@ public class AddQtyOrder extends AppCompatActivity {
                     String qtyDone = txtjumlah.getText().toString();
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra("jumlah", qtyDone);
+                    returnIntent.putExtra("kode", idbarang);
                     setResult(23, returnIntent);
                     finish();
             }

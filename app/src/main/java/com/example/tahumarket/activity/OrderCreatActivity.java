@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
@@ -53,9 +54,18 @@ public class OrderCreatActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 23 && data.getStringExtra("jumlah") != null) {
             //refresh list
-            Toast.makeText(this, "jumlah : "+data.getStringExtra("jumlah"), Toast.LENGTH_SHORT).show();
-            mProdukList.get(posisi).setJumlahbarang(Integer.parseInt(data.getStringExtra("jumlah")));
-            produkAdapter.notifyDataSetChanged();
+//            Toast.makeText(this, "jumlah : "+data.getStringExtra("jumlah"), Toast.LENGTH_SHORT).show();
+//            mProdukList.get(posisi).setJumlahbarang(Integer.parseInt(data.getStringExtra("jumlah")));
+//            produkAdapter.notifyDataSetChanged();
+            String id= data.getStringExtra("kode");
+            int jumlah = Integer.parseInt(data.getStringExtra("jumlah"));
+            for (int i = 0; i <mProdukList.size() ; i++) {
+                if (mProdukList.get(i).getKodeBarang().equalsIgnoreCase(id)){
+                    mProdukList.get(i).setJumlahbarang(jumlah);
+                    produkAdapter.notifyDataSetChanged();
+                }
+            }
+
         }
     }
 
@@ -90,11 +100,12 @@ public class OrderCreatActivity extends AppCompatActivity {
             public void onClick(int position) {
                 posisi=position;
                 NotaModel nota=mProdukList.get(position);
-
                 Intent in= new Intent(getApplicationContext(), AddQtyOrder.class);
                 int qtyExtra = nota.getJumlahbarang();
                 in.putExtra("jumlah" , qtyExtra);
-                startActivityForResult(in, 23);;
+                in.putExtra("kode" , nota.getKodeBarang());
+                startActivityForResult(in, 23);
+                Log.d("klik", "onClick: "+qtyExtra+" , kode : "+nota.getKodeBarang());
             }
 
             @Override
