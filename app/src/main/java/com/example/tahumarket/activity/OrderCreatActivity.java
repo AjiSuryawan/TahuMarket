@@ -73,8 +73,9 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                     produkAdapter.notifyDataSetChanged();
                 }
             }
-            totalBayar += jumlah*subTotalBarang;
-            Log.d("bayaran", "onActivityResult: "+totalBayar);
+            totalBayar += subTotalBarang;
+            Log.d("rba", "onActivityResult: "+totalBayar);
+            Log.d("rba", "subTotal: "+subTotalBarang);
 
         }
     }
