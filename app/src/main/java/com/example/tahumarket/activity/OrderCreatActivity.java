@@ -75,11 +75,8 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_creat);
-
-
         RealmConfiguration configuration = new RealmConfiguration.Builder().build();
         realm = Realm.getInstance(configuration);
-
         RealmResults<ProdukModel> produkModel = realm.where(ProdukModel.class).findAll();
         for (int i = 0; i < produkModel.size(); i++) {
             notaModel = new NotaModel();
@@ -129,7 +126,7 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
         etDateTime.setEnabled(false);
         String currentDateId = new SimpleDateFormat("ddMMyyyy", Locale.getDefault()).format(new Date());
         String currentTimeId = new SimpleDateFormat("HHmmss", Locale.getDefault()).format(new Date());
-        etId.setText(currentDateId+currentTimeId + Config.randomString(5).toUpperCase());
+        etId.setText(currentDateId + currentTimeId + Config.randomString(5).toUpperCase());
 
 //        if(cbDiskon.isChecked()==true)
 //        {
@@ -168,7 +165,16 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
 
             @Override
             public void onClick(View v) {
-                finish();
+                new AlertDialog.Builder(OrderCreatActivity.this)
+                        .setTitle("Really Exit?")
+                        .setMessage("Are you sure you want to exit ?")
+                        .setNegativeButton(android.R.string.no, null)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                finish();
+                            }
+                        }).create().show();
             }
         });
 
@@ -208,16 +214,16 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
+                        switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
                                 //Yes button clicked
                                 int countbeli = 0;
-                                for (int i = 0; i <mProdukList.size() ; i++) {
-                                    if (mProdukList.get(i).getJumlahbarang()>0){
+                                for (int i = 0; i < mProdukList.size(); i++) {
+                                    if (mProdukList.get(i).getJumlahbarang() > 0) {
                                         countbeli++;
                                     }
                                 }
-                                Log.d("jumlah beli", "onClick: " +countbeli+"");
+                                Log.d("jumlah beli", "onClick: " + countbeli + "");
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
@@ -249,6 +255,8 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
 
     @Override
     public void onBackPressed() {
+
+        Log.d("kosong", "onBackPressed: ");
         new AlertDialog.Builder(this)
                 .setTitle("Really Exit?")
                 .setMessage("Are you sure you want to exit ?")
@@ -259,5 +267,7 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                         finish();
                     }
                 }).create().show();
+
+
     }
 }
