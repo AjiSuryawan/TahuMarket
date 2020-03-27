@@ -255,19 +255,21 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
 
     @Override
     public void onBackPressed() {
+        if (!etSearch.getText().toString().matches("")){
+            etSearch.setText("");
+            produkAdapter.getFilter().filter(etSearch.getText().toString());
+        }else{
+            Log.d("kosong", "onBackPressed: ");
+            new AlertDialog.Builder(this)
+                    .setTitle("Really Exit?")
+                    .setMessage("Are you sure you want to exit ?")
+                    .setNegativeButton(android.R.string.no, null)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
-        Log.d("kosong", "onBackPressed: ");
-        new AlertDialog.Builder(this)
-                .setTitle("Really Exit?")
-                .setMessage("Are you sure you want to exit ?")
-                .setNegativeButton(android.R.string.no, null)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        finish();
-                    }
-                }).create().show();
-
-
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            finish();
+                        }
+                    }).create().show();
+        }
     }
 }
