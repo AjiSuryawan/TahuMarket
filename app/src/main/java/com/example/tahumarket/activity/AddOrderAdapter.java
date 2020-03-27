@@ -39,7 +39,8 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
 
                         // name match condition. this might differ depending on your requirement
                         // here we are looking for name or phone number match
-                        if (row.getNamaBarang().toLowerCase().contains(charString.toLowerCase())) {
+                        if (row.getNamaBarang().toLowerCase().contains(charString.toLowerCase()) ||
+                                row.getKodeBarang().toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(row);
                         }
                     }
