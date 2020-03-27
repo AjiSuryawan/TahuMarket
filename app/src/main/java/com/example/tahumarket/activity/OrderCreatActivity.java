@@ -215,12 +215,17 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                         switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
                                 //Yes button clicked
+
+                                //save header nya ke realm
+                                headerNotaModel = new HeaderNotaModel();
+                                headerNotaModel.setNoNota(etId.getText().toString());
+                                headerNotaModel.setTransdate(currentDate);
+                                headerNotaModel.setNoCustomer(etNamaPemesan.getText().toString());
+
+                                //save detail nya ke realm
                                 for (int i = 0; i < mProdukList.size(); i++) {
                                     if (mProdukList.get(i).getJumlahbarang() > 0) {
-                                        headerNotaModel = new HeaderNotaModel();
-                                        headerNotaModel.setNoNota(etId.getText().toString());
-                                        headerNotaModel.setTransdate(currentDate);
-                                        headerNotaModel.setNoCustomer(etNamaPemesan.getText().toString());
+
                                     }
                                 }
                                 break;
