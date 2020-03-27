@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.tahumarket.R;
 import com.example.tahumarket.adapter.AddOrderAdapter;
 import com.example.tahumarket.helper.Config;
+import com.example.tahumarket.helper.HeaderNotaModel;
 import com.example.tahumarket.model.NotaModel;
 import com.example.tahumarket.model.ProdukModel;
 import com.google.android.material.textfield.TextInputLayout;
@@ -49,7 +50,8 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
     NotaModel notaModel;
     private AddOrderAdapter produkAdapter;
     private Realm realm;
-    int posisi = 0;
+    HeaderNotaModel headerNotaModel;
+    String currentDate;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -120,7 +122,7 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
         //hide keyboard
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
         etDateTime.setText(currentDate + "/" + currentTime);
         etDateTime.setEnabled(false);
@@ -205,10 +207,6 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
 
         divSinkronData = findViewById(R.id.divSinkronData);
         divSinkronData.setOnClickListener(new View.OnClickListener() {
-            private void doNothing() {
-
-            }
-
             @Override
             public void onClick(View v) {
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -217,13 +215,14 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                         switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
                                 //Yes button clicked
-                                int countbeli = 0;
                                 for (int i = 0; i < mProdukList.size(); i++) {
                                     if (mProdukList.get(i).getJumlahbarang() > 0) {
-                                        countbeli++;
+                                        headerNotaModel = new HeaderNotaModel();
+                                        headerNotaModel.setNoNota(etId.getText().toString());
+                                        headerNotaModel.setTransdate(currentDate);
+                                        headerNotaModel.setNoCustomer(etNamaPemesan.getText().toString());
                                     }
                                 }
-                                Log.d("jumlah beli", "onClick: " + countbeli + "");
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
