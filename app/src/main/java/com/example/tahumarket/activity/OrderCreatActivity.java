@@ -52,6 +52,8 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
     private Realm realm;
     HeaderNotaModel headerNotaModel;
     String currentDate;
+    int totalBayar = 0;
+    int subTotalBarang = 0;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -66,9 +68,13 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
             for (int i = 0; i < mProdukList.size(); i++) {
                 if (mProdukList.get(i).getKodeBarang().equalsIgnoreCase(id)) {
                     mProdukList.get(i).setJumlahbarang(jumlah);
+                    subTotalBarang = jumlah * mProdukList.get(i).getHargaBarang();
+                    mProdukList.get(i).setSubtotal(subTotalBarang);
                     produkAdapter.notifyDataSetChanged();
                 }
             }
+            totalBayar += jumlah*subTotalBarang;
+            Log.d("bayaran", "onActivityResult: "+totalBayar);
 
         }
     }

@@ -8,7 +8,7 @@ public class NotaModel {
     private String kodePackaging;
     private String kodeNota;
     private int jumlahbarang;
-    private String subtotal;
+    private int subtotal;
 
     public String getKodeBarang() {
         return kodeBarang;
@@ -66,11 +66,11 @@ public class NotaModel {
         this.jumlahbarang = jumlahbarang;
     }
 
-    public String getSubtotal() {
+    public int getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(String subtotal) {
+    public void setSubtotal(int subtotal) {
         this.subtotal = subtotal;
     }
 }

@@ -95,7 +95,7 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
             holder.tvQty.setVisibility(View.GONE);
         }else{
             holder.tvQty.setVisibility(View.VISIBLE);
-            holder.tvQty.setText(mModel.getJumlahbarang() + " - " + mModel.getKodePackaging());
+            holder.tvQty.setText(mModel.getJumlahbarang() + " - " + mModel.getKodePackaging() + "\n" + mModel.getSubtotal());
         }
 
 
