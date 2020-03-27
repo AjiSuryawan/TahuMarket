@@ -1,11 +1,13 @@
 package com.example.tahumarket.activity;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -203,6 +205,31 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
 
             @Override
             public void onClick(View v) {
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                //Yes button clicked
+                                int countbeli = 0;
+                                for (int i = 0; i <mProdukList.size() ; i++) {
+                                    if (mProdukList.get(i).getJumlahbarang()>0){
+                                        countbeli++;
+                                    }
+                                }
+                                Log.d("jumlah beli", "onClick: " +countbeli+"");
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                //No button clicked
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(OrderCreatActivity.this);
+                builder.setMessage("Are you sure want to save data ?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
 
             }
         });
@@ -218,5 +245,19 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
         in.putExtra("kode", contact.getKodeBarang());
         startActivityForResult(in, 23);
         Toast.makeText(getApplicationContext(), "Selected: " + contact.getKodeBarang() + ", " + contact.getNamaBarang(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Really Exit?")
+                .setMessage("Are you sure you want to exit ?")
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        finish();
+                    }
+                }).create().show();
     }
 }
