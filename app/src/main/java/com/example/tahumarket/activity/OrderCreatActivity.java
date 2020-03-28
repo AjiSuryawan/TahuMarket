@@ -152,9 +152,8 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
         //hide keyboard
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
-        etDateTime.setText(currentDate + "/" + currentTime);
+        currentDate = new SimpleDateFormat("dd/M/yyyy", Locale.getDefault()).format(new Date());
+        etDateTime.setText(currentDate);
         etDateTime.setEnabled(false);
         String currentDateId = new SimpleDateFormat("ddMMyyyy", Locale.getDefault()).format(new Date());
         String currentTimeId = new SimpleDateFormat("HHmmss", Locale.getDefault()).format(new Date());
@@ -188,16 +187,24 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
 
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(OrderCreatActivity.this)
-                        .setTitle("Really Exit?")
-                        .setMessage("Are you sure you want to exit ?")
-                        .setNegativeButton(android.R.string.no, null)
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                finish();
-                            }
-                        }).create().show();
+                SweetAlertDialog pDialog = new SweetAlertDialog(OrderCreatActivity.this, SweetAlertDialog.WARNING_TYPE);
+                pDialog.setTitleText("Yakin untuk membatalkan nota?");
+                pDialog.setCancelable(false);
+                pDialog.setConfirmText("Yakin");
+                pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                        finish();
+                    }
+                });
+                pDialog.setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                    }
+                });
+                pDialog.show();
             }
         });
 
