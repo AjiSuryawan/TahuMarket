@@ -3,6 +3,7 @@ package com.example.tahumarket.helper;
 import android.util.Log;
 
 import com.example.tahumarket.model.HeaderNotaModel;
+import com.example.tahumarket.model.NotaModel;
 
 import java.util.List;
 import io.realm.Realm;
@@ -40,8 +41,14 @@ public class RealmHelperHeaderNota {
     }
 
     // untuk memanggil semua data
-    public List<HeaderNotaModel> getAllMahasiswa(){
+    public List<HeaderNotaModel> getAllHeader(){
         RealmResults<HeaderNotaModel> results = realm.where(HeaderNotaModel.class).findAll();
+        return results;
+    }
+
+    // untuk memanggil data by TransDate
+    public List<HeaderNotaModel> getHeaderNotaByDate(String transDate){
+        RealmResults<HeaderNotaModel> results = realm.where(HeaderNotaModel.class).equalTo("transdate",transDate).findAll();
         return results;
     }
 

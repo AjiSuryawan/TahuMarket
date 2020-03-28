@@ -2,6 +2,8 @@ package com.example.tahumarket.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
@@ -14,15 +16,25 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tahumarket.R;
+import com.example.tahumarket.adapter.HeaderAdapter;
+import com.example.tahumarket.adapter.ProdukAdapter;
+import com.example.tahumarket.helper.RealmHelperDetailNota;
+import com.example.tahumarket.helper.RealmHelperHeaderNota;
+import com.example.tahumarket.model.HeaderNotaModel;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class OrderActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private LinearLayout divTambahDataOrder, divSinkronData, divPickDate;
-    private RecyclerView rvDaftarOrder;
 
     private DatePickerDialog.OnDateSetListener setListener;
     private Calendar calendar = Calendar.getInstance();
@@ -32,6 +44,15 @@ public class OrderActivity extends AppCompatActivity {
     private TextView tvDate;
     private ImageView ivResetDate;
     private String txtDate;
+
+    private RecyclerView rvDaftarOrder;
+    List<HeaderNotaModel> mList;
+//    private ArrayList mList = new ArrayList<HeaderNotaModel>();
+    private HeaderAdapter mAdapter;
+
+    RealmHelperHeaderNota realmHelperHeaderNota;
+    RealmHelperDetailNota realmHelperDetail;
+    Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +64,39 @@ public class OrderActivity extends AppCompatActivity {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         //hide keyboard
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        RealmConfiguration configuration = new RealmConfiguration.Builder().build();
+        realm = Realm.getInstance(configuration);
+        realmHelperHeaderNota = new RealmHelperHeaderNota(realm);
+        realmHelperDetail = new RealmHelperDetailNota(realm);
+
+        mList = new ArrayList<>();
+        txtDate = tvDate.getText().toString();
+        if (txtDate.equalsIgnoreCase("Pilih Tanggal")){
+            mList =realmHelperHeaderNota.getAllHeader();
+        }else{
+            mList = realmHelperHeaderNota.getHeaderNotaByDate(txtDate);
+        }
+        rvDaftarOrder.setLayoutManager(new GridLayoutManager(this, 3));
+        show();
+    }
+
+    private void show(){
+        mAdapter = new HeaderAdapter(this,mList);
+        rvDaftarOrder.setHasFixedSize(true);
+        rvDaftarOrder.setAdapter(mAdapter);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (txtDate.equalsIgnoreCase("Pilih Tanggal")){
+            mList =realmHelperHeaderNota.getAllHeader();
+        }else{
+            mList = realmHelperHeaderNota.getHeaderNotaByDate(txtDate);
+        }
+        show();
+        mAdapter.notifyDataSetChanged();
     }
 
     private void binding(){
@@ -91,8 +145,9 @@ public class OrderActivity extends AppCompatActivity {
             }
             @Override
             public void onClick(View v) {
-                txtDate = "";
+                txtDate = "Pilih Tanggal";
                 tvDate.setText("Pilih Tanggal");
+                onRestart();
             }
         });
 
@@ -118,6 +173,7 @@ public class OrderActivity extends AppCompatActivity {
                 month = month+1;
                 txtDate = day+"/"+month+"/"+year;
                 tvDate.setText(txtDate);
+                onRestart();
             }
         },year,month,day);
         datePickerDialog.show();
