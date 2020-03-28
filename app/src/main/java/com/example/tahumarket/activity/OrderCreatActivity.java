@@ -26,6 +26,8 @@ import com.example.tahumarket.R;
 import com.example.tahumarket.adapter.AddOrderAdapter;
 import com.example.tahumarket.helper.Config;
 import com.example.tahumarket.helper.PaymentDialog;
+import com.example.tahumarket.helper.RealmHelperDetailNota;
+import com.example.tahumarket.helper.RealmHelperHeaderNota;
 import com.example.tahumarket.model.HeaderNotaModel;
 import com.example.tahumarket.model.NotaModel;
 import com.example.tahumarket.model.ProdukModel;
@@ -71,6 +73,9 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
     int txtPayment = 0;
     int txtKembalian = 0;
 
+    private RealmHelperHeaderNota realmHelperHeader;
+    private RealmHelperDetailNota realmHelperdetail;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -101,6 +106,9 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
         setContentView(R.layout.activity_order_creat);
         RealmConfiguration configuration = new RealmConfiguration.Builder().build();
         realm = Realm.getInstance(configuration);
+        realmHelperHeader = new RealmHelperHeaderNota(realm);
+        realmHelperdetail = new RealmHelperDetailNota(realm);
+
         RealmResults<ProdukModel> produkModel = realm.where(ProdukModel.class).findAll();
         for (int i = 0; i < produkModel.size(); i++) {
             notaModel = new NotaModel();
@@ -409,6 +417,33 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                     + "grandTotal : " + txtGrandTotal + "\n"
                     + "Payment : " + txtPayment + "\n"
                     + "Kembalian : " + txtKembalian + "\n");
+            //saveHeader
+            HeaderNotaModel headerNotaModel = new HeaderNotaModel();
+            headerNotaModel.setNoNota(String.valueOf(txtNoNota));
+            headerNotaModel.setNoCustomer(String.valueOf(txtNoCustomer));
+            headerNotaModel.setTransdate(String.valueOf(txtTransDate));
+            headerNotaModel.setTotalOrigin(String.valueOf(txttotalOrigin));
+            headerNotaModel.setPpn(String.valueOf(txtPPN));
+            headerNotaModel.setDiscount(String.valueOf(txtDiscount));
+            headerNotaModel.setGrandTotal(String.valueOf(txtGrandTotal));
+            headerNotaModel.setPayment(String.valueOf(txtPayment));
+            headerNotaModel.setKembalian(String.valueOf(txtKembalian));
+            realmHelperHeader.saveheader(headerNotaModel);
+            //saveDetailNota
+            for (int i = 0; i < mProdukList.size(); i++) {
+                if (mProdukList.get(i).getJumlahbarang() > 0) {
+                    NotaModel detailNotaModel = new NotaModel();
+                    detailNotaModel.setKodeNota(txtNoNota);
+                    detailNotaModel.setKodeBarang(mProdukList.get(i).getKodeBarang());
+                    detailNotaModel.setNamaBarang(mProdukList.get(i).getNamaBarang());
+                    detailNotaModel.setHargaBarang(mProdukList.get(i).getHargaBarang());
+                    detailNotaModel.setKodeWarna(mProdukList.get(i).getKodeWarna());
+                    detailNotaModel.setKodePackaging(mProdukList.get(i).getKodePackaging());
+                    detailNotaModel.setJumlahbarang(mProdukList.get(i).getJumlahbarang());
+                    detailNotaModel.setSubtotal(mProdukList.get(i).getSubtotal());
+                    realmHelperdetail.savedetail(detailNotaModel);
+                }
+            }
             SweetAlertDialog pDialog = new SweetAlertDialog(OrderCreatActivity.this, SweetAlertDialog.SUCCESS_TYPE);
             pDialog.setTitleText("Kembalian");
             pDialog.setContentText("Kembalian Customer Sebesar \n" + String.valueOf(txtKembalian));

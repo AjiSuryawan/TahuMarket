@@ -1,6 +1,11 @@
 package com.example.tahumarket.model;
 
-public class NotaModel {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class NotaModel extends RealmObject {
+    private Integer iddata;
+    @PrimaryKey
     private String kodeBarang;
     private String namaBarang;
     private int hargaBarang;
@@ -9,6 +14,14 @@ public class NotaModel {
     private String kodeNota;
     private int jumlahbarang;
     private int subtotal;
+
+    public Integer getIddata() {
+        return iddata;
+    }
+
+    public void setIddata(Integer iddata) {
+        this.iddata = iddata;
+    }
 
     public String getKodeBarang() {
         return kodeBarang;
