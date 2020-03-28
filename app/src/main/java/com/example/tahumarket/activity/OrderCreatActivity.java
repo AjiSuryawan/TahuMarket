@@ -20,6 +20,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tahumarket.R;
@@ -47,6 +48,7 @@ import io.realm.RealmResults;
 public class OrderCreatActivity extends AppCompatActivity implements AddOrderAdapter.ContactsAdapterListener , PaymentDialog.PaymentDialogListener{
     private Toolbar toolbar;
     private EditText etDateTime, etId, etNamaPemesan, etDiskon, etPPN, etSearch;
+    private TextView tvTotalBelanja;
     private TextInputLayout divEtDiskon;
     private CheckBox cbDiskon;
     private ImageView ivSearch;
@@ -60,10 +62,6 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
     String currentDate;
     int totalBayar = 0;
     int subTotalBarang = 0;
-
-    int point1 = 0;
-    int calculateGrandTotal = 0;
-    int calculatePPN;
 
     String txtNoNota, txtNoCustomer, txtTransDate;
     int txttotalOrigin = 0;
@@ -97,6 +95,7 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                 totalBayar += mProdukList.get(i).getJumlahbarang() * mProdukList.get(i).getHargaBarang();
             }
             Log.d("rba", "int total Bayar: "+totalBayar);
+            tvTotalBelanja.setText(String.valueOf(totalBayar));
         }
     }
 
@@ -220,6 +219,8 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
 
         etPPN = findViewById(R.id.etPPN);
 
+        tvTotalBelanja = findViewById(R.id.tvTotalBelanja);
+
         etSearch = findViewById(R.id.etSearch);
         ivSearch = findViewById(R.id.ivSearch);
         ivSearch.setOnClickListener(new View.OnClickListener() {
@@ -261,7 +262,33 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                     pDialog.setCancelable(false);
                     pDialog.show();
                 }else{
+                    txtNoNota = etId.getText().toString();
+                    txtNoCustomer = etNamaPemesan.getText().toString();
+                    txtTransDate = currentDate;
+                    txttotalOrigin = totalBayar;
+                    //Calculate PPN
+                    String textPPN = etPPN.getText().toString();
+                    if (textPPN.equalsIgnoreCase("")){
+                        txtPPN = 0;
+                    }else{
+                        int ppn = Integer.parseInt(textPPN);
+                        int perSeratus = 100;
+                        double doublePPN = (double) ppn / (double) perSeratus * (double) txttotalOrigin;
+                        txtPPN = (int)doublePPN;
+                    }
+                    //Calculate Diskon
+                    String disc = etDiskon.getText().toString();
+                    if (disc.equalsIgnoreCase("")){
+                        int ok = txttotalOrigin  + (int)txtPPN;
+                        txtGrandTotal = ok - 0;
+                        txtDiscount = 0;
+                    }else{
+                        int ok = txttotalOrigin  + (int)txtPPN;
+                        txtGrandTotal = ok - Integer.parseInt(disc);
+                        txtDiscount = Integer.parseInt(disc);
+                    }
                     new SweetAlertDialog(OrderCreatActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("Total yang harus dibayar\nRp. " + txtGrandTotal)
                             .setContentText("Anda yakin untuk simpan nota ?")
                             .setConfirmText("Ya")
                             .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -273,31 +300,7 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                                 public void onClick(SweetAlertDialog sDialog) {
                                     sDialog.dismissWithAnimation();
                                     openDialog();
-                                    txtNoNota = etId.getText().toString();
-                                    txtNoCustomer = etNamaPemesan.getText().toString();
-                                    txtTransDate = currentDate;
-                                    txttotalOrigin = totalBayar;
-                                    //Calculate PPN
-                                    String textPPN = etPPN.getText().toString();
-                                    if (textPPN.equalsIgnoreCase("")){
-                                        txtPPN = 0;
-                                    }else{
-                                        int ppn = Integer.parseInt(textPPN);
-                                        int perSeratus = 100;
-                                        double doublePPN = (double) ppn / (double) perSeratus * (double) txttotalOrigin;
-                                        txtPPN = (int)doublePPN;
-                                    }
-                                    //Calculate Diskon
-                                    String disc = etDiskon.getText().toString();
-                                    if (disc.equalsIgnoreCase("")){
-                                        int ok = txttotalOrigin  + (int)txtPPN;
-                                        txtGrandTotal = ok - 0;
-                                        txtDiscount = 0;
-                                    }else{
-                                        int ok = txttotalOrigin  + (int)txtPPN;
-                                        txtGrandTotal = ok - Integer.parseInt(disc);
-                                        txtDiscount = Integer.parseInt(disc);
-                                    }
+
                                     //txtPayment done in Listener
 
                                 }

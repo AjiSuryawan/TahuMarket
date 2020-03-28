@@ -333,6 +333,37 @@
                         android:tint="@color/colorWhite" />
                 </LinearLayout>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_gravity="right"
+                android:orientation="vertical">
+
+                <com.example.tahumarket.custom.CustomTextViewBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Belanja"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+
+                <com.example.tahumarket.custom.CustomTextViewQuicksand
+                    android:id="@+id/tvTotalBelanja"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:background="#00000000"
+                    android:gravity="right"
+                    android:hint="....."
+                    android:text="....."
+                    android:textColor="#252525"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
         </LinearLayout>
 
     </RelativeLayout>
@@ -341,6 +372,6 @@
         android:id="@+id/rvTambahOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"/>
+        android:layout_marginTop="@dimen/_7sdp"/>
 
 </LinearLayout>
