@@ -40,14 +40,14 @@ public class RealmHelperDetailNota {
     }
 
     // untuk memanggil semua data
-    public List<NotaModel> getAllMahasiswa(){
+    public List<NotaModel> getAllDetailNota(){
         RealmResults<NotaModel> results = realm.where(NotaModel.class).findAll();
         return results;
     }
-    // untuk memanggil data byidnota
-    public List<NotaModel> getdetailnotabyid(String kodenota){
-//        RealmResults<DetailNotaModel> results = realm.where(DetailNotaModel.class).findAll();
-        RealmResults<NotaModel> results = realm.where(NotaModel.class).equalTo("codenota",kodenota).findAll();
+
+    // untuk memanggil data Detail Nota byidnota
+    public List<NotaModel> getAllDetailNotaById(String kodenota){
+        RealmResults<NotaModel> results = realm.where(NotaModel.class).equalTo("kodeNota",kodenota).findAll();
         return results;
     }
 }

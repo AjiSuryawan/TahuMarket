@@ -3,6 +3,7 @@ package com.example.tahumarket.activity;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
@@ -12,22 +13,40 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.tahumarket.R;
+import com.example.tahumarket.adapter.DetailNotaAdapter;
+import com.example.tahumarket.adapter.HeaderAdapter;
+import com.example.tahumarket.helper.RealmHelperDetailNota;
+import com.example.tahumarket.helper.RealmHelperHeaderNota;
+import com.example.tahumarket.model.HeaderNotaModel;
+import com.example.tahumarket.model.NotaModel;
 import com.example.tahumarket.model.ProdukModel;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 public class OrderViewActivity extends AppCompatActivity {
-    private Realm realm;
     private Toolbar toolbar;
-    private EditText etDateTime, etId, etNamaPemesan, etPPN, etDiskon;
+    private EditText etDateTime, etId, etNamaPemesan, etPPN, etDiskon, etTotalKotor, etTotalBersih ;
+    private TextView tvBayar, tvKembalian;
     private TextInputLayout divEtDiskon;
     private CheckBox cbDiskon;
+
     private RecyclerView rvViewOrder;
+    List<NotaModel> mList;
+    private DetailNotaAdapter mAdapter;
+
+    RealmHelperDetailNota realmHelperDetailNota;
+    Realm realm;
+
+    String txtNoNota, txtNoCustomer, txtTransDate, txttotalOrigin, txtPPN, txtDiscount, txtGrandTotal, txtPayment, txtKembalian;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +62,38 @@ public class OrderViewActivity extends AppCompatActivity {
 
         RealmConfiguration configuration = new RealmConfiguration.Builder().build();
         realm = Realm.getInstance(configuration);
-        //load realm
-        RealmResults<ProdukModel> produkModel = realm.where(ProdukModel.class).findAll();
+        realmHelperDetailNota = new RealmHelperDetailNota(realm);
+
+        txtNoNota = getIntent().getStringExtra("noNota");
+        txtNoCustomer = getIntent().getStringExtra("noCustomer");
+        txtTransDate = getIntent().getStringExtra("transDate");
+        txttotalOrigin = getIntent().getStringExtra("totalOrigin");
+        txtPPN = getIntent().getStringExtra("ppn");
+        txtDiscount = getIntent().getStringExtra("discount");
+        txtGrandTotal = getIntent().getStringExtra("grandTotal");
+        txtPayment = getIntent().getStringExtra("payment");
+        txtKembalian = getIntent().getStringExtra("kembalian");
+
+        etDateTime.setText(txtTransDate);
+        etId.setText(txtNoNota);
+        etNamaPemesan.setText(txtNoCustomer);
+        etPPN.setText(txtPPN);
+        etDiskon.setText(txtDiscount);
+        etTotalKotor.setText(txttotalOrigin);
+        etTotalBersih.setText(txtGrandTotal);
+        tvBayar.setText(txtPayment);
+        tvKembalian.setText(txtKembalian);
+
+        mList = new ArrayList<>();
+        mList = realmHelperDetailNota.getAllDetailNotaById(txtNoNota);
+        rvViewOrder.setLayoutManager(new GridLayoutManager(this, 3));
+        show();
+    }
+
+    private void show(){
+        mAdapter = new DetailNotaAdapter(this,mList);
+        rvViewOrder.setHasFixedSize(true);
+        rvViewOrder.setAdapter(mAdapter);
     }
 
     private void binding() {
@@ -72,6 +121,12 @@ public class OrderViewActivity extends AppCompatActivity {
         divEtDiskon = findViewById(R.id.divEtDiskon);
 
         etPPN = findViewById(R.id.etPPN);
+        etTotalKotor = findViewById(R.id.etTotalKotor);
+        etTotalBersih = findViewById(R.id.etTotalBersih);
+        tvBayar = findViewById(R.id.tvBayar);
+        tvKembalian = findViewById(R.id.tvKembalian);
+
+        rvViewOrder = findViewById(R.id.rvViewOrder);
     }
 
 }

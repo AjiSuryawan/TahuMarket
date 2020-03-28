@@ -47,11 +47,9 @@ public class OrderActivity extends AppCompatActivity {
 
     private RecyclerView rvDaftarOrder;
     List<HeaderNotaModel> mList;
-//    private ArrayList mList = new ArrayList<HeaderNotaModel>();
     private HeaderAdapter mAdapter;
 
     RealmHelperHeaderNota realmHelperHeaderNota;
-    RealmHelperDetailNota realmHelperDetail;
     Realm realm;
 
     @Override
@@ -68,7 +66,6 @@ public class OrderActivity extends AppCompatActivity {
         RealmConfiguration configuration = new RealmConfiguration.Builder().build();
         realm = Realm.getInstance(configuration);
         realmHelperHeaderNota = new RealmHelperHeaderNota(realm);
-        realmHelperDetail = new RealmHelperDetailNota(realm);
 
         mList = new ArrayList<>();
         txtDate = tvDate.getText().toString();

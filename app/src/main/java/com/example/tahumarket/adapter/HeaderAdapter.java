@@ -1,6 +1,7 @@
 package com.example.tahumarket.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tahumarket.R;
+import com.example.tahumarket.activity.OrderViewActivity;
 import com.example.tahumarket.model.HeaderNotaModel;
 import com.example.tahumarket.model.ProdukModel;
 
@@ -56,6 +58,22 @@ public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.ProductVie
             tvNamaPemesan = itemView.findViewById(R.id.tvNamaPemesan);
             tvGrandTotal = itemView.findViewById(R.id.tvGrandTotal);
             divProduk = itemView.findViewById(R.id.divProduk);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(mCtx, OrderViewActivity.class);
+                    i.putExtra("noNota", produkList.get(getAdapterPosition()).getNoNota());
+                    i.putExtra("noCustomer", produkList.get(getAdapterPosition()).getNoCustomer());
+                    i.putExtra("transDate", produkList.get(getAdapterPosition()).getTransdate());
+                    i.putExtra("totalOrigin", produkList.get(getAdapterPosition()).getTotalOrigin());
+                    i.putExtra("ppn", produkList.get(getAdapterPosition()).getPpn());
+                    i.putExtra("discount", produkList.get(getAdapterPosition()).getDiscount());
+                    i.putExtra("grandTotal", produkList.get(getAdapterPosition()).getGrandTotal());
+                    i.putExtra("payment", produkList.get(getAdapterPosition()).getPayment());
+                    i.putExtra("kembalian", produkList.get(getAdapterPosition()).getKembalian());
+                    mCtx.startActivity(i);
+                }
+            });
         }
     }
 }
