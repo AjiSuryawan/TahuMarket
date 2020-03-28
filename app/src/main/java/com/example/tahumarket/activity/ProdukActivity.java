@@ -32,6 +32,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.realm.Case;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -243,6 +244,23 @@ public class ProdukActivity extends AppCompatActivity {
                     }
                     @Override
                     public void onError(ANError error) {
+                        SweetAlertDialog sDialog = new SweetAlertDialog(ProdukActivity.this, SweetAlertDialog.ERROR_TYPE);
+                        sDialog.setTitleText("Oops...");
+                        sDialog.setContentText(Config.TOAST_AN_ERROR);
+                        sDialog.setCancelable(false);
+                        sDialog.setConfirmText("Ya");
+                        sDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            private void doNothing() {
+
+                            }
+
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                                fetchDataProdukAPI();
+                            }
+                        });
+                        sDialog.show();
                         Log.d("RBA", "onError: " + error.getErrorBody());
                         Log.d("RBA", "onError: " + error.getLocalizedMessage());
                         Log.d("RBA", "onError: " + error.getErrorDetail());
