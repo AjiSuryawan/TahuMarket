@@ -37,9 +37,12 @@ import com.example.tahumarket.model.ProdukModel;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -56,9 +59,11 @@ public class OrderActivity extends AppCompatActivity {
     private final int year = calendar.get(Calendar.YEAR);
     private final int month = calendar.get(Calendar.MONTH);
     private final int day = calendar.get(Calendar.DAY_OF_MONTH);
-    private TextView tvDate;
+    private TextView tvDate, tvDateKosong;
     private ImageView ivResetDate;
+    private String currentDate;
     private String txtDate;
+    private String bulan, hari;
 
     private RecyclerView rvDaftarOrder;
     List<HeaderNotaModel> mList;
@@ -74,6 +79,8 @@ public class OrderActivity extends AppCompatActivity {
     String dataNota = "";
 
     NotaModel nota;
+
+    private LinearLayout divNotaKosong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,11 +99,21 @@ public class OrderActivity extends AppCompatActivity {
         realmHelperDetailNota = new RealmHelperDetailNota(realm);
 
         mList = new ArrayList<>();
-        txtDate = tvDate.getText().toString();
+        currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        txtDate = currentDate;
+        tvDate.setText(txtDate);
         if (txtDate.equalsIgnoreCase("Pilih Tanggal")){
             mList =realmHelperHeaderNota.getAllHeader();
         }else{
             mList = realmHelperHeaderNota.getHeaderNotaByDate(txtDate);
+            if (mList.size() == 0){
+                divNotaKosong.setVisibility(View.VISIBLE);
+                tvDateKosong.setText("Nota Tanggal " + txtDate);
+                rvDaftarOrder.setVisibility(View.GONE);
+            }else {
+                divNotaKosong.setVisibility(View.GONE);
+                rvDaftarOrder.setVisibility(View.VISIBLE);
+            }
         }
         rvDaftarOrder.setLayoutManager(new GridLayoutManager(this, 3));
         show();
@@ -115,6 +132,14 @@ public class OrderActivity extends AppCompatActivity {
             mList =realmHelperHeaderNota.getAllHeader();
         }else{
             mList = realmHelperHeaderNota.getHeaderNotaByDate(txtDate);
+            if (mList.size() == 0){
+                divNotaKosong.setVisibility(View.VISIBLE);
+                tvDateKosong.setText("Nota Tanggal " + txtDate);
+                rvDaftarOrder.setVisibility(View.GONE);
+            }else {
+                divNotaKosong.setVisibility(View.GONE);
+                rvDaftarOrder.setVisibility(View.VISIBLE);
+            }
         }
         show();
         mAdapter.notifyDataSetChanged();
@@ -153,7 +178,17 @@ public class OrderActivity extends AppCompatActivity {
             }
             @Override
             public void onClick(View v) {
-                onActionSinkron(txtDate);
+                int Size = mList.size();
+                if (Size == 0){
+                    SweetAlertDialog qDialog = new SweetAlertDialog(OrderActivity.this, SweetAlertDialog.ERROR_TYPE);
+                    qDialog.setTitleText("Oops...");
+                    qDialog.setContentText("Belum ada data nota yang perlu disinkronisasi");
+                    qDialog.setCancelable(false);
+                    qDialog.show();
+                    Log.d("RBA", txtDate);
+                }else {
+                    onActionSinkron(txtDate);
+                }
             }
         });
 
@@ -166,8 +201,8 @@ public class OrderActivity extends AppCompatActivity {
             }
             @Override
             public void onClick(View v) {
-                txtDate = "Pilih Tanggal";
-                tvDate.setText("Pilih Tanggal");
+//                txtDate = "Pilih Tanggal";
+                tvDate.setText(currentDate);
                 onRestart();
             }
         });
@@ -184,11 +219,13 @@ public class OrderActivity extends AppCompatActivity {
         });
 
         rvDaftarOrder = findViewById(R.id.rvDaftarOrder);
+        divNotaKosong = findViewById(R.id.divNotaKosong);
+        tvDateKosong = findViewById(R.id.tvDateKosong);
     }
 
     private void onActionSinkron (final String date){
         SweetAlertDialog aDialog = new SweetAlertDialog(OrderActivity.this, SweetAlertDialog.WARNING_TYPE);
-        aDialog.setTitleText("Yakin sinkronisasi data nota?");
+        aDialog.setTitleText("Yakin sinkronisasi data nota pada " + date +" ?");
         aDialog.setCancelable(false);
         aDialog.setConfirmText("Yakin");
         aDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -211,21 +248,30 @@ public class OrderActivity extends AppCompatActivity {
                     for (int i = 0; i < mList.size() ; i++) {
                         HeaderNotaModel header = mList.get(i);
                         if (header.getTransdate().equalsIgnoreCase(date)){
-                            dataHeader = header.getNoNota() + ";" + header.getNoCustomer() + ";" + header.getTransdate() + ";" + header.getTotalOrigin() + ";" + header.getPpn() + ";" + header.getDiscount() + ";" + header.getGrandTotal() + ";" + header.getPayment() + ";" + header.getKembalian() +"#";
+                            dataHeader = header.getNoNota() + ";" + header.getNoCustomer() + ";" + header.getTransdate() + ";" + header.getTotalOrigin() + ";" + header.getPpn() + ";" + header.getDiscount() + ";" + header.getGrandTotal() + ";" + header.getPayment() + ";" + header.getKembalian();
                             mListNota = new ArrayList<>();
                             mListNota = realmHelperDetailNota.getAllDetailNotaById(header.getNoNota());
                             dataNota = "";
                             for (int j = 0; j < mListNota.size() ; j++) {
                                 nota = mListNota.get(j);
-                                dataNota += nota.getKodeBarang() + ";" + nota.getNamaBarang() + ";" + nota.getJumlahbarang() + ";" + nota.getHargaBarang() + ";" + nota.getSubtotal() + "#";
+                                int lastIndex = mListNota.size()-1;
+                                if (j == lastIndex){
+                                    dataNota += nota.getKodeNota() + ";" + nota.getKodeBarang() + ";" + nota.getNamaBarang() + ";" + nota.getJumlahbarang() + ";" + nota.getHargaBarang() + ";" + nota.getSubtotal();
+                                }
+                                else {
+                                    dataNota += nota.getKodeNota() + ";" + nota.getKodeBarang() + ";" + nota.getNamaBarang() + ";" + nota.getJumlahbarang() + ";" + nota.getHargaBarang() + ";" + nota.getSubtotal() + "#";
+                                }
                             }
 //                    Log.d("RBA", "Item : " + header.getNoCustomer());
 //                    Log.d("RBA", "Header : "+dataHeader);
 //                    Log.d("RBA", "Detail Nota : "+dataNota);
                             sendNotaToServer(header.getNoNota(), dataHeader, dataNota);
+                            int lastIndexNota = mListNota.size()-1;
+                            if (i == lastIndexNota){
+                                pDialog.dismissWithAnimation();
+                            }
                         }
                     }
-                    pDialog.dismissWithAnimation();
                 }
             }
         });
@@ -244,7 +290,20 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month+1;
-                txtDate = day+"/"+month+"/"+year;
+                if(month < 10){
+                    bulan = "0" + month;
+                }
+                else {
+                    bulan = String.valueOf(month);
+                }
+
+                if (day < 10){
+                    hari = "0" + day;
+                }
+                else {
+                    hari = String.valueOf(day);
+                }
+                txtDate = year+ "-" + bulan + "-" + hari;
                 tvDate.setText(txtDate);
                 onRestart();
             }
@@ -253,9 +312,9 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     private void sendNotaToServer(final String noHeader, String dataHeader, String dataNota){
-//        Log.d("RBA", "Item : " + noHeader);
-//        Log.d("RBA", "Header : "+ dataHeader);
-//        Log.d("RBA", "Detail Nota : "+ dataNota);
+        Log.d("RBA", "Item : " + noHeader);
+        Log.d("RBA", "Header : "+ dataHeader);
+        Log.d("RBA", "Detail Nota : "+ dataNota);
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("SessionId", "SesionId_190630");

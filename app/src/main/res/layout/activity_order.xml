@@ -126,10 +126,12 @@
     </LinearLayout>
     </RelativeLayout>
 
+    <include layout="@layout/layout_nota_kosong"/>
     <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/rvDaftarOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"/>
+        android:layout_marginTop="@dimen/_10sdp" />
 
 </LinearLayout>

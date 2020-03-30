@@ -151,10 +151,10 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
         //hide keyboard
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        currentDate = new SimpleDateFormat("dd/M/yyyy", Locale.getDefault()).format(new Date());
         etDateTime.setText(currentDate);
         etDateTime.setEnabled(false);
-        String currentDateId = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date());
+        String currentDateId = new SimpleDateFormat("ddMMyyyy", Locale.getDefault()).format(new Date());
         String currentTimeId = new SimpleDateFormat("HHmmss", Locale.getDefault()).format(new Date());
         etId.setText(currentDateId + currentTimeId + Config.randomString(5).toUpperCase());
         etId.setEnabled(false);
