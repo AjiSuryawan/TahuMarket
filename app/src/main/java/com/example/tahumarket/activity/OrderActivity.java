@@ -312,7 +312,6 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     private void sendNotaToServer(final String noHeader, String dataHeader, String dataNota){
-        Log.d("RBA", "Item : " + noHeader);
         Log.d("RBA", "Header : "+ dataHeader);
         Log.d("RBA", "Detail Nota : "+ dataNota);
         JSONObject jsonObject = new JSONObject();

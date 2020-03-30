@@ -39,7 +39,7 @@
                                     android:hint="....."
                                     android:textColor="#252525"
                                     android:textStyle="bold"
-                                    android:inputType="textCapCharacters"
+                                    android:inputType="number"
                                     android:textSize="@dimen/_12ssp"/>
                             </LinearLayout>
 
