@@ -50,4 +50,14 @@ public class RealmHelperDetailNota {
         RealmResults<NotaModel> results = realm.where(NotaModel.class).equalTo("kodeNota",kodenota).findAll();
         return results;
     }
+
+    public void deleteDetail(String id){
+        final RealmResults<NotaModel> model = realm.where(NotaModel.class).equalTo("kodeNota", id).findAll();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                model.deleteFromRealm(0);
+            }
+        });
+    }
 }

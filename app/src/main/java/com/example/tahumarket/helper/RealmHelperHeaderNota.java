@@ -52,4 +52,15 @@ public class RealmHelperHeaderNota {
         return results;
     }
 
+    //untuk menghapus nota by noNota
+    public void deleteHeader(String id){
+        final RealmResults<HeaderNotaModel> model = realm.where(HeaderNotaModel.class).equalTo("noNota", id).findAll();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                model.deleteFromRealm(0);
+            }
+        });
+    }
+
 }
