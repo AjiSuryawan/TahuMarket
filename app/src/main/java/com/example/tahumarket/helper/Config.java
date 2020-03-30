@@ -34,6 +34,7 @@ import java.util.Random;
 public final class Config {
     public static final String BASE_URL = "";
     public static final String BASE_URL_API_PRODUK = "http://www.ecollectcpu.com:88/api/product/poststaging/";
+    public static final String BASE_URL_API_ORDER = "http://www.ecollectcpu.com:88/api/salesorders/poststaging/";
 
     private static final String API = "api/";
     public static final String BASE_URL_API = BASE_URL + API;

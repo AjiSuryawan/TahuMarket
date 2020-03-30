@@ -186,38 +186,56 @@ public class OrderActivity extends AppCompatActivity {
         rvDaftarOrder = findViewById(R.id.rvDaftarOrder);
     }
 
-    private void onActionSinkron (String date){
-        if (date.equalsIgnoreCase("Pilih Tanggal")){
-            SweetAlertDialog sDialog = new SweetAlertDialog(OrderActivity.this, SweetAlertDialog.ERROR_TYPE);
-            sDialog.setTitleText("Oops...");
-            sDialog.setContentText("Silahkan pilih hari untuk sinkronisasi nota");
-            sDialog.setCancelable(false);
-            sDialog.show();
-        }else{
-            final SweetAlertDialog pDialog = new SweetAlertDialog(OrderActivity.this, SweetAlertDialog.PROGRESS_TYPE);
-            pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-            pDialog.setTitleText("Loading ...");
-            pDialog.setCancelable(true);
-            pDialog.show();
-            for (int i = 0; i < mList.size() ; i++) {
-                HeaderNotaModel header = mList.get(i);
-                if (header.getTransdate().equalsIgnoreCase(date)){
-                    dataHeader = header.getNoNota() + ";" + header.getNoCustomer() + ";" + header.getTransdate() + ";" + header.getTotalOrigin() + ";" + header.getPpn() + ";" + header.getDiscount() + ";" + header.getGrandTotal() + ";" + header.getPayment() + ";" + header.getKembalian() +"#";
-                    mListNota = new ArrayList<>();
-                    mListNota = realmHelperDetailNota.getAllDetailNotaById(header.getNoNota());
-                    dataNota = "";
-                    for (int j = 0; j < mListNota.size() ; j++) {
-                        nota = mListNota.get(j);
-                        dataNota += nota.getKodeBarang() + ";" + nota.getNamaBarang() + ";" + nota.getJumlahbarang() + ";" + nota.getHargaBarang() + ";" + nota.getSubtotal() + "#";
+    private void onActionSinkron (final String date){
+        SweetAlertDialog aDialog = new SweetAlertDialog(OrderActivity.this, SweetAlertDialog.WARNING_TYPE);
+        aDialog.setTitleText("Yakin sinkronisasi data nota?");
+        aDialog.setCancelable(false);
+        aDialog.setConfirmText("Yakin");
+        aDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sDialog) {
+                sDialog.dismissWithAnimation();
+                if (date.equalsIgnoreCase("Pilih Tanggal")){
+                    SweetAlertDialog qDialog = new SweetAlertDialog(OrderActivity.this, SweetAlertDialog.ERROR_TYPE);
+                    qDialog.setTitleText("Oops...");
+                    qDialog.setContentText("Silahkan pilih hari untuk sinkronisasi nota");
+                    qDialog.setCancelable(false);
+                    qDialog.show();
+                }
+                else{
+                    final SweetAlertDialog pDialog = new SweetAlertDialog(OrderActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+                    pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                    pDialog.setTitleText("Loading ...");
+                    pDialog.setCancelable(true);
+                    pDialog.show();
+                    for (int i = 0; i < mList.size() ; i++) {
+                        HeaderNotaModel header = mList.get(i);
+                        if (header.getTransdate().equalsIgnoreCase(date)){
+                            dataHeader = header.getNoNota() + ";" + header.getNoCustomer() + ";" + header.getTransdate() + ";" + header.getTotalOrigin() + ";" + header.getPpn() + ";" + header.getDiscount() + ";" + header.getGrandTotal() + ";" + header.getPayment() + ";" + header.getKembalian() +"#";
+                            mListNota = new ArrayList<>();
+                            mListNota = realmHelperDetailNota.getAllDetailNotaById(header.getNoNota());
+                            dataNota = "";
+                            for (int j = 0; j < mListNota.size() ; j++) {
+                                nota = mListNota.get(j);
+                                dataNota += nota.getKodeBarang() + ";" + nota.getNamaBarang() + ";" + nota.getJumlahbarang() + ";" + nota.getHargaBarang() + ";" + nota.getSubtotal() + "#";
+                            }
+//                    Log.d("RBA", "Item : " + header.getNoCustomer());
+//                    Log.d("RBA", "Header : "+dataHeader);
+//                    Log.d("RBA", "Detail Nota : "+dataNota);
+                            sendNotaToServer(header.getNoNota(), dataHeader, dataNota);
+                        }
                     }
-                    Log.d("RBA", "Item : " + header.getNoCustomer());
-                    Log.d("RBA", "Header : "+dataHeader);
-                    Log.d("RBA", "Detail Nota : "+dataNota);
-                    sendNotaToServer(header.getNoNota(), nota.getKodeNota(), dataHeader, dataNota);
+                    pDialog.dismissWithAnimation();
                 }
             }
-            pDialog.dismissWithAnimation();
-        }
+        });
+        aDialog.setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sDialog) {
+                sDialog.dismissWithAnimation();
+            }
+        });
+        aDialog.show();
     }
 
     private void datePicker (){
@@ -234,16 +252,20 @@ public class OrderActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    private void sendNotaToServer(final String noHeader, final String kodeNota, String dataHeader, String dataNota){
+    private void sendNotaToServer(final String noHeader, String dataHeader, String dataNota){
+//        Log.d("RBA", "Item : " + noHeader);
+//        Log.d("RBA", "Header : "+ dataHeader);
+//        Log.d("RBA", "Detail Nota : "+ dataNota);
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("SessionId", "SesionId_190630");
-            jsonObject.put("Data", "");
-            jsonObject.put("Crud", "r");
+            jsonObject.put("Header", dataHeader);
+            jsonObject.put("Detail", dataNota);
+            jsonObject.put("Crud", "c");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        AndroidNetworking.post(Config.BASE_URL_API_PRODUK)
+        AndroidNetworking.post(Config.BASE_URL_API_ORDER)
                 .addHeaders("Content-Type","application/json")
                 .addHeaders("Accept","application/json")
                 .addHeaders("Authorization","Basic V0FZSFlhV0EzZlhTTU83anVJZzJmZz09OlF3NUNNWld4TlQwRUNDRmZhK2g4MmVjSWcvREFEeFM3")
@@ -255,10 +277,11 @@ public class OrderActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         String dataProduk = response.optString("Data");
+                        Log.d("RBA", "Respon : " + dataProduk);
                         if (dataProduk.equalsIgnoreCase(noHeader + " has been sent to server!")){
                             //hapus data di realm
                             realmHelperHeaderNota.deleteHeader(noHeader);
-                            realmHelperDetailNota.deleteDetail(kodeNota);
+                            realmHelperDetailNota.deleteDetail(noHeader);
                             mAdapter.notifyDataSetChanged();
                         }
                     }
