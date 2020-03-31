@@ -53,7 +53,7 @@ import io.realm.RealmResults;
 public class OrderActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private LinearLayout divTambahDataOrder, divSinkronData, divPickDate;
-
+    SweetAlertDialog pDialog;
     private DatePickerDialog.OnDateSetListener setListener;
     private Calendar calendar = Calendar.getInstance();
     private final int year = calendar.get(Calendar.YEAR);
@@ -240,7 +240,7 @@ public class OrderActivity extends AppCompatActivity {
                     qDialog.show();
                 }
                 else{
-                    final SweetAlertDialog pDialog = new SweetAlertDialog(OrderActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+                    pDialog = new SweetAlertDialog(OrderActivity.this, SweetAlertDialog.PROGRESS_TYPE);
                     pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
                     pDialog.setTitleText("Loading ...");
                     pDialog.setCancelable(true);
@@ -342,9 +342,11 @@ public class OrderActivity extends AppCompatActivity {
                             realmHelperDetailNota.deleteDetail(noHeader);
                             mAdapter.notifyDataSetChanged();
                         }
+                        pDialog.dismissWithAnimation();
                     }
                     @Override
                     public void onError(ANError error) {
+                        pDialog.dismissWithAnimation();
                         Log.d("RBA", "onError Item : " + noHeader);
                         Log.d("RBA", "onError: " + error.getErrorBody());
                         Log.d("RBA", "onError: " + error.getLocalizedMessage());
