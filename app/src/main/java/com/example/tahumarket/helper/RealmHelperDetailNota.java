@@ -23,15 +23,15 @@ public class RealmHelperDetailNota {
             public void execute(Realm realm) {
                 if (realm != null){
                     Log.e("Created", "Database was created");
-                    Number currentIdNum = realm.where(NotaModel.class).max("iddata");
-                    int nextId;
-                    if (currentIdNum == null){
-                        nextId = 1;
-                    }else {
-                        nextId = currentIdNum.intValue() + 1;
-                    }
-                    detailNotaModel.setIddata(nextId);
-                    NotaModel model = realm.copyToRealmOrUpdate(detailNotaModel);
+//                    Number currentIdNum = realm.where(NotaModel.class).max("iddata");
+//                    int nextId;
+//                    if (currentIdNum == null){
+//                        nextId = 1;
+//                    }else {
+//                        nextId = currentIdNum.intValue() + 1;
+//                    }
+//                    detailNotaModel.setIddata(nextId);
+                    NotaModel model = realm.copyToRealm(detailNotaModel);
                 }else{
                     Log.e("ppppp", "execute: Database not Exist");
                 }

@@ -4,8 +4,9 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 public class NotaModel extends RealmObject {
-    private Integer iddata;
     @PrimaryKey
+    private Integer iddata;
+
     private String kodeBarang;
     private String namaBarang;
     private int hargaBarang;

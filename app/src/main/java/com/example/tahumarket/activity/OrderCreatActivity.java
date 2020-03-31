@@ -106,7 +106,7 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
         RealmConfiguration configuration = new RealmConfiguration.Builder().build();
         realm = Realm.getInstance(configuration);
         realmHelperHeader = new RealmHelperHeaderNota(realm);
-        realmHelperdetail = new RealmHelperDetailNota(realm);
+//        realmHelperdetail = new RealmHelperDetailNota(realm);
 
         RealmResults<ProdukModel> produkModel = realm.where(ProdukModel.class).findAll();
         for (int i = 0; i < produkModel.size(); i++) {
@@ -443,6 +443,7 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
             for (int i = 0; i < mProdukList.size(); i++) {
                 if (mProdukList.get(i).getJumlahbarang() > 0) {
                     NotaModel detailNotaModel = new NotaModel();
+                    detailNotaModel.setIddata((int)System.currentTimeMillis());
                     detailNotaModel.setKodeNota(txtNoNota);
                     detailNotaModel.setKodeBarang(mProdukList.get(i).getKodeBarang());
                     detailNotaModel.setNamaBarang(mProdukList.get(i).getNamaBarang());
@@ -451,6 +452,7 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                     detailNotaModel.setKodePackaging(mProdukList.get(i).getKodePackaging());
                     detailNotaModel.setJumlahbarang(mProdukList.get(i).getJumlahbarang());
                     detailNotaModel.setSubtotal(mProdukList.get(i).getSubtotal());
+                    realmHelperdetail = new RealmHelperDetailNota(realm);
                     realmHelperdetail.savedetail(detailNotaModel);
                 }
             }
