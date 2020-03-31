@@ -342,11 +342,11 @@ public class OrderActivity extends AppCompatActivity {
                             realmHelperDetailNota.deleteDetail(noHeader);
                             mAdapter.notifyDataSetChanged();
                         }
-                        pDialog.dismissWithAnimation();
+//                        pDialog.dismissWithAnimation();
                     }
                     @Override
                     public void onError(ANError error) {
-                        pDialog.dismissWithAnimation();
+//                        pDialog.dismissWithAnimation();
                         Log.d("RBA", "onError Item : " + noHeader);
                         Log.d("RBA", "onError: " + error.getErrorBody());
                         Log.d("RBA", "onError: " + error.getLocalizedMessage());
