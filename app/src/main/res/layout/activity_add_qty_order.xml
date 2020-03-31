@@ -9,6 +9,19 @@
     tools:context=".activity.AddQtyOrder"
     android:gravity="center">
 
+    <com.example.tahumarket.custom.CustomTextViewBold
+        android:id="@+id/tvNamaBarangSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text=".........."
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold"
+        android:textSize="@dimen/_20ssp"
+        android:singleLine="true"
+        android:layout_marginBottom="@dimen/_15sdp"/>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

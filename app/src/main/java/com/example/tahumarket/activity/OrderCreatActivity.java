@@ -477,8 +477,9 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
         int qtyExtra = contact.getJumlahbarang();
         in.putExtra("jumlah", qtyExtra);
         in.putExtra("kode", contact.getKodeBarang());
+        in.putExtra("namaBarang", contact.getKodeBarang() + " / " +contact.getNamaBarang());
         startActivityForResult(in, 23);
-        Toast.makeText(getApplicationContext(), "Selected: " + contact.getKodeBarang() + ", " + contact.getNamaBarang(), Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), "Selected: " + contact.getKodeBarang() + ", " + contact.getNamaBarang(), Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tahumarket.R;
@@ -20,9 +21,10 @@ public class AddQtyOrder extends AppCompatActivity {
     private EditText txtjumlah;
     private LinearLayout btnSubmit;
     private ImageView divAdd, divRemove;
-    String idbarang;
+    String idbarang, namaBarangSelected;
     int valueadd = 0;
     int valueremove = 0;
+    private TextView tvNamaBarangSelected;
 
 
     @Override
@@ -37,7 +39,10 @@ public class AddQtyOrder extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btnsubmit);
         divAdd = findViewById(R.id.divAdd);
         divRemove = findViewById(R.id.divRemove);
+        tvNamaBarangSelected = findViewById(R.id.tvNamaBarangSelected);
         idbarang = getIntent().getStringExtra("kode");
+        namaBarangSelected = getIntent().getStringExtra("namaBarang");
+        tvNamaBarangSelected.setText(namaBarangSelected);
         final int qtyExtras = getIntent().getIntExtra("jumlah" , 0);
         if (qtyExtras == 0){
             divAdd.setOnClickListener(new View.OnClickListener() {
