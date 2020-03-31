@@ -53,7 +53,7 @@ import io.realm.RealmResults;
 public class OrderActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private LinearLayout divTambahDataOrder, divSinkronData, divPickDate;
-
+    SweetAlertDialog pDialog;
     private DatePickerDialog.OnDateSetListener setListener;
     private Calendar calendar = Calendar.getInstance();
     private final int year = calendar.get(Calendar.YEAR);
@@ -64,6 +64,7 @@ public class OrderActivity extends AppCompatActivity {
     private String currentDate;
     private String txtDate;
     private String bulan, hari;
+    boolean lastIndex = false;
 
     private RecyclerView rvDaftarOrder;
     List<HeaderNotaModel> mList;
@@ -240,7 +241,7 @@ public class OrderActivity extends AppCompatActivity {
                     qDialog.show();
                 }
                 else{
-                    final SweetAlertDialog pDialog = new SweetAlertDialog(OrderActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+                    pDialog = new SweetAlertDialog(OrderActivity.this, SweetAlertDialog.PROGRESS_TYPE);
                     pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
                     pDialog.setTitleText("Loading ...");
                     pDialog.setCancelable(true);
@@ -265,11 +266,13 @@ public class OrderActivity extends AppCompatActivity {
 //                    Log.d("RBA", "Item : " + header.getNoCustomer());
 //                    Log.d("RBA", "Header : "+dataHeader);
 //                    Log.d("RBA", "Detail Nota : "+dataNota);
-                            sendNotaToServer(header.getNoNota(), dataHeader, dataNota);
                             int lastIndexNota = mListNota.size()-1;
                             if (i == lastIndexNota){
-                                pDialog.dismissWithAnimation();
+//                                pDialog.dismissWithAnimation();
+                                lastIndex = true;
                             }
+                            sendNotaToServer(header.getNoNota(), dataHeader, dataNota, lastIndex);
+
                         }
                     }
                 }
@@ -311,7 +314,7 @@ public class OrderActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    private void sendNotaToServer(final String noHeader, String dataHeader, String dataNota){
+    private void sendNotaToServer(final String noHeader, String dataHeader, String dataNota, boolean isLast){
         Log.d("RBA", "Header : "+ dataHeader);
         Log.d("RBA", "Detail Nota : "+ dataNota);
         JSONObject jsonObject = new JSONObject();
@@ -342,9 +345,14 @@ public class OrderActivity extends AppCompatActivity {
                             realmHelperDetailNota.deleteDetail(noHeader);
                             mAdapter.notifyDataSetChanged();
                         }
+                        if (lastIndex){
+                            pDialog.dismissWithAnimation();
+                        }
+
                     }
                     @Override
                     public void onError(ANError error) {
+                        pDialog.dismissWithAnimation();
                         Log.d("RBA", "onError Item : " + noHeader);
                         Log.d("RBA", "onError: " + error.getErrorBody());
                         Log.d("RBA", "onError: " + error.getLocalizedMessage());
