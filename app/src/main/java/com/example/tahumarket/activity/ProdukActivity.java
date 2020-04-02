@@ -5,6 +5,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,6 +54,8 @@ public class ProdukActivity extends AppCompatActivity {
     private ProdukAdapter produkAdapter;
     private Realm realm;
     private ShimmerFrameLayout mShimmerViewContainer;
+    private SharedPreferences preferences;
+    private String URL_PRODUK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +70,9 @@ public class ProdukActivity extends AppCompatActivity {
 
         RealmConfiguration configuration = new RealmConfiguration.Builder().build();
         realm = Realm.getInstance(configuration);
+
+        preferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        URL_PRODUK = preferences.getString(Config.CONFIG_URL_PRODUK,"");
 
         searchProduk.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         searchProduk.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
@@ -192,7 +199,7 @@ public class ProdukActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        AndroidNetworking.post(Config.BASE_URL_API_PRODUK)
+        AndroidNetworking.post(URL_PRODUK)
                 .addHeaders("Content-Type","application/json")
                 .addHeaders("Accept","application/json")
                 .addHeaders("Authorization","Basic V0FZSFlhV0EzZlhTTU83anVJZzJmZz09OlF3NUNNWld4TlQwRUNDRmZhK2g4MmVjSWcvREFEeFM3")

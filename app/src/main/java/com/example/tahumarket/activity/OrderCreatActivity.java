@@ -8,8 +8,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.InputType;
@@ -75,6 +77,9 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
     private RealmHelperHeaderNota realmHelperHeader;
     private RealmHelperDetailNota realmHelperdetail;
 
+    private SharedPreferences preferences;
+    private String SP_PPN, SP_DISKON;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -108,6 +113,10 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
         realm = Realm.getInstance(configuration);
         realmHelperHeader = new RealmHelperHeaderNota(realm);
 //        realmHelperdetail = new RealmHelperDetailNota(realm);
+
+        preferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SP_PPN = preferences.getString(Config.CONFIG_PPN,"");
+        SP_DISKON = preferences.getString(Config.CONFIG_DISKON,"");
 
         RealmResults<ProdukModel> produkModel = realm.where(ProdukModel.class).findAll();
         for (int i = 0; i < produkModel.size(); i++) {
@@ -268,7 +277,8 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                     txtTransDate = currentDate;
                     txttotalOrigin = totalBayar;
                     //Calculate PPN
-                    String textPPN = etPPN.getText().toString();
+//                    String textPPN = etPPN.getText().toString();
+                    String textPPN = SP_PPN;
                     if (textPPN.equalsIgnoreCase("")){
                         txtPPN = 0;
                     }else{
@@ -278,7 +288,8 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                         txtPPN = (int)doublePPN;
                     }
                     //Calculate Diskon
-                    String disc = etDiskon.getText().toString();
+//                    String disc = etDiskon.getText().toString();
+                    String disc = SP_DISKON;
                     if (disc.equalsIgnoreCase("")){
 //                        int ok = txttotalOrigin  + (int)txtPPN;
 //                        txtGrandTotal = ok - 0;

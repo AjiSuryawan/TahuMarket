@@ -2,7 +2,9 @@ package com.example.tahumarket.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -39,6 +41,8 @@ public class DasboardActivity extends AppCompatActivity {
     private ArrayList mProdukList = new ArrayList<ProdukModel>();
     private Realm realm;
     private ImageView ivSetting, ivLogout;
+    private SharedPreferences preferences;
+    private String URL_PRODUK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,9 @@ public class DasboardActivity extends AppCompatActivity {
 
         RealmConfiguration configuration = new RealmConfiguration.Builder().build();
         realm = Realm.getInstance(configuration);
+
+        preferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        URL_PRODUK = preferences.getString(Config.CONFIG_URL_PRODUK,"");
 
         fetchDataFromDb();
 
@@ -171,7 +178,7 @@ public class DasboardActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        AndroidNetworking.post(Config.BASE_URL_API_PRODUK)
+        AndroidNetworking.post(URL_PRODUK)
                 .addHeaders("Content-Type","application/json")
                 .addHeaders("Accept","application/json")
                 .addHeaders("Authorization","Basic V0FZSFlhV0EzZlhTTU83anVJZzJmZz09OlF3NUNNWld4TlQwRUNDRmZhK2g4MmVjSWcvREFEeFM3")
