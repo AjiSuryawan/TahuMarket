@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/wave_3" />
+    <!--        //Tab-->
+    <!--        <androidx.appcompat.widget.Toolbar-->
+    <!--            android:id="@+id/toolbar"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="?actionBarSize"-->
+    <!--            app:navigationIcon="@drawable/ic_arrow_back_black_24dp"-->
+    <!--            app:title="Daftar Produk"-->
+    <!--            app:titleTextAppearance="@style/ToolbarTitle"-->
+    <!--            app:titleTextColor="@android:color/white" />-->
+
+    //Toolbar 6P
+    <androidx.appcompat.widget.Toolbar
+        android:layout_marginTop="@dimen/_3sdp"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:title="Title"
+        app:titleTextAppearance="@style/ToolbarTitle"
+        app:titleTextColor="@android:color/white" />
+
+</RelativeLayout>

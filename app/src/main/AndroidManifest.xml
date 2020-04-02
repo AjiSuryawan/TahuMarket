@@ -16,8 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.SettingActivity"
+        <activity android:name=".activity.ConfigurasiActivity"
             android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".activity.SettingActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.OrderViewActivity"
             android:screenOrientation="landscape" />

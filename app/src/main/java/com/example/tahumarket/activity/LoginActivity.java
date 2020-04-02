@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.example.tahumarket.R;
 import com.example.tahumarket.helper.Config;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class LoginActivity extends AppCompatActivity {
     private EditText etUserName, etPassword;
     private LinearLayout divLogin;
@@ -42,14 +44,59 @@ public class LoginActivity extends AppCompatActivity {
                 String id = etUserName.getText().toString();
                 String pass = etPassword.getText().toString();
                 if (id.equals("admin") && pass.equals("admin")) {
-                    preferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                    preferences.edit()
-                            .putString(Config.LOGIN_ID_SHARED_PREF, id)
-                            .apply();
-                    Intent daftar = new Intent(LoginActivity.this, DasboardActivity.class);
-                    LoginActivity.this.startActivity(daftar);
-                    finish();
-                } else {
+                    SharedPreferences sp = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                    String urlProduk = sp.getString(Config.LOGIN_ID_SHARED_PREF,"");
+                    if (urlProduk.equalsIgnoreCase("")) {
+                        SweetAlertDialog sDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE);
+                        sDialog.setTitleText("Oops...");
+                        sDialog.setContentText("Aplikasi harus di konfigurasi menggunakan id super admin");
+                        sDialog.setCancelable(false);
+                        sDialog.show();
+                    }else{
+                        preferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                        preferences.edit()
+                                .putString(Config.LOGIN_ID_SHARED_PREF, id)
+                                .putString(Config.LOGIN_GROUP_ID_SHARED_PREF, Config.ROLE_ADMIN)
+                                .apply();
+                        Intent daftar = new Intent(LoginActivity.this, DasboardActivity.class);
+                        LoginActivity.this.startActivity(daftar);
+                        finish();
+                    }
+                } else if (id.equals("superAdmin001") && pass.equals("superAdmin001")) {
+                    SharedPreferences sp = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                    String urlProduk = sp.getString(Config.LOGIN_ID_SHARED_PREF,"");
+                    if (urlProduk.equalsIgnoreCase("")) {
+                        SweetAlertDialog pDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.WARNING_TYPE);
+                        pDialog.setTitleText("Aplikasi harus di konfigurasi");
+                        pDialog.setCancelable(false);
+                        pDialog.setConfirmText("Ya");
+                        pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                                Intent daftar = new Intent(LoginActivity.this, ConfigurasiActivity.class);
+                                LoginActivity.this.startActivity(daftar);
+                            }
+                        });
+                        pDialog.setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                            }
+                        });
+                        pDialog.show();
+                    }else {
+                        preferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                        preferences.edit()
+                                .putString(Config.LOGIN_ID_SHARED_PREF, id)
+                                .putString(Config.LOGIN_GROUP_ID_SHARED_PREF, Config.ROLE_SUPER_ADMIN)
+                                .apply();
+                        Intent daftar = new Intent(LoginActivity.this, DasboardActivity.class);
+                        LoginActivity.this.startActivity(daftar);
+                        finish();
+                    }
+                }
+                else {
                     Toast.makeText(LoginActivity.this, "Username atau Password Salah", Toast.LENGTH_SHORT).show();
                 }
             }

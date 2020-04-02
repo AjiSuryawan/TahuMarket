@@ -48,6 +48,13 @@ public final class Config {
     public static final String TOAST_AN_ERROR = "Mohon maaf, terjadi kendala jaringan / server";
 
     public static final String SHARED_PREF_NAME = "Tahu";
+    public static final String ROLE_ADMIN = "admin";
+    public static final String ROLE_SUPER_ADMIN = "superAdmin001";
+    public static final String CONFIG_URL_PRODUK = "produk";
+    public static final String CONFIG_URL_ORDER = "order";
+    public static final String CONFIG_PPN = "ppn";
+    public static final String CONFIG_DISKON = "diskon";
+
     public static final String LOGIN_NAME_SHARED_PREF = "NAME";
     public static final String LOGIN_ID_SHARED_PREF = "ID";
     public static final String LOGIN_TIME = "TIME";
@@ -66,6 +73,7 @@ public final class Config {
     public static final String LOGIN_EXTRA_03_SHARED_PREF = "EXTRA_03";
     public static final String LOGIN_EXTRA_04_SHARED_PREF = "EXTRA_04";
     public static final String LOGIN_EXTRA_05_SHARED_PREF = "EXTRA_05";
+
 
     public static final String SHARED_PREF_NAME_BIAYA_SINKRON = "Biaya Sinkron";
     public static final String BS_KODE = "KODE";
