@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                 String pass = etPassword.getText().toString();
                 if (id.equals("admin") && pass.equals("admin")) {
                     SharedPreferences sp = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                    String urlProduk = sp.getString(Config.LOGIN_ID_SHARED_PREF,"");
+                    String urlProduk = sp.getString(Config.CONFIG_URL_PRODUK,"");
                     if (urlProduk.equalsIgnoreCase("")) {
                         SweetAlertDialog sDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE);
                         sDialog.setTitleText("Oops...");
@@ -53,10 +53,9 @@ public class LoginActivity extends AppCompatActivity {
                         sDialog.setCancelable(false);
                         sDialog.show();
                     }else{
-                        preferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                        preferences.edit()
-                                .putString(Config.LOGIN_ID_SHARED_PREF, id)
-                                .putString(Config.LOGIN_GROUP_ID_SHARED_PREF, Config.ROLE_ADMIN)
+//                        preferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                        sp.edit()
+                                .putString(Config.LOGIN_ID_SHARED_PREF, Config.ROLE_ADMIN)
                                 .apply();
                         Intent daftar = new Intent(LoginActivity.this, DasboardActivity.class);
                         LoginActivity.this.startActivity(daftar);
@@ -64,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 } else if (id.equals("superAdmin001") && pass.equals("superAdmin001")) {
                     SharedPreferences sp = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                    String urlProduk = sp.getString(Config.LOGIN_ID_SHARED_PREF,"");
+                    String urlProduk = sp.getString(Config.CONFIG_URL_PRODUK,"");
                     if (urlProduk.equalsIgnoreCase("")) {
                         SweetAlertDialog pDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.WARNING_TYPE);
                         pDialog.setTitleText("Aplikasi harus di konfigurasi");
@@ -76,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                                 sDialog.dismissWithAnimation();
                                 Intent daftar = new Intent(LoginActivity.this, ConfigurasiActivity.class);
                                 LoginActivity.this.startActivity(daftar);
+                                finish();
                             }
                         });
                         pDialog.setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
@@ -86,10 +86,9 @@ public class LoginActivity extends AppCompatActivity {
                         });
                         pDialog.show();
                     }else {
-                        preferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                        preferences.edit()
-                                .putString(Config.LOGIN_ID_SHARED_PREF, id)
-                                .putString(Config.LOGIN_GROUP_ID_SHARED_PREF, Config.ROLE_SUPER_ADMIN)
+//                        preferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                        sp.edit()
+                                .putString(Config.LOGIN_ID_SHARED_PREF, Config.ROLE_ADMIN)
                                 .apply();
                         Intent daftar = new Intent(LoginActivity.this, DasboardActivity.class);
                         LoginActivity.this.startActivity(daftar);

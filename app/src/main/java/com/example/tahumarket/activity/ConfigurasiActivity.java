@@ -25,7 +25,7 @@ public class ConfigurasiActivity extends AppCompatActivity {
     private EditText etURLProduk, etURLOrder, etPPN, etDiskon;
     private LinearLayout divSimpan;
     private SharedPreferences configurasi;
-//    String txtURLProduk = "", txtURLOrder = "", txtPPN = "", txtDiskon = "";
+    private String txtURLProduk, txtURLOrder, txtPPN, txtDiskon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +37,10 @@ public class ConfigurasiActivity extends AppCompatActivity {
         //hide keyboard
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        final String txtURLProduk = etURLProduk.getText().toString();
-        final String txtURLOrder = etURLOrder.getText().toString();
-        final String txtPPN = etPPN.getText().toString();
-        final String txtDiskon = etDiskon.getText().toString();
+        txtURLProduk = etURLProduk.getText().toString();
+        txtURLOrder = etURLOrder.getText().toString();
+        txtPPN = etPPN.getText().toString();
+        txtDiskon = etDiskon.getText().toString();
 
         divSimpan.setOnClickListener(new View.OnClickListener() {
             private void doNothing() {
@@ -48,7 +48,6 @@ public class ConfigurasiActivity extends AppCompatActivity {
             }
             @Override
             public void onClick(View v) {
-                Log.d("RBA", "onError: " + txtURLProduk + "\n" + txtURLOrder + "\n" + txtPPN + "\n" + txtDiskon + "\n");
                 SweetAlertDialog pDialog = new SweetAlertDialog(ConfigurasiActivity.this, SweetAlertDialog.WARNING_TYPE);
                 pDialog.setTitleText("Yakin untuk menyimpan konfigurasi?");
                 pDialog.setCancelable(false);
@@ -57,15 +56,16 @@ public class ConfigurasiActivity extends AppCompatActivity {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         sDialog.dismissWithAnimation();
-                        if (txtURLProduk.isEmpty() || txtURLOrder.isEmpty() || txtPPN.isEmpty() || txtDiskon.isEmpty()){
+                        if (etURLProduk.getText().toString().isEmpty() || etURLOrder.getText().toString().isEmpty() || etPPN.getText().toString().isEmpty() || etDiskon.getText().toString().isEmpty()){
                             Toast.makeText(ConfigurasiActivity.this, "Harap lengkapi isian yang tersedia", Toast.LENGTH_SHORT).show();
                         }else{
                             configurasi = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
                             configurasi.edit()
-                                    .putString(Config.CONFIG_URL_PRODUK, txtURLProduk)
-                                    .putString(Config.CONFIG_URL_ORDER, txtURLOrder)
-                                    .putString(Config.CONFIG_PPN, txtPPN)
-                                    .putString(Config.CONFIG_DISKON, txtDiskon)
+                                    .putString(Config.LOGIN_ID_SHARED_PREF, Config.ROLE_ADMIN)
+                                    .putString(Config.CONFIG_URL_PRODUK, etURLProduk.getText().toString())
+                                    .putString(Config.CONFIG_URL_ORDER, etURLOrder.getText().toString())
+                                    .putString(Config.CONFIG_PPN, etPPN.getText().toString())
+                                    .putString(Config.CONFIG_DISKON, etDiskon.getText().toString())
                                     .apply();
                             Intent daftar = new Intent(ConfigurasiActivity.this, DasboardActivity.class);
                             ConfigurasiActivity.this.startActivity(daftar);
