@@ -38,6 +38,7 @@ public class DasboardActivity extends AppCompatActivity {
     private ProdukModel produkModel;
     private ArrayList mProdukList = new ArrayList<ProdukModel>();
     private Realm realm;
+    private ImageView ivSetting, ivLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,48 @@ public class DasboardActivity extends AppCompatActivity {
     }
 
     private void binding(){
+        ivSetting = findViewById(R.id.ivSetting);
+        ivSetting.setOnClickListener(new View.OnClickListener() {
+            private void doNothing() {
+
+            }
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DasboardActivity.this, SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ivLogout = findViewById(R.id.ivLogout);
+        ivLogout.setOnClickListener(new View.OnClickListener() {
+            private void doNothing() {
+
+            }
+
+            @Override
+            public void onClick(View v) {
+                SweetAlertDialog pDialog = new SweetAlertDialog(DasboardActivity.this, SweetAlertDialog.WARNING_TYPE);
+                pDialog.setTitleText("Yakin Log Out?");
+                pDialog.setCancelable(false);
+                pDialog.setConfirmText("Yakin");
+                pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                        Config.forceLogout(DasboardActivity.this);
+                    }
+                });
+                pDialog.setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                    }
+                });
+                pDialog.show();
+            }
+        });
+
         divMenuProduk = findViewById(R.id.divMenuProduk);
         divMenuProduk.setOnClickListener(new View.OnClickListener() {
             private void doNothing() {

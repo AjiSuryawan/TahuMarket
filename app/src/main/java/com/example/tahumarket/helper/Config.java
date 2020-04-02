@@ -23,6 +23,8 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.tahumarket.activity.LoginActivity;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -165,9 +167,9 @@ public final class Config {
 
         Toast.makeText(context, "Anda telah logout dari aplikasi.\nUntuk mengakses beberapa fitur, Anda harus login terlebih dahulu", Toast.LENGTH_LONG).show();
         //Starting login activity
-//        Intent intent = new Intent(context.getApplicationContext(), LoginActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//        context.startActivity(intent);
+        Intent intent = new Intent(context.getApplicationContext(), LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
