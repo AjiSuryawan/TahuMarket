@@ -8,18 +8,37 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.fragment.app.DialogFragment;
 
 import com.example.tahumarket.R;
+
+import org.w3c.dom.Text;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class PaymentDialog extends AppCompatDialogFragment {
     private EditText etPayment;
     private PaymentDialogListener listener;
+    private TextView tvTotal, tvPPN, tvDiskon, tvGrandTotal;
+    private LinearLayout divSimpan;
+
+    public static PaymentDialog newInstance(String tvTotal, String tvPPN, String tvDiskon, String tvGrandTotal) {
+        PaymentDialog frag = new PaymentDialog();
+        Bundle args = new Bundle();
+        args.putString("tvTotal", tvTotal);
+        args.putString("tvPPN", tvPPN);
+        args.putString("tvDiskon", tvDiskon);
+        args.putString("tvGrandTotal", tvGrandTotal);
+        frag.setArguments(args);
+        return frag;
+    }
+
 
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -28,17 +47,46 @@ public class PaymentDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_payment_dialog, null);
 
-        builder.setView(view)
-                .setNegativeButton("Batal", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+        builder.setView(view);
+//                .setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                })
+//                .setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        String payment = etPayment.getText().toString();
+//                        if (payment.equalsIgnoreCase("")){
+//                            int paymentKu = 0;
+//                            if (paymentKu <= 0){
+//                                new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+//                                        .setTitleText("Oops...")
+//                                        .setContentText("Masukkan Nominal Uang Customer")
+//                                        .show();
+//                            }
+//                        }else{
+//                            listener.applyText(Integer.parseInt(payment));
+//                        }
+//                    }
+//                });
+        etPayment = view.findViewById(R.id.etPayment);
+        tvTotal = view.findViewById(R.id.tvTotal);
+        tvPPN = view.findViewById(R.id.tvPPN);
+        tvDiskon = view.findViewById(R.id.tvDiskon);
+        tvGrandTotal = view.findViewById(R.id.tvGrandTotal);
+        divSimpan = view.findViewById(R.id.divSimpan);
 
-                    }
-                })
-                .setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String payment = etPayment.getText().toString();
+        tvTotal.setText(getArguments().getString("tvTotal"));
+        tvPPN.setText(getArguments().getString("tvPPN"));
+        tvDiskon.setText(getArguments().getString("tvDiskon"));
+        tvGrandTotal.setText(getArguments().getString("tvGrandTotal"));
+
+        divSimpan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String payment = etPayment.getText().toString();
                         if (payment.equalsIgnoreCase("")){
                             int paymentKu = 0;
                             if (paymentKu <= 0){
@@ -50,9 +98,8 @@ public class PaymentDialog extends AppCompatDialogFragment {
                         }else{
                             listener.applyText(Integer.parseInt(payment));
                         }
-                    }
-                });
-        etPayment = view.findViewById(R.id.etPayment);
+            }
+        });
         return builder.create();
     }
 

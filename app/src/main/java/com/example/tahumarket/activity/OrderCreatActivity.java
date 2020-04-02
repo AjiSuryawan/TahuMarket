@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -279,17 +280,25 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                     //Calculate Diskon
                     String disc = etDiskon.getText().toString();
                     if (disc.equalsIgnoreCase("")){
-                        int ok = txttotalOrigin  + (int)txtPPN;
-                        txtGrandTotal = ok - 0;
+//                        int ok = txttotalOrigin  + (int)txtPPN;
+//                        txtGrandTotal = ok - 0;
+//                        txtDiscount = 0;
+                        int ok = txttotalOrigin - 0;
+                        txtGrandTotal = ok + (int)txtPPN;
                         txtDiscount = 0;
                     }else{
-                        int ok = txttotalOrigin  + (int)txtPPN;
-                        txtGrandTotal = ok - Integer.parseInt(disc);
-                        txtDiscount = Integer.parseInt(disc);
+//                        int ok = txttotalOrigin  + (int)txtPPN;
+//                        txtGrandTotal = ok - Integer.parseInt(disc);
+//                        txtDiscount = Integer.parseInt(disc);
+                        int disct = Integer.parseInt(disc);
+                        int perSeratus = 100;
+                        double doubleDisc = (double) disct / (double) perSeratus * (double) txttotalOrigin;
+                        int ok = txttotalOrigin - (int)doubleDisc;
+                        txtGrandTotal = ok + (int) txtPPN;
+                        txtDiscount = (int)doubleDisc;
                     }
                     new SweetAlertDialog(OrderCreatActivity.this, SweetAlertDialog.WARNING_TYPE)
-                            .setTitleText("Total yang harus dibayar\nRp. " + txtGrandTotal)
-                            .setContentText("Anda yakin untuk simpan nota ?")
+                            .setTitleText("Anda yakin untuk simpan nota ?")
                             .setConfirmText("Ya")
                             .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                 private void doNothing() {
@@ -402,19 +411,76 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
     }
 
     public void openDialog(){
-        PaymentDialog paymentDialog = new PaymentDialog();
-        paymentDialog.show(getSupportFragmentManager(), "paymentDialog");
+        FragmentManager fm = getSupportFragmentManager();
+//        PaymentDialog paymentDialog = new PaymentDialog();
+        PaymentDialog titlenya = PaymentDialog.newInstance(String.valueOf(txttotalOrigin), String.valueOf(txtPPN), String.valueOf(txtDiscount), String.valueOf(txtGrandTotal));
+        titlenya.show(fm, "paymentDialog");
     }
 
     @Override
     public void applyText(int payment) {
         txtPayment = payment;
         if (txtPayment <= txtGrandTotal){
-            SweetAlertDialog pDialog = new SweetAlertDialog(OrderCreatActivity.this, SweetAlertDialog.ERROR_TYPE);
-            pDialog.setTitleText("Oops...");
-            pDialog.setContentText("Uang Customer Kurang");
-            pDialog.setCancelable(false);
-            pDialog.show();
+            if (txtPayment == txtGrandTotal){
+                txtKembalian = txtPayment - txtGrandTotal;
+                Log.d("RBA", "headerNota: " + "\n" + "\n"
+                        + "noNota : " + txtNoNota + "\n"
+                        + "noCustomer : " + txtNoCustomer + "\n"
+                        + "transDate : " + txtTransDate + "\n"
+                        + "totalOrigin : " + txttotalOrigin + "\n"
+                        + "PPN : " + txtPPN + "\n"
+                        + "Discount : " + txtDiscount + "\n"
+                        + "grandTotal : " + txtGrandTotal + "\n"
+                        + "Payment : " + txtPayment + "\n"
+                        + "Kembalian : " + txtKembalian + "\n");
+                //saveHeader
+                HeaderNotaModel headerNotaModel = new HeaderNotaModel();
+                headerNotaModel.setNoNota(String.valueOf(txtNoNota));
+                headerNotaModel.setNoCustomer(String.valueOf(txtNoCustomer));
+                headerNotaModel.setTransdate(String.valueOf(txtTransDate));
+                headerNotaModel.setTotalOrigin(String.valueOf(txttotalOrigin));
+                headerNotaModel.setPpn(String.valueOf(txtPPN));
+                headerNotaModel.setDiscount(String.valueOf(txtDiscount));
+                headerNotaModel.setGrandTotal(String.valueOf(txtGrandTotal));
+                headerNotaModel.setPayment(String.valueOf(txtPayment));
+                headerNotaModel.setKembalian(String.valueOf(txtKembalian));
+                realmHelperHeader.saveheader(headerNotaModel);
+                //saveDetailNota
+                for (int i = 0; i < mProdukList.size(); i++) {
+                    if (mProdukList.get(i).getJumlahbarang() > 0) {
+                        NotaModel detailNotaModel = new NotaModel();
+                        detailNotaModel.setIddata((int)System.currentTimeMillis());
+                        detailNotaModel.setKodeNota(txtNoNota);
+                        detailNotaModel.setKodeBarang(mProdukList.get(i).getKodeBarang());
+                        detailNotaModel.setNamaBarang(mProdukList.get(i).getNamaBarang());
+                        detailNotaModel.setHargaBarang(mProdukList.get(i).getHargaBarang());
+                        detailNotaModel.setKodeWarna(mProdukList.get(i).getKodeWarna());
+                        detailNotaModel.setKodePackaging(mProdukList.get(i).getKodePackaging());
+                        detailNotaModel.setJumlahbarang(mProdukList.get(i).getJumlahbarang());
+                        detailNotaModel.setSubtotal(mProdukList.get(i).getSubtotal());
+                        realmHelperdetail = new RealmHelperDetailNota(realm);
+                        realmHelperdetail.savedetail(detailNotaModel);
+                    }
+                }
+                SweetAlertDialog pDialog = new SweetAlertDialog(OrderCreatActivity.this, SweetAlertDialog.SUCCESS_TYPE);
+                pDialog.setTitleText("Sukses !!");
+                pDialog.setCancelable(false);
+                pDialog.setConfirmText("Ya");
+                pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                        finish();
+                    }
+                });
+                pDialog.show();
+            }else {
+                SweetAlertDialog pDialog = new SweetAlertDialog(OrderCreatActivity.this, SweetAlertDialog.ERROR_TYPE);
+                pDialog.setTitleText("Oops...");
+                pDialog.setContentText("Uang Customer Kurang");
+                pDialog.setCancelable(false);
+                pDialog.show();
+            }
         }else {
             txtKembalian = txtPayment - txtGrandTotal;
             Log.d("RBA", "headerNota: " + "\n" + "\n"
