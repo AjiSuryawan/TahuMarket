@@ -4,15 +4,22 @@
     <color name="colorPrimaryDark">#221356</color>
     <color name="colorAccent">#8FD400</color>
 
-    <color name="colorKuning">#FFC700</color>
-    <color name="colorBiru">#4F4BFF</color>
-    <color name="colorGreen">#8FD400</color>
+<!--    <color name="colorKuning">#FFC700</color>-->
+<!--    <color name="colorBiru">#4F4BFF</color>-->
+<!--    <color name="colorGreen">#8FD400</color>-->
+    <color name="colorKuning">#F5CE31</color>
+    <color name="colorBiru">#859ded</color>
+    <color name="colorGreen">#79DB7A</color>
+    <color name="txtColorKuning">#ab5b05</color>
+    <color name="txtColorBiru">#555721</color>
+    <color name="txtColorGreen">#606141</color>
+
     <color name="colorPlaceholder">#ECE1E1</color>
     <color name="colorBiruTransparant">#4C5397</color>
 
-    <color name="colorKuningDark">#AF8A08</color>
-    <color name="colorBiruDark">#2F2CA1</color>
-    <color name="colorGreenDark">#415911</color>
+    <color name="colorKuningDark">#BDA028</color>
+    <color name="colorBiruDark">#5F6FA6</color>
+    <color name="colorGreenDark">#5DA85D</color>
 
     <color name="placeholder_bg">#C6C5C5</color>
 

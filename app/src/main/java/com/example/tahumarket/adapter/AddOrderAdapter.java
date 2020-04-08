@@ -1,6 +1,7 @@
 package com.example.tahumarket.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -101,16 +102,52 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
 
         if (mModel.getKodeWarna().equalsIgnoreCase("YELLOW") && mModel.getJumlahbarang() == 0){
             holder.divProduk.setBackgroundResource(R.drawable.card_yellow);
+            holder.tvKodeProduk.setTextColor(Color.parseColor("#ab5b05"));
+            holder.tvNamaProduk.setTextColor(Color.parseColor("#ab5b05"));
+            holder.tvHargaProduk.setTextColor(Color.parseColor("#ab5b05"));
+            holder.tvPackagingProduk.setTextColor(Color.parseColor("#ab5b05"));
+            holder.tvSlash1.setTextColor(Color.parseColor("#ab5b05"));
+            holder.tvSlash2.setTextColor(Color.parseColor("#ab5b05"));
         }else if (mModel.getKodeWarna().equalsIgnoreCase("YELLOW") && mModel.getJumlahbarang() != 0){
             holder.divProduk.setBackgroundResource(R.drawable.card_yellow_dark);
+            holder.tvKodeProduk.setTextColor(Color.parseColor("#FFFFFFFF"));
+            holder.tvNamaProduk.setTextColor(Color.parseColor("#FFFFFFFF"));
+            holder.tvHargaProduk.setTextColor(Color.parseColor("#FFFFFFFF"));
+            holder.tvPackagingProduk.setTextColor(Color.parseColor("#FFFFFFFF"));
+            holder.tvSlash1.setTextColor(Color.parseColor("#FFFFFFFF"));
+            holder.tvSlash2.setTextColor(Color.parseColor("#FFFFFFFF"));
         }else if (mModel.getKodeWarna().equalsIgnoreCase("BLUE") && mModel.getJumlahbarang() == 0){
             holder.divProduk.setBackgroundResource(R.drawable.card_blue);
+            holder.tvKodeProduk.setTextColor(Color.parseColor("#555721"));
+            holder.tvNamaProduk.setTextColor(Color.parseColor("#555721"));
+            holder.tvHargaProduk.setTextColor(Color.parseColor("#555721"));
+            holder.tvPackagingProduk.setTextColor(Color.parseColor("#555721"));
+            holder.tvSlash1.setTextColor(Color.parseColor("#555721"));
+            holder.tvSlash2.setTextColor(Color.parseColor("#555721"));
         }else if (mModel.getKodeWarna().equalsIgnoreCase("BLUE") && mModel.getJumlahbarang() != 0){
             holder.divProduk.setBackgroundResource(R.drawable.card_blue_dark);
+            holder.tvKodeProduk.setTextColor(Color.parseColor("#FFFFFFFF"));
+            holder.tvNamaProduk.setTextColor(Color.parseColor("#FFFFFFFF"));
+            holder.tvHargaProduk.setTextColor(Color.parseColor("#FFFFFFFF"));
+            holder.tvPackagingProduk.setTextColor(Color.parseColor("#FFFFFFFF"));
+            holder.tvSlash1.setTextColor(Color.parseColor("#FFFFFFFF"));
+            holder.tvSlash2.setTextColor(Color.parseColor("#FFFFFFFF"));
         }else if (mModel.getKodeWarna().equalsIgnoreCase("GREEN") && mModel.getJumlahbarang() == 0){
             holder.divProduk.setBackgroundResource(R.drawable.card_green);
+            holder.tvKodeProduk.setTextColor(Color.parseColor("#606141"));
+            holder.tvNamaProduk.setTextColor(Color.parseColor("#606141"));
+            holder.tvHargaProduk.setTextColor(Color.parseColor("#606141"));
+            holder.tvPackagingProduk.setTextColor(Color.parseColor("#606141"));
+            holder.tvSlash1.setTextColor(Color.parseColor("#606141"));
+            holder.tvSlash2.setTextColor(Color.parseColor("#606141"));
         }else if (mModel.getKodeWarna().equalsIgnoreCase("GREEN") && mModel.getJumlahbarang() != 0){
             holder.divProduk.setBackgroundResource(R.drawable.card_green_dark);
+            holder.tvKodeProduk.setTextColor(Color.parseColor("#FFFFFFFF"));
+            holder.tvNamaProduk.setTextColor(Color.parseColor("#FFFFFFFF"));
+            holder.tvHargaProduk.setTextColor(Color.parseColor("#FFFFFFFF"));
+            holder.tvPackagingProduk.setTextColor(Color.parseColor("#FFFFFFFF"));
+            holder.tvSlash1.setTextColor(Color.parseColor("#FFFFFFFF"));
+            holder.tvSlash2.setTextColor(Color.parseColor("#FFFFFFFF"));
         }
     }
 
@@ -120,7 +157,7 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
     }
 
     class ProductViewHolder extends RecyclerView.ViewHolder {
-        TextView tvKodeProduk, tvNamaProduk, tvHargaProduk, tvPackagingProduk, tvQty;
+        TextView tvKodeProduk, tvNamaProduk, tvHargaProduk, tvPackagingProduk, tvQty, tvSlash1, tvSlash2;
         LinearLayout divProduk;
 
         public ProductViewHolder(View itemView) {
@@ -130,6 +167,8 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
             tvHargaProduk = itemView.findViewById(R.id.tvHargaProduk);
             tvPackagingProduk = itemView.findViewById(R.id.tvPackagingProduk);
             tvQty = itemView.findViewById(R.id.tvQty);
+            tvSlash1 = itemView.findViewById(R.id.tvSlash1);
+            tvSlash2 = itemView.findViewById(R.id.tvSlash2);
             divProduk = itemView.findViewById(R.id.divProduk);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

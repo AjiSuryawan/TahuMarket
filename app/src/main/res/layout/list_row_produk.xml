@@ -39,6 +39,7 @@
                     android:textStyle="bold"
                     android:textSize="@dimen/_12ssp"/>
                 <com.example.tahumarket.custom.CustomTextViewBold
+                    android:id="@+id/tvSlash1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_3sdp"
@@ -78,6 +79,7 @@
                     android:textStyle="bold"
                     android:textSize="@dimen/_12ssp"/>
                 <com.example.tahumarket.custom.CustomTextViewBold
+                    android:id="@+id/tvSlash2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_3sdp"
