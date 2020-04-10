@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tahumarket.R;
@@ -25,6 +26,7 @@ public class SettingActivity extends AppCompatActivity {
     private LinearLayout divSimpan;
     private SharedPreferences settings;
     private String txtRole, txtURLProduk, txtURLOrder, txtPPN, txtDiskon;
+    private TextView ket1, ket2, ket3, ket4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,10 @@ public class SettingActivity extends AppCompatActivity {
             etPPN.setEnabled(false);
             etDiskon.setEnabled(false);
             divSimpan.setVisibility(View.GONE);
+            ket1.setVisibility(View.GONE);
+            ket2.setVisibility(View.GONE);
+            ket3.setVisibility(View.GONE);
+            ket4.setVisibility(View.GONE);
         }
 
         divSimpan.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +121,11 @@ public class SettingActivity extends AppCompatActivity {
         etPPN = findViewById(R.id.etPPN);
         etDiskon = findViewById(R.id.etDiskon);
         divSimpan = findViewById(R.id.divSimpan);
+
+        ket1 = findViewById(R.id.ket1);
+        ket2 = findViewById(R.id.ket2);
+        ket3 = findViewById(R.id.ket3);
+        ket4 = findViewById(R.id.ket4);
     }
 
     @Override

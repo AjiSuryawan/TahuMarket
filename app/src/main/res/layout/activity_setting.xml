@@ -25,13 +25,28 @@
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
-                <com.example.tahumarket.custom.CustomTextViewBold
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="URL PRODUK"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_10ssp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+                    <com.example.tahumarket.custom.CustomTextViewBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="URL PRODUK"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/_10ssp"
+                        android:textStyle="bold" />
+                    <com.example.tahumarket.custom.CustomTextViewQuicksand
+                        android:id="@+id/ket1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="#00000000"
+                        android:text="*) Jika URL Produk tidak ada beritanda -"
+                        android:textColor="@color/txtRed"
+                        android:textSize="@dimen/_10ssp"
+                        android:textStyle="italic" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -64,13 +79,28 @@
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
-                <com.example.tahumarket.custom.CustomTextViewBold
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="URL ORDER"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_10ssp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+                    <com.example.tahumarket.custom.CustomTextViewBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="URL ORDER"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/_10ssp"
+                        android:textStyle="bold" />
+                    <com.example.tahumarket.custom.CustomTextViewQuicksand
+                        android:id="@+id/ket2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="#00000000"
+                        android:text="*) Jika URL Order tidak ada beritanda -"
+                        android:textColor="@color/txtRed"
+                        android:textSize="@dimen/_10ssp"
+                        android:textStyle="italic" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -103,13 +133,30 @@
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
-                <com.example.tahumarket.custom.CustomTextViewBold
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="PPN (%)"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_10ssp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <com.example.tahumarket.custom.CustomTextViewBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PPN (%)"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/_10ssp"
+                        android:textStyle="bold" />
+
+                    <com.example.tahumarket.custom.CustomTextViewQuicksand
+                        android:id="@+id/ket3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="#00000000"
+                        android:text="*) Jika PPN tidak ada beri nilai 0"
+                        android:textColor="@color/txtRed"
+                        android:textSize="@dimen/_10ssp"
+                        android:textStyle="italic" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -142,13 +189,28 @@
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
-                <com.example.tahumarket.custom.CustomTextViewBold
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="DISKON (%)"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_10ssp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+                    <com.example.tahumarket.custom.CustomTextViewBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DISKON (%)"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/_10ssp"
+                        android:textStyle="bold" />
+                    <com.example.tahumarket.custom.CustomTextViewQuicksand
+                        android:id="@+id/ket4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="#00000000"
+                        android:text="*) Jika Diskon tidak ada beri nilai 0"
+                        android:textColor="@color/txtRed"
+                        android:textSize="@dimen/_10ssp"
+                        android:textStyle="italic" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
