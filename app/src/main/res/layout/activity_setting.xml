@@ -42,7 +42,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
                         android:background="#00000000"
-                        android:text="*) Jika URL Produk tidak ada beritanda -"
+                        android:text="*) Jika URL Produk tidak ada, beri tanda -"
                         android:textColor="@color/txtRed"
                         android:textSize="@dimen/_10ssp"
                         android:textStyle="italic" />
@@ -96,7 +96,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
                         android:background="#00000000"
-                        android:text="*) Jika URL Order tidak ada beritanda -"
+                        android:text="*) Jika URL Order tidak ada, beri tanda -"
                         android:textColor="@color/txtRed"
                         android:textSize="@dimen/_10ssp"
                         android:textStyle="italic" />
@@ -152,7 +152,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
                         android:background="#00000000"
-                        android:text="*) Jika PPN tidak ada beri nilai 0"
+                        android:text="*) Jika tidak PPN ada, beri nilai 0"
                         android:textColor="@color/txtRed"
                         android:textSize="@dimen/_10ssp"
                         android:textStyle="italic" />
@@ -206,7 +206,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
                         android:background="#00000000"
-                        android:text="*) Jika Diskon tidak ada beri nilai 0"
+                        android:text="*) Jika tidak ada Diskon, beri nilai 0"
                         android:textColor="@color/txtRed"
                         android:textSize="@dimen/_10ssp"
                         android:textStyle="italic" />

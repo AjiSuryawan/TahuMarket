@@ -104,7 +104,7 @@ public class SettingActivity extends AppCompatActivity {
 
     private void binding() {
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Pengaturan Configurasi");
+        toolbar.setTitle("Pengaturan Konfigurasi");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             private void doNothing() {
 
