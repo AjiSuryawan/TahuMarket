@@ -116,4 +116,31 @@ public class SettingActivity extends AppCompatActivity {
         etDiskon = findViewById(R.id.etDiskon);
         divSimpan = findViewById(R.id.divSimpan);
     }
+
+    @Override
+    public void onBackPressed() {
+        if (txtURLProduk.equalsIgnoreCase(etURLProduk.getText().toString()) && txtURLOrder.equalsIgnoreCase(etURLOrder.getText().toString()) && txtDiskon.equalsIgnoreCase(etDiskon.getText().toString()) && txtPPN.equalsIgnoreCase(etPPN.getText().toString())){
+            finish();
+        }
+        else {
+            SweetAlertDialog pDialog = new SweetAlertDialog(SettingActivity.this, SweetAlertDialog.WARNING_TYPE);
+            pDialog.setTitleText("Yakin untuk membatalkan configurasi?");
+            pDialog.setCancelable(false);
+            pDialog.setConfirmText("Yakin");
+            pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sDialog) {
+                    sDialog.dismissWithAnimation();
+                    finish();
+                }
+            });
+            pDialog.setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sDialog) {
+                    sDialog.dismissWithAnimation();
+                }
+            });
+            pDialog.show();
+        }
+    }
 }
