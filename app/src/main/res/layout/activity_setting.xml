@@ -106,7 +106,7 @@
                 <com.example.tahumarket.custom.CustomTextViewBold
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="PPN"
+                    android:text="PPN (%)"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_10ssp"
                     android:textStyle="bold" />
@@ -145,7 +145,7 @@
                 <com.example.tahumarket.custom.CustomTextViewBold
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="DISKON"
+                    android:text="DISKON (%)"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_10ssp"
                     android:textStyle="bold" />

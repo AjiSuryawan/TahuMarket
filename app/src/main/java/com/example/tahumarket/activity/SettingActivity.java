@@ -48,8 +48,8 @@ public class SettingActivity extends AppCompatActivity {
         etPPN.setText(txtPPN);
         etDiskon.setText(txtDiskon);
 
-        txtRole = settings.getString(Config.LOGIN_GROUP_ID_SHARED_PREF,"");
-        if (txtRole.equalsIgnoreCase(Config.ROLE_ADMIN)){
+        txtRole = settings.getString(Config.LOGIN_ID_SHARED_PREF,"");
+        if (!txtRole.equalsIgnoreCase(Config.ROLE_SUPER_ADMIN)){
             etURLProduk.setEnabled(false);
             etURLOrder.setEnabled(false);
             etPPN.setEnabled(false);
@@ -74,12 +74,12 @@ public class SettingActivity extends AppCompatActivity {
                         if (txtURLProduk.isEmpty() || txtURLOrder.isEmpty() || txtPPN.isEmpty() || txtDiskon.isEmpty()){
                             Toast.makeText(SettingActivity.this, "Harap lengkapi isian yang tersedia", Toast.LENGTH_SHORT).show();
                         }else{
-                            settings = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+//                            settings = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
                             settings.edit()
-                                    .putString(Config.CONFIG_URL_PRODUK, txtURLProduk)
-                                    .putString(Config.CONFIG_URL_ORDER, txtURLOrder)
-                                    .putString(Config.CONFIG_PPN, txtPPN)
-                                    .putString(Config.CONFIG_DISKON, txtDiskon)
+                                    .putString(Config.CONFIG_URL_PRODUK, etURLProduk.getText().toString())
+                                    .putString(Config.CONFIG_URL_ORDER, etURLOrder.getText().toString())
+                                    .putString(Config.CONFIG_PPN, etPPN.getText().toString())
+                                    .putString(Config.CONFIG_DISKON, etDiskon.getText().toString())
                                     .apply();
                         }
                     }

@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                     }else {
 //                        preferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
                         sp.edit()
-                                .putString(Config.LOGIN_ID_SHARED_PREF, Config.ROLE_ADMIN)
+                                .putString(Config.LOGIN_ID_SHARED_PREF, Config.ROLE_SUPER_ADMIN)
                                 .apply();
                         Intent daftar = new Intent(LoginActivity.this, DasboardActivity.class);
                         LoginActivity.this.startActivity(daftar);
