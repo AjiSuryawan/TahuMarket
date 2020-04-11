@@ -89,7 +89,18 @@ public class PaymentDialog extends AppCompatDialogFragment {
         divSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String payment = etPayment.getText().toString().replaceAll(",", "");
+                Log.d("uang cst", "onClick: "+etPayment.getText().toString().contains("."));
+                String payment="";
+                if(etPayment.getText().toString().contains(",")){
+                    payment = etPayment.getText().toString().replace(",", "");
+                    Log.d("masuk if duit", "onClick: "+payment);
+                }else if(etPayment.getText().toString().contains(".")){
+                    payment = etPayment.getText().toString().replace(".", "");
+                    Log.d("masuk else duit", "onClick: "+payment);
+                }
+
+
+
                 Log.d("duit cst", "onClick: "+payment);
                         if (payment.equalsIgnoreCase("")){
                             int paymentKu = 0;
