@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
@@ -25,6 +26,8 @@ import com.example.tahumarket.model.NotaModel;
 import com.example.tahumarket.model.ProdukModel;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +67,16 @@ public class OrderViewActivity extends AppCompatActivity {
         realm = Realm.getInstance(configuration);
         realmHelperDetailNota = new RealmHelperDetailNota(realm);
 
+        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+
+        formatRp.setCurrencySymbol("Rp. ");
+        formatRp.setMonetaryDecimalSeparator(',');
+        formatRp.setGroupingSeparator('.');
+
+        kursIndonesia.setDecimalFormatSymbols(formatRp);
+//        Log.d("duit rupiah", "onCreate: "+kursIndonesia.format(harga));
+
         txtNoNota = getIntent().getStringExtra("noNota");
         txtNoCustomer = getIntent().getStringExtra("noCustomer");
         txtTransDate = getIntent().getStringExtra("transDate");
@@ -77,12 +90,12 @@ public class OrderViewActivity extends AppCompatActivity {
         etDateTime.setText(txtTransDate);
         etId.setText(txtNoNota);
         etNamaPemesan.setText(txtNoCustomer);
-        etPPN.setText(txtPPN);
-        etDiskon.setText(txtDiscount);
-        etTotalKotor.setText(txttotalOrigin);
-        etTotalBersih.setText(txtGrandTotal);
-        tvBayar.setText(txtPayment);
-        tvKembalian.setText(txtKembalian);
+        etPPN.setText(String.valueOf(kursIndonesia.format(Integer.parseInt(txtPPN))));
+        etDiskon.setText(String.valueOf(kursIndonesia.format(Integer.parseInt(txtDiscount))));
+        etTotalKotor.setText(String.valueOf(kursIndonesia.format(Integer.parseInt(txttotalOrigin))));
+        etTotalBersih.setText(String.valueOf(kursIndonesia.format(Integer.parseInt(txtGrandTotal))));
+        tvBayar.setText(String.valueOf(kursIndonesia.format(Integer.parseInt(txtPayment))));
+        tvKembalian.setText(String.valueOf(kursIndonesia.format(Integer.parseInt(txtKembalian))));
 
         mList = new ArrayList<>();
         mList = realmHelperDetailNota.getAllDetailNotaById(txtNoNota);

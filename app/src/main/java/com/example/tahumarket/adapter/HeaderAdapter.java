@@ -2,6 +2,7 @@ package com.example.tahumarket.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import com.example.tahumarket.activity.OrderViewActivity;
 import com.example.tahumarket.model.HeaderNotaModel;
 import com.example.tahumarket.model.ProdukModel;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
 
 public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.ProductViewHolder> {
@@ -39,7 +42,16 @@ public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.ProductVie
         holder.tvNoNota.setText(mModel.getNoNota());
         holder.tvTransDate.setText(mModel.getTransdate());
         holder.tvNamaPemesan.setText(mModel.getNoCustomer());
-        holder.tvGrandTotal.setText(mModel.getGrandTotal());
+        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+
+        formatRp.setCurrencySymbol("Rp. ");
+        formatRp.setMonetaryDecimalSeparator(',');
+        formatRp.setGroupingSeparator('.');
+
+        kursIndonesia.setDecimalFormatSymbols(formatRp);
+        Log.d("duit rupiah", "onCreate: "+String.valueOf(kursIndonesia.format(Integer.parseInt(mModel.getGrandTotal()))));
+        holder.tvGrandTotal.setText(String.valueOf(kursIndonesia.format(Integer.parseInt(mModel.getGrandTotal()))));
     }
 
     @Override
