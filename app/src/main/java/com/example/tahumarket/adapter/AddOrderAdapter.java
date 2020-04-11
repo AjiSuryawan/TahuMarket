@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tahumarket.R;
 import com.example.tahumarket.model.NotaModel;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,13 +92,27 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
         final NotaModel mModel = contactListFiltered.get(position);
         holder.tvKodeProduk.setText(mModel.getKodeBarang());
         holder.tvNamaProduk.setText(mModel.getNamaBarang());
-        holder.tvHargaProduk.setText(String.valueOf(mModel.getHargaBarang()));
+
+        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+
+        formatRp.setCurrencySymbol("Rp. ");
+        formatRp.setMonetaryDecimalSeparator(',');
+        formatRp.setGroupingSeparator('.');
+
+        kursIndonesia.setDecimalFormatSymbols(formatRp);
+        Log.d("duit rupiah", "onCreate: "+kursIndonesia.format(mModel.getHargaBarang()));
+
+        holder.tvHargaProduk.setText(String.valueOf(kursIndonesia.format(mModel.getHargaBarang())));
+//        holder.tvHargaProduk.setText(String.valueOf(mModel.getHargaBarang()));
         holder.tvPackagingProduk.setText(mModel.getKodePackaging());
         if (mModel.getJumlahbarang() == 0){
             holder.tvQty.setVisibility(View.GONE);
         }else{
             holder.tvQty.setVisibility(View.VISIBLE);
-            holder.tvQty.setText(mModel.getJumlahbarang() + " - " + mModel.getKodePackaging() + "\n" + mModel.getSubtotal());
+//            holder.tvQty.setText(mModel.getJumlahbarang() + " - " + mModel.getKodePackaging() + "\n" + mModel.getSubtotal());
+            holder.tvQty.setText(mModel.getJumlahbarang() + " - " + mModel.getKodePackaging() + "\n" + String.valueOf(kursIndonesia.format(mModel.getSubtotal())));
+
         }
 
 

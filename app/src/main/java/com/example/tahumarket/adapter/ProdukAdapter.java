@@ -3,6 +3,7 @@ package com.example.tahumarket.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tahumarket.R;
 import com.example.tahumarket.model.ProdukModel;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
 
 public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ProductViewHolder> {
@@ -39,7 +42,17 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ProductVie
         final ProdukModel mModel = produkList.get(position);
         holder.tvKodeProduk.setText(mModel.getKodeBarang());
         holder.tvNamaProduk.setText(mModel.getNamaBarang());
-        holder.tvHargaProduk.setText(String.valueOf(mModel.getHargaBarang()));
+
+        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+        formatRp.setCurrencySymbol("Rp. ");
+        formatRp.setMonetaryDecimalSeparator(',');
+        formatRp.setGroupingSeparator('.');
+        kursIndonesia.setDecimalFormatSymbols(formatRp);
+        Log.d("duit rupiah", "onCreate: "+kursIndonesia.format(mModel.getHargaBarang()));
+
+        holder.tvHargaProduk.setText(String.valueOf(kursIndonesia.format(mModel.getHargaBarang())));
+//        holder.tvHargaProduk.setText(String.valueOf(mModel.getHargaBarang()));
         holder.tvPackagingProduk.setText(mModel.getKodePackaging());
         if (mModel.getKodeWarna().equalsIgnoreCase("YELLOW")){
             holder.divProduk.setBackgroundResource(R.drawable.card_yellow);
