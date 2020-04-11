@@ -37,6 +37,8 @@ import com.example.tahumarket.model.NotaModel;
 import com.example.tahumarket.model.ProdukModel;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -65,6 +67,7 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
     String currentDate;
     int totalBayar = 0;
     int subTotalBarang = 0;
+    DecimalFormat kursIndonesia;
 
     String txtNoNota, txtNoCustomer, txtTransDate;
     int txttotalOrigin = 0;
@@ -422,9 +425,22 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
     }
 
     public void openDialog(){
+        kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+
+        formatRp.setCurrencySymbol("Rp. ");
+        formatRp.setMonetaryDecimalSeparator(',');
+        formatRp.setGroupingSeparator('.');
+
+        kursIndonesia.setDecimalFormatSymbols(formatRp);
+        Log.d("duit rupiah", "onCreate: "+kursIndonesia.format(Integer.parseInt(String.valueOf(txttotalOrigin))));
+        Log.d("duit rupiah", "onCreate: "+kursIndonesia.format(Integer.parseInt(String.valueOf(txtPPN))));
+        Log.d("duit rupiah", "onCreate: "+kursIndonesia.format(Integer.parseInt(String.valueOf(txtDiscount))));
+        Log.d("duit rupiah", "onCreate: "+kursIndonesia.format(Integer.parseInt(String.valueOf(txtGrandTotal))));
+        //
         FragmentManager fm = getSupportFragmentManager();
 //        PaymentDialog paymentDialog = new PaymentDialog();
-        PaymentDialog titlenya = PaymentDialog.newInstance(String.valueOf(txttotalOrigin), String.valueOf(txtPPN), String.valueOf(txtDiscount), String.valueOf(txtGrandTotal));
+        PaymentDialog titlenya = PaymentDialog.newInstance(String.valueOf(kursIndonesia.format(Integer.parseInt(String.valueOf(txttotalOrigin)))), String.valueOf(kursIndonesia.format(Integer.parseInt(String.valueOf(txtPPN)))), String.valueOf(kursIndonesia.format(Integer.parseInt(String.valueOf(txtDiscount)))), String.valueOf(kursIndonesia.format(Integer.parseInt(String.valueOf(txtGrandTotal)))));
         titlenya.show(fm, "paymentDialog");
     }
 
@@ -535,7 +551,9 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
             }
             SweetAlertDialog pDialog = new SweetAlertDialog(OrderCreatActivity.this, SweetAlertDialog.SUCCESS_TYPE);
             pDialog.setTitleText("Kembalian");
-            pDialog.setContentText("Kembalian Customer Sebesar \n" + String.valueOf(txtKembalian));
+//            pDialog.setContentText("Kembalian Customer Sebesar \n" + String.valueOf(txtKembalian));
+            Log.d("duit rupiah", "onCreate: "+kursIndonesia.format(Integer.parseInt(String.valueOf(txtKembalian))));
+            pDialog.setContentText("Kembalian Customer Sebesar \n" + String.valueOf(kursIndonesia.format(Integer.parseInt(String.valueOf(txtKembalian)))));
             pDialog.setCancelable(false);
             pDialog.setConfirmText("Ya");
             pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {

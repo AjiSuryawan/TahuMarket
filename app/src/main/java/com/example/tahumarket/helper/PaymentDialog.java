@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.tahumarket.R;
+import com.example.tahumarket.activity.NumberTextWatcher;
 
 import org.w3c.dom.Text;
 
@@ -72,6 +74,7 @@ public class PaymentDialog extends AppCompatDialogFragment {
 //                    }
 //                });
         etPayment = view.findViewById(R.id.etPayment);
+        etPayment.addTextChangedListener(new NumberTextWatcher(etPayment));
         tvTotal = view.findViewById(R.id.tvTotal);
         tvPPN = view.findViewById(R.id.tvPPN);
         tvDiskon = view.findViewById(R.id.tvDiskon);
@@ -86,7 +89,8 @@ public class PaymentDialog extends AppCompatDialogFragment {
         divSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String payment = etPayment.getText().toString();
+                String payment = etPayment.getText().toString().replaceAll(",", "");
+                Log.d("duit cst", "onClick: "+payment);
                         if (payment.equalsIgnoreCase("")){
                             int paymentKu = 0;
                             if (paymentKu <= 0){
