@@ -334,6 +334,7 @@ public class OrderActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Log.d("json final", "sendNotaToServer: "+jsonObject.toString());
         AndroidNetworking.post(URL_ORDER)
                 .addHeaders("Content-Type","application/json")
                 .addHeaders("Accept","application/json")
