@@ -388,7 +388,7 @@ public class OrderActivity extends AppCompatActivity {
         nulisnotepad+=jsonObject.toString()+"\n";
         if (lastIndex==true){
             Log.d("masuksini"+lastIndex, "sendNotaToServer: "+nulisnotepad);
-            generateNoteOnSD(getApplicationContext(), "tahu.txt", nulisnotepad);
+            generateNoteOnSD(getApplicationContext(), "tahu"+txtDate+".txt", nulisnotepad);
             nulisnotepad="";
         }
         Log.d("json final", "sendNotaToServer: "+jsonObject.toString());
