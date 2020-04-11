@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -39,6 +40,9 @@ import com.example.tahumarket.model.ProdukModel;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -87,6 +91,7 @@ public class OrderActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;
     private String URL_ORDER;
+    String nulisnotepad="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -274,12 +279,14 @@ public class OrderActivity extends AppCompatActivity {
 //                    Log.d("RBA", "Item : " + header.getNoCustomer());
 //                    Log.d("RBA", "Header : "+dataHeader);
 //                    Log.d("RBA", "Detail Nota : "+dataNota);
-                            int lastIndexNota = mListNota.size()-1;
+                            int lastIndexNota = mList.size()-1;
                             if (i == lastIndexNota){
 //                                pDialog.dismissWithAnimation();
                                 lastIndex = true;
+                            }else {
+                                lastIndex=false;
                             }
-                            sendNotaToServer(header.getNoNota(), dataHeader, dataNota, lastIndex);
+                            sendNotaToServer(header.getNoNota(), dataHeader, dataNota);
 
                         }
                     }
@@ -322,7 +329,24 @@ public class OrderActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    private void sendNotaToServer(final String noHeader, String dataHeader, String dataNota, final boolean isLast){
+    public void generateNoteOnSD(Context context, String sFileName, String sBody) {
+        try {
+            File root = new File(Environment.getExternalStorageDirectory(), "TAHUBULAT");
+            if (!root.exists()) {
+                root.mkdirs();
+            }
+            File gpxfile = new File(root, sFileName);
+            FileWriter writer = new FileWriter(gpxfile);
+            writer.append(sBody);
+            writer.flush();
+            writer.close();
+            Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendNotaToServer(final String noHeader, String dataHeader, String dataNota){
         Log.d("RBA", "Header : "+ dataHeader);
         Log.d("RBA", "Detail Nota : "+ dataNota);
         JSONObject jsonObject = new JSONObject();
@@ -333,6 +357,11 @@ public class OrderActivity extends AppCompatActivity {
             jsonObject.put("Crud", "c");
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+        nulisnotepad+=jsonObject.toString()+"\n";
+        if (lastIndex==true){
+            Log.d("masuksini"+lastIndex, "sendNotaToServer: "+nulisnotepad);
+            nulisnotepad="";
         }
         Log.d("json final", "sendNotaToServer: "+jsonObject.toString());
         AndroidNetworking.post(URL_ORDER)
@@ -354,14 +383,17 @@ public class OrderActivity extends AppCompatActivity {
                             realmHelperDetailNota.deleteDetail(noHeader);
                             mAdapter.notifyDataSetChanged();
                         }
-                        if (isLast){
+                        if (lastIndex){
+                            Log.d("lala", "onResponse: "+lastIndex);
                             pDialog.dismissWithAnimation();
+                            lastIndex=false;
                         }
 
                     }
                     @Override
                     public void onError(ANError error) {
                         pDialog.dismissWithAnimation();
+                        lastIndex=false;
                         Log.d("RBA", "onError Item : " + noHeader);
                         Log.d("RBA", "onError: " + error.getErrorBody());
                         Log.d("RBA", "onError: " + error.getLocalizedMessage());
