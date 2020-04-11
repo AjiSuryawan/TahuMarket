@@ -322,7 +322,7 @@ public class OrderActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    private void sendNotaToServer(final String noHeader, String dataHeader, String dataNota, boolean isLast){
+    private void sendNotaToServer(final String noHeader, String dataHeader, String dataNota, final boolean isLast){
         Log.d("RBA", "Header : "+ dataHeader);
         Log.d("RBA", "Detail Nota : "+ dataNota);
         JSONObject jsonObject = new JSONObject();
@@ -353,7 +353,7 @@ public class OrderActivity extends AppCompatActivity {
                             realmHelperDetailNota.deleteDetail(noHeader);
                             mAdapter.notifyDataSetChanged();
                         }
-                        if (lastIndex){
+                        if (isLast){
                             pDialog.dismissWithAnimation();
                         }
 
