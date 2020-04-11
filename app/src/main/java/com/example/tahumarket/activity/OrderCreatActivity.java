@@ -282,8 +282,12 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                     //Calculate PPN
 //                    String textPPN = etPPN.getText().toString();
                     String textPPN = SP_PPN;
-                    if (textPPN.equalsIgnoreCase("")){
+                    if (textPPN.equalsIgnoreCase("") || textPPN==null|| textPPN.isEmpty()){
                         txtPPN = 0;
+                        Log.d("edit ppn sp", "onClick: ");
+                        preferences.edit()
+                                .putString(Config.CONFIG_PPN, "0")
+                                .apply();
                     }else{
                         int ppn = Integer.parseInt(textPPN);
                         int perSeratus = 100;
@@ -293,10 +297,15 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                     //Calculate Diskon
 //                    String disc = etDiskon.getText().toString();
                     String disc = SP_DISKON;
-                    if (disc.equalsIgnoreCase("")){
+                    if (disc.equalsIgnoreCase("") || disc ==null || disc.isEmpty()){
 //                        int ok = txttotalOrigin  + (int)txtPPN;
 //                        txtGrandTotal = ok - 0;
 //                        txtDiscount = 0;
+                        Log.d("edit diskon sp", "onClick: ");
+                        preferences.edit()
+                                .putString(Config.CONFIG_DISKON, "0")
+                                .apply();
+
                         int ok = txttotalOrigin - 0;
                         txtGrandTotal = ok + (int)txtPPN;
                         txtDiscount = 0;
