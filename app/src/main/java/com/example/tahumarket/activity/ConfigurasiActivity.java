@@ -61,7 +61,7 @@ public class ConfigurasiActivity extends AppCompatActivity {
                         }else{
                             configurasi = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
                             configurasi.edit()
-                                    .putString(Config.LOGIN_ID_SHARED_PREF, Config.ROLE_ADMIN)
+                                    .putString(Config.LOGIN_ID_SHARED_PREF, Config.ROLE_SUPER_ADMIN)
                                     .putString(Config.CONFIG_URL_PRODUK, etURLProduk.getText().toString())
                                     .putString(Config.CONFIG_URL_ORDER, etURLOrder.getText().toString())
                                     .putString(Config.CONFIG_PPN, etPPN.getText().toString())
