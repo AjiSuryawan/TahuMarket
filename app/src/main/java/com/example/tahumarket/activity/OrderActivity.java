@@ -267,12 +267,14 @@ public class OrderActivity extends AppCompatActivity {
         tvDateKosong = findViewById(R.id.tvDateKosong);
     }
 
+    String sessionId="";
     private void onActionSinkron (final String date){
         SweetAlertDialog aDialog = new SweetAlertDialog(OrderActivity.this, SweetAlertDialog.WARNING_TYPE);
         aDialog.setTitleText("Yakin sinkronisasi data nota pada " + date +" ?");
         aDialog.setCancelable(false);
         aDialog.setConfirmText("Yakin");
         aDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(SweetAlertDialog sDialog) {
                 sDialog.dismissWithAnimation();
@@ -292,6 +294,8 @@ public class OrderActivity extends AppCompatActivity {
                     for (int i = 0; i < mList.size() ; i++) {
                         HeaderNotaModel header = mList.get(i);
                         if (header.getTransdate().equalsIgnoreCase(date)){
+                            sessionId="";
+                            sessionId=header.getNoNota();
                             dataHeader = header.getNoNota() + ";" + header.getNoCustomer() + ";" + header.getTransdate() + ";" + header.getTotalOrigin() + ";" + header.getPpn() + ";" + header.getDiscount() + ";" + header.getGrandTotal() + ";" + header.getPayment() + ";" + header.getKembalian();
                             mListNota = new ArrayList<>();
                             mListNota = realmHelperDetailNota.getAllDetailNotaById(header.getNoNota());
@@ -382,7 +386,8 @@ public class OrderActivity extends AppCompatActivity {
         Log.d("RBA", "Detail Nota : "+ dataNota);
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("SessionId", "SesionId_190630");
+//            jsonObject.put("SessionId", "SesionId_190630");
+            jsonObject.put("SessionId", sessionId);
             jsonObject.put("Header", dataHeader);
             jsonObject.put("Detail", dataNota);
             jsonObject.put("Crud", "c");
