@@ -1,5 +1,6 @@
 package com.example.tahumarket.activity;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -48,6 +49,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -358,7 +361,7 @@ public class OrderActivity extends AppCompatActivity {
 
     public void generateNoteOnSD(Context context, String sFileName, String sBody) {
         try {
-            File root = new File(Environment.getExternalStorageDirectory(), "TAHUBULAT");
+            File root = new File(Environment.getExternalStorageDirectory(), "TOKOTAHU");
             if (!root.exists()) {
                 root.mkdirs();
             }
@@ -373,6 +376,7 @@ public class OrderActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void sendNotaToServer(final String noHeader, String dataHeader, String dataNota){
         Log.d("RBA", "Header : "+ dataHeader);
         Log.d("RBA", "Detail Nota : "+ dataNota);
@@ -388,7 +392,13 @@ public class OrderActivity extends AppCompatActivity {
         nulisnotepad+=jsonObject.toString()+"\n";
         if (lastIndex==true){
             Log.d("masuksini"+lastIndex, "sendNotaToServer: "+nulisnotepad);
-            generateNoteOnSD(getApplicationContext(), "tahu"+txtDate+".txt", nulisnotepad);
+            LocalDateTime myDateObj = LocalDateTime.now();
+//            System.out.println("Before formatting: " + myDateObj);
+            DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+            String formattedDate = myDateObj.format(myFormatObj);
+            System.out.println("After formatting: " + formattedDate);
+            generateNoteOnSD(getApplicationContext(), "tahu"+formattedDate+".txt", nulisnotepad);
             nulisnotepad="";
         }
         Log.d("json final", "sendNotaToServer: "+jsonObject.toString());
