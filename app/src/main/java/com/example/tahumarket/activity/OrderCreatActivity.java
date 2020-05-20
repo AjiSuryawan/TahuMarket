@@ -76,6 +76,7 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
     int txtGrandTotal = 0;
     int txtPayment = 0;
     int txtKembalian = 0;
+    String txtCheckPrint = "";
 
     private RealmHelperHeaderNota realmHelperHeader;
     private RealmHelperDetailNota realmHelperdetail;
@@ -454,7 +455,8 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
     }
 
     @Override
-    public void applyText(int payment) {
+    public void applyText(int payment , String checkPrint) {
+        txtCheckPrint = checkPrint;
         txtPayment = payment;
         if (txtPayment <= txtGrandTotal){
             if (txtPayment == txtGrandTotal){
@@ -468,7 +470,8 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                         + "Discount : " + txtDiscount + "\n"
                         + "grandTotal : " + txtGrandTotal + "\n"
                         + "Payment : " + txtPayment + "\n"
-                        + "Kembalian : " + txtKembalian + "\n");
+                        + "Kembalian : " + txtKembalian + "\n"
+                        + "checkPrint : " + txtCheckPrint + "\n");
                 //saveHeader
                 HeaderNotaModel headerNotaModel = new HeaderNotaModel();
                 headerNotaModel.setNoNota(String.valueOf(txtNoNota));

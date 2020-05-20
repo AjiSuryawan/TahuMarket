@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,6 +31,8 @@ public class PaymentDialog extends AppCompatDialogFragment {
     private PaymentDialogListener listener;
     private TextView tvTotal, tvPPN, tvDiskon, tvGrandTotal;
     private LinearLayout divSimpan;
+    private CheckBox cbPrint;
+    private String txtCheckPrint = "";
 
     public static PaymentDialog newInstance(String tvTotal, String tvPPN, String tvDiskon, String tvGrandTotal) {
         PaymentDialog frag = new PaymentDialog();
@@ -80,6 +84,19 @@ public class PaymentDialog extends AppCompatDialogFragment {
         tvDiskon = view.findViewById(R.id.tvDiskon);
         tvGrandTotal = view.findViewById(R.id.tvGrandTotal);
         divSimpan = view.findViewById(R.id.divSimpan);
+        cbPrint = view.findViewById(R.id.cbPrint);
+
+        cbPrint.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    txtCheckPrint = "print";
+                }
+                if (cbPrint.isChecked() == false) {
+                    txtCheckPrint = "notPrint";
+                }
+            }
+        });
 
         tvTotal.setText(getArguments().getString("tvTotal"));
         tvPPN.setText(getArguments().getString("tvPPN"));
@@ -111,7 +128,7 @@ public class PaymentDialog extends AppCompatDialogFragment {
                                         .show();
                             }
                         }else{
-                            listener.applyText(Integer.parseInt(payment));
+                            listener.applyText(Integer.parseInt(payment), txtCheckPrint);
                         }
             }
         });
@@ -130,6 +147,6 @@ public class PaymentDialog extends AppCompatDialogFragment {
     }
 
     public interface PaymentDialogListener {
-        void applyText(int payment);
+        void applyText(int payment , String checkPrint);
     }
 }
