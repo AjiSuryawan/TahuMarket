@@ -296,7 +296,8 @@ public class OrderActivity extends AppCompatActivity {
                         if (header.getTransdate().equalsIgnoreCase(date)){
                             sessionId="";
                             sessionId=header.getNoNota();
-                            dataHeader = header.getNoNota() + ";" + header.getNoCustomer() + ";" + header.getTransdate() + ";" + header.getTotalOrigin() + ";" + header.getPpn() + ";" + header.getDiscount() + ";" + header.getGrandTotal() + ";" + header.getPayment() + ";" + header.getKembalian();
+//                            dataHeader = header.getNoNota() + ";" + header.getNoCustomer() + ";" + header.getTransdate() + ";" + header.getTotalOrigin() + ";" + header.getPpn() + ";" + header.getDiscount() + ";" + header.getGrandTotal() + ";" + header.getPayment() + ";" + header.getKembalian();
+                            dataHeader = header.getNoNota() + ";" + header.getNoCustomer() + ";" + header.getTransdate() + ";" + header.getTotalOrigin() + ";" + header.getPpn() + ";" + header.getDiscount() + ";" + header.getGrandTotal() + ";" + header.getPayment() + ";" + header.getKembalian() + ";" + header.getCheckPrint();
                             mListNota = new ArrayList<>();
                             mListNota = realmHelperDetailNota.getAllDetailNotaById(header.getNoNota());
                             dataNota = "";

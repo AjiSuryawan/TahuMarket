@@ -483,6 +483,7 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                 headerNotaModel.setGrandTotal(String.valueOf(txtGrandTotal));
                 headerNotaModel.setPayment(String.valueOf(txtPayment));
                 headerNotaModel.setKembalian(String.valueOf(txtKembalian));
+                headerNotaModel.setCheckPrint(txtCheckPrint);
                 realmHelperHeader.saveheader(headerNotaModel);
                 //saveDetailNota
                 for (int i = 0; i < mProdukList.size(); i++) {
@@ -531,7 +532,8 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                     + "Discount : " + txtDiscount + "\n"
                     + "grandTotal : " + txtGrandTotal + "\n"
                     + "Payment : " + txtPayment + "\n"
-                    + "Kembalian : " + txtKembalian + "\n");
+                    + "Kembalian : " + txtKembalian + "\n"
+                    + "checkPrint : " + txtCheckPrint + "\n");
             //saveHeader
             HeaderNotaModel headerNotaModel = new HeaderNotaModel();
             headerNotaModel.setNoNota(String.valueOf(txtNoNota));
@@ -543,6 +545,7 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
             headerNotaModel.setGrandTotal(String.valueOf(txtGrandTotal));
             headerNotaModel.setPayment(String.valueOf(txtPayment));
             headerNotaModel.setKembalian(String.valueOf(txtKembalian));
+            headerNotaModel.setCheckPrint(txtCheckPrint);
             realmHelperHeader.saveheader(headerNotaModel);
             //saveDetailNota
             for (int i = 0; i < mProdukList.size(); i++) {

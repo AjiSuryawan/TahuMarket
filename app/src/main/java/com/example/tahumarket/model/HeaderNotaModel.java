@@ -16,6 +16,7 @@ public class HeaderNotaModel extends RealmObject {
     private String grandTotal;
     private String payment;
     private String kembalian;
+    private  String checkPrint;
 
     public Integer getIddata() {
         return iddata;
@@ -95,5 +96,13 @@ public class HeaderNotaModel extends RealmObject {
 
     public void setKembalian(String kembalian) {
         this.kembalian = kembalian;
+    }
+
+    public String getCheckPrint() {
+        return checkPrint;
+    }
+
+    public void setCheckPrint(String checkPrint) {
+        this.checkPrint = checkPrint;
     }
 }
