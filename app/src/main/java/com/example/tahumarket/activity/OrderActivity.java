@@ -312,8 +312,8 @@ public class OrderActivity extends AppCompatActivity {
                                 }
                             }
 //                    Log.d("RBA", "Item : " + header.getNoCustomer());
-//                    Log.d("RBA", "Header : "+dataHeader);
-//                    Log.d("RBA", "Detail Nota : "+dataNota);
+                    Log.d("RBA", "Header : "+dataHeader);
+                    Log.d("RBA", "Detail Nota : "+dataNota);
                             int lastIndexNota = mList.size()-1;
                             if (i == lastIndexNota){
 //                                pDialog.dismissWithAnimation();
@@ -321,7 +321,7 @@ public class OrderActivity extends AppCompatActivity {
                             }else {
                                 lastIndex=false;
                             }
-                            sendNotaToServer(header.getNoNota(), dataHeader, dataNota);
+//                            sendNotaToServer(header.getNoNota(), dataHeader, dataNota);
 
                         }
                     }
