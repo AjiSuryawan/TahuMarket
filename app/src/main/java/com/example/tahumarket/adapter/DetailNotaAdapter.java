@@ -81,6 +81,14 @@ public class DetailNotaAdapter extends RecyclerView.Adapter<DetailNotaAdapter.Pr
             holder.divProduk.setBackgroundResource(R.drawable.card_blue);
         }else if (mModel.getKodeWarna().equalsIgnoreCase("GREEN") && mModel.getJumlahbarang() != 0){
             holder.divProduk.setBackgroundResource(R.drawable.card_green);
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("BROWN") && mModel.getJumlahbarang() != 0){
+            holder.divProduk.setBackgroundResource(R.drawable.card_brown);
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("PURPLE") && mModel.getJumlahbarang() != 0){
+            holder.divProduk.setBackgroundResource(R.drawable.card_purple);
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("RED") && mModel.getJumlahbarang() != 0){
+            holder.divProduk.setBackgroundResource(R.drawable.card_red);
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("MAGENTA") && mModel.getJumlahbarang() != 0){
+            holder.divProduk.setBackgroundResource(R.drawable.card_magenta);
         }
     }
 

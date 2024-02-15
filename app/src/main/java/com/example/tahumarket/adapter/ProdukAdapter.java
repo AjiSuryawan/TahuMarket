@@ -78,6 +78,38 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ProductVie
             holder.tvPackagingProduk.setTextColor(Color.parseColor("#606141"));
             holder.tvSlash1.setTextColor(Color.parseColor("#606141"));
             holder.tvSlash2.setTextColor(Color.parseColor("#606141"));
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("BROWN")){
+            holder.divProduk.setBackgroundResource(R.drawable.card_brown_light);
+            holder.tvKodeProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvNamaProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvHargaProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvPackagingProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvSlash1.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvSlash2.setTextColor(Color.parseColor("#e8dacb"));
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("PURPLE")){
+            holder.divProduk.setBackgroundResource(R.drawable.card_purple_light);
+            holder.tvKodeProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvNamaProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvHargaProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvPackagingProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvSlash1.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvSlash2.setTextColor(Color.parseColor("#e8dacb"));
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("RED")){
+            holder.divProduk.setBackgroundResource(R.drawable.card_red_light);
+            holder.tvKodeProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvNamaProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvHargaProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvPackagingProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvSlash1.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvSlash2.setTextColor(Color.parseColor("#e8dacb"));
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("MAGENTA")){
+            holder.divProduk.setBackgroundResource(R.drawable.card_magenta_light);
+            holder.tvKodeProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvNamaProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvHargaProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvPackagingProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvSlash1.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvSlash2.setTextColor(Color.parseColor("#e8dacb"));
         }
     }
 
