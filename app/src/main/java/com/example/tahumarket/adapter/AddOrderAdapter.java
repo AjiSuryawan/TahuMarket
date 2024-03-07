@@ -20,6 +20,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.ProductViewHolder> implements Filterable {
     private Context mCtx;
@@ -90,15 +91,17 @@ public class AddOrderAdapter extends RecyclerView.Adapter<AddOrderAdapter.Produc
     @Override
     public void onBindViewHolder(final ProductViewHolder holder, final int position) {
         final NotaModel mModel = contactListFiltered.get(position);
+        Locale.setDefault(new Locale("id", "ID"));
         holder.tvKodeProduk.setText(mModel.getKodeBarang());
         holder.tvNamaProduk.setText(mModel.getNamaBarang());
 
         DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        kursIndonesia.setMaximumFractionDigits(0);
         DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
-
         formatRp.setCurrencySymbol("Rp. ");
         formatRp.setMonetaryDecimalSeparator(',');
         formatRp.setGroupingSeparator('.');
+        kursIndonesia.setDecimalFormatSymbols(formatRp);
 
         kursIndonesia.setDecimalFormatSymbols(formatRp);
         Log.d("duit rupiah", "onCreate: "+kursIndonesia.format(mModel.getHargaBarang()));

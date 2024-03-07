@@ -30,6 +30,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -55,6 +56,7 @@ public class OrderViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_view);
+        Locale.setDefault(new Locale("id", "ID"));
 
         //set Orientation
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -68,13 +70,13 @@ public class OrderViewActivity extends AppCompatActivity {
         realmHelperDetailNota = new RealmHelperDetailNota(realm);
 
         DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        kursIndonesia.setMaximumFractionDigits(0);
         DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
-
         formatRp.setCurrencySymbol("Rp. ");
         formatRp.setMonetaryDecimalSeparator(',');
         formatRp.setGroupingSeparator('.');
-
         kursIndonesia.setDecimalFormatSymbols(formatRp);
+
 //        Log.d("duit rupiah", "onCreate: "+kursIndonesia.format(harga));
 
         txtNoNota = getIntent().getStringExtra("noNota");
