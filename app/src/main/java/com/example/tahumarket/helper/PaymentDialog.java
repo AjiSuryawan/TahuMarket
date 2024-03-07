@@ -24,6 +24,10 @@ import com.example.tahumarket.activity.NumberTextWatcher;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class PaymentDialog extends AppCompatDialogFragment {
@@ -52,6 +56,17 @@ public class PaymentDialog extends AppCompatDialogFragment {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_payment_dialog, null);
+
+        Locale.setDefault(new Locale("id", "ID"));
+
+        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        kursIndonesia.setMaximumFractionDigits(0);
+        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+        formatRp.setCurrencySymbol("Rp. ");
+        formatRp.setMonetaryDecimalSeparator(',');
+        formatRp.setGroupingSeparator('.');
+        kursIndonesia.setDecimalFormatSymbols(formatRp);
+
 
         builder.setView(view);
 //                .setNegativeButton("Batal", new DialogInterface.OnClickListener() {
@@ -98,6 +113,7 @@ public class PaymentDialog extends AppCompatDialogFragment {
             }
         });
 
+        System.out.println("total nya "+getArguments().getString("tvTotal"));
         tvTotal.setText(getArguments().getString("tvTotal"));
         tvPPN.setText(getArguments().getString("tvPPN"));
         tvDiskon.setText(getArguments().getString("tvDiskon"));

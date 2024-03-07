@@ -67,7 +67,7 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
     String currentDate;
     int totalBayar = 0;
     int subTotalBarang = 0;
-    DecimalFormat kursIndonesia;
+//    DecimalFormat kursIndonesia;
 
     String txtNoNota, txtNoCustomer, txtTransDate;
     int txttotalOrigin = 0;
@@ -87,6 +87,16 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Locale.setDefault(new Locale("id", "ID"));
+        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        kursIndonesia.setMaximumFractionDigits(0);
+        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+        formatRp.setCurrencySymbol("Rp. ");
+        formatRp.setMonetaryDecimalSeparator(',');
+        formatRp.setGroupingSeparator('.');
+        kursIndonesia.setDecimalFormatSymbols(formatRp);
+
+        kursIndonesia.setDecimalFormatSymbols(formatRp);
         if (resultCode == 23 && data.getStringExtra("jumlah") != null) {
             //refresh list
 //            Toast.makeText(this, "jumlah : "+data.getStringExtra("jumlah"), Toast.LENGTH_SHORT).show();
@@ -170,7 +180,13 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
         etDateTime.setEnabled(false);
         String currentDateId = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date());
         String currentTimeId = new SimpleDateFormat("HHmmss", Locale.getDefault()).format(new Date());
-        etId.setText(currentDateId + currentTimeId + Config.randomString(5).toUpperCase());
+
+        long currentTimeMillis = System.currentTimeMillis();
+
+        // Extract the last three digits
+        int lastThreeDigits = (int) (currentTimeMillis % 1000);
+        
+        etId.setText(currentDateId + currentTimeId + Config.randomString(5).toUpperCase()+lastThreeDigits+"");
         etId.setEnabled(false);
 
         cbDiskon.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -435,12 +451,14 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
     }
 
     public void openDialog(){
-        kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        Locale.setDefault(new Locale("id", "ID"));
+        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        kursIndonesia.setMaximumFractionDigits(0);
         DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
-
         formatRp.setCurrencySymbol("Rp. ");
         formatRp.setMonetaryDecimalSeparator(',');
         formatRp.setGroupingSeparator('.');
+        kursIndonesia.setDecimalFormatSymbols(formatRp);
 
         kursIndonesia.setDecimalFormatSymbols(formatRp);
         Log.d("duit rupiah", "onCreate: "+kursIndonesia.format(Integer.parseInt(String.valueOf(txttotalOrigin))));
@@ -564,6 +582,17 @@ public class OrderCreatActivity extends AppCompatActivity implements AddOrderAda
                     realmHelperdetail.savedetail(detailNotaModel);
                 }
             }
+
+            Locale.setDefault(new Locale("id", "ID"));
+
+            DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+            kursIndonesia.setMaximumFractionDigits(0);
+            DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+            formatRp.setCurrencySymbol("Rp. ");
+            formatRp.setMonetaryDecimalSeparator(',');
+            formatRp.setGroupingSeparator('.');
+            kursIndonesia.setDecimalFormatSymbols(formatRp);
+            
             SweetAlertDialog pDialog = new SweetAlertDialog(OrderCreatActivity.this, SweetAlertDialog.SUCCESS_TYPE);
             pDialog.setTitleText("Kembalian");
 //            pDialog.setContentText("Kembalian Customer Sebesar \n" + String.valueOf(txtKembalian));

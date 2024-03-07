@@ -19,6 +19,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class DetailNotaAdapter extends RecyclerView.Adapter<DetailNotaAdapter.ProductViewHolder> {
     private Context mCtx;
@@ -53,13 +54,14 @@ public class DetailNotaAdapter extends RecyclerView.Adapter<DetailNotaAdapter.Pr
         holder.tvKodeProduk.setText(mModel.getKodeBarang());
         holder.tvNamaProduk.setText(mModel.getNamaBarang());
 
-        kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
-        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+        Locale.setDefault(new Locale("id", "ID"));
 
+        kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        kursIndonesia.setMaximumFractionDigits(0);
+        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
         formatRp.setCurrencySymbol("Rp. ");
         formatRp.setMonetaryDecimalSeparator(',');
         formatRp.setGroupingSeparator('.');
-
         kursIndonesia.setDecimalFormatSymbols(formatRp);
 //        Log.d("duit rupiah", "onCreate: "+kursIndonesia.format(mModel.getHargaBarang()));
         holder.tvHargaProduk.setText(String.valueOf(kursIndonesia.format(mModel.getHargaBarang())));
@@ -81,6 +83,14 @@ public class DetailNotaAdapter extends RecyclerView.Adapter<DetailNotaAdapter.Pr
             holder.divProduk.setBackgroundResource(R.drawable.card_blue);
         }else if (mModel.getKodeWarna().equalsIgnoreCase("GREEN") && mModel.getJumlahbarang() != 0){
             holder.divProduk.setBackgroundResource(R.drawable.card_green);
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("BROWN") && mModel.getJumlahbarang() != 0){
+            holder.divProduk.setBackgroundResource(R.drawable.card_brown);
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("PURPLE") && mModel.getJumlahbarang() != 0){
+            holder.divProduk.setBackgroundResource(R.drawable.card_purple);
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("RED") && mModel.getJumlahbarang() != 0){
+            holder.divProduk.setBackgroundResource(R.drawable.card_red);
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("MAGENTA") && mModel.getJumlahbarang() != 0){
+            holder.divProduk.setBackgroundResource(R.drawable.card_magenta);
         }
     }
 

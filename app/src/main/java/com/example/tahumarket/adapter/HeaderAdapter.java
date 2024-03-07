@@ -19,6 +19,7 @@ import com.example.tahumarket.model.ProdukModel;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
+import java.util.Locale;
 
 public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.ProductViewHolder> {
     private Context mCtx;
@@ -39,15 +40,18 @@ public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.ProductVie
     @Override
     public void onBindViewHolder(final ProductViewHolder holder, final int position) {
         final HeaderNotaModel mModel = produkList.get(position);
+        Locale.setDefault(new Locale("id", "ID"));
         holder.tvNoNota.setText(mModel.getNoNota());
         holder.tvTransDate.setText(mModel.getTransdate());
         holder.tvNamaPemesan.setText(mModel.getNoCustomer());
-        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
-        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
 
+        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        kursIndonesia.setMaximumFractionDigits(0);
+        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
         formatRp.setCurrencySymbol("Rp. ");
         formatRp.setMonetaryDecimalSeparator(',');
         formatRp.setGroupingSeparator('.');
+        kursIndonesia.setDecimalFormatSymbols(formatRp);
 
         kursIndonesia.setDecimalFormatSymbols(formatRp);
         Log.d("duit rupiah", "onCreate: "+String.valueOf(kursIndonesia.format(Integer.parseInt(mModel.getGrandTotal()))));

@@ -20,6 +20,7 @@ import com.example.tahumarket.model.ProdukModel;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
+import java.util.Locale;
 
 public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ProductViewHolder> {
     private Context mCtx;
@@ -39,17 +40,19 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ProductVie
 
     @Override
     public void onBindViewHolder(final ProductViewHolder holder, final int position) {
+        Locale.setDefault(new Locale("id", "ID"));
         final ProdukModel mModel = produkList.get(position);
         holder.tvKodeProduk.setText(mModel.getKodeBarang());
         holder.tvNamaProduk.setText(mModel.getNamaBarang());
 
         DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        kursIndonesia.setMaximumFractionDigits(0);
         DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
         formatRp.setCurrencySymbol("Rp. ");
         formatRp.setMonetaryDecimalSeparator(',');
         formatRp.setGroupingSeparator('.');
         kursIndonesia.setDecimalFormatSymbols(formatRp);
-        Log.d("duit rupiah", "onCreate: "+kursIndonesia.format(mModel.getHargaBarang()));
+        Log.d("duit rupiah", "onCreate: " + kursIndonesia.format(mModel.getHargaBarang()));
 
         holder.tvHargaProduk.setText(String.valueOf(kursIndonesia.format(mModel.getHargaBarang())));
 //        holder.tvHargaProduk.setText(String.valueOf(mModel.getHargaBarang()));
@@ -78,6 +81,38 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.ProductVie
             holder.tvPackagingProduk.setTextColor(Color.parseColor("#606141"));
             holder.tvSlash1.setTextColor(Color.parseColor("#606141"));
             holder.tvSlash2.setTextColor(Color.parseColor("#606141"));
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("BROWN")){
+            holder.divProduk.setBackgroundResource(R.drawable.card_brown_light);
+            holder.tvKodeProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvNamaProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvHargaProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvPackagingProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvSlash1.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvSlash2.setTextColor(Color.parseColor("#e8dacb"));
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("PURPLE")){
+            holder.divProduk.setBackgroundResource(R.drawable.card_purple_light);
+            holder.tvKodeProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvNamaProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvHargaProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvPackagingProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvSlash1.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvSlash2.setTextColor(Color.parseColor("#e8dacb"));
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("RED")){
+            holder.divProduk.setBackgroundResource(R.drawable.card_red_light);
+            holder.tvKodeProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvNamaProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvHargaProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvPackagingProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvSlash1.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvSlash2.setTextColor(Color.parseColor("#e8dacb"));
+        }else if (mModel.getKodeWarna().equalsIgnoreCase("MAGENTA")){
+            holder.divProduk.setBackgroundResource(R.drawable.card_magenta_light);
+            holder.tvKodeProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvNamaProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvHargaProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvPackagingProduk.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvSlash1.setTextColor(Color.parseColor("#e8dacb"));
+            holder.tvSlash2.setTextColor(Color.parseColor("#e8dacb"));
         }
     }
 
